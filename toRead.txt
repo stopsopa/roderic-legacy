@@ -1,0 +1,9 @@
+https://webpack.js.org/guides/migrating/#more-cli-options
+
+node_modules\.bin\webpack  --config webpack.config.js
+
+
+
+
+
+
