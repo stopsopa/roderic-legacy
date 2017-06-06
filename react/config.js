@@ -1,12 +1,14 @@
+'use strict';
+
 const path      = require("path");
 
-const web = '..';
+const web = path.resolve('..');
 
 module.exports = {
-    // roots: [ // where to search by require
-    //     path.resolve('src'),
-    //     path.resolve(web + '/bundles')
-    // ],
+    roots: [ // where to search by require
+        path.resolve(__dirname, '..', 'app'),
+        path.resolve(__dirname, 'node_modules')
+    ],
     // alias: {
     //     // 'log': path.join(__dirname, 'webpack', 'log'),
     //     log     : path.resolve('./webpack/log'),

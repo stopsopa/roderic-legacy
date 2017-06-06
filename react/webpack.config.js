@@ -1,21 +1,24 @@
 'use strict';
 
 const path      = require('path');
-const utils     = require("./webpack/utils");
-
-var env = utils.setup(path.resolve('./config.js'));
+const webpack   = require('webpack');
+const utils     = require(path.resolve(".", "webpack", "utils"));
+const env       = utils.setup(path.resolve('./config.js'));
 
 /**
  * node_modules\.bin\webpack --config webpack.config.js
  */
 module.exports = {
-    entry: utils.entry(),
+    // entry: Object.assign(utils.entry(), {
+    //     vendor: 'moment'
+    // }),
+    entry: utils.entries(),
     // output: {
     //     filename: 'bundle.js',
     //     path: path.resolve(__dirname, '..', 'dist')
     // },
     output: {
-        path: utils.con('js.output'),
+        path: utils.config.js.output,
         filename: "[name].bundle.js",
         // publicPath: "/publicPath/"
         // chunkFilename: "[id].chunk.js",
@@ -27,12 +30,27 @@ module.exports = {
     // ],
     // extensions: ['', '.js', '.jsx'],
 
-    // module: {
-    //     rules: [
-    //
-    //     ]
-    // },
-    // plugins: [
-    //     new UglifyJsPlugin({sourceMap: true}) // https://webpack.js.org/guides/migrating/#uglifyjsplugin-sourcemap
-    // ]
+    resolve: {
+        modules: utils.config.roots
+    },
+    module: {
+        exprContextCritical: false, // remove error "Critical dependency: the request of a dependency is an expression" https://github.com/AngularClass/angular-starter/issues/993
+        // rules: [
+        //
+        // ]
+    },
+    plugins: [
+        // new UglifyJsPlugin({sourceMap: true}) // https://webpack.js.org/guides/migrating/#uglifyjsplugin-sourcemap
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: function (module) {
+        //         // this assumes your vendor imports exist in the node_modules directory
+        //         return module.context && module.context.indexOf('node_modules') !== -1;
+        //     }
+        // }),
+
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor' // Specify the common bundle's name.
+        })
+    ]
 };
