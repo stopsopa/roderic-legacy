@@ -3,7 +3,8 @@
 const path      = require('path');
 const webpack   = require('webpack');
 const utils     = require(path.resolve(".", "webpack", "utils"));
-const env       = utils.setup(path.resolve('./config.js'));
+const log       = require(path.resolve(".", "webpack", 'log'))
+const env       = utils.setup(path.resolve('.', 'config.js'));
 
 /**
  * node_modules\.bin\webpack --config webpack.config.js

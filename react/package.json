@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "set WEBPACK_MODE=prod && node_modules\\.bin\\webpack --config webpack.config.js",
-    "dev": "set WEBPACK_MODE=dev && node_modules\\.bin\\webpack --config webpack.config.js"
+    "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
+    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "cross-env": "^5.0.1"
   },
   "dependencies": {
     "colors": "^1.1.2",

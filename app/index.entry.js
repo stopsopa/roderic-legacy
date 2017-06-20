@@ -7,7 +7,9 @@ function component () {
     return element;
 }
 
-document.body.appendChild(component());
+setTimeout(function () {
+    document.body.appendChild(component());
+}, 1000);
 
 
 
