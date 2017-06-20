@@ -32,13 +32,25 @@ var config = {
     // extensions: ['', '.js', '.jsx'],
 
     resolve: {
-        modules: utils.config.roots
+        modules: utils.config.roots,
+        extensions: ['.js', '.jsx', '.json']
     },
     module: {
-        exprContextCritical: false, // remove error "Critical dependency: the request of a dependency is an expression" https://github.com/AngularClass/angular-starter/issues/993
-        // rules: [
-        //
-        // ]
+        // exprContextCritical: false, // remove error "Critical dependency: the request of a dependency is an expression" https://github.com/AngularClass/angular-starter/issues/993
+        rules: [ // https://webpack.js.org/guides/asset-management/#loading-css
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {   // https://webpack.js.org/loaders/svg-inline-loader/
+                // https://iconmonstr.com/speech-bubble-31/
+                test: /\.svg/,
+                use: 'svg-inline-loader'
+            },
+        ]
     },
     plugins: [
         // new UglifyJsPlugin({sourceMap: true}) // https://webpack.js.org/guides/migrating/#uglifyjsplugin-sourcemap

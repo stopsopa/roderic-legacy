@@ -1,5 +1,7 @@
 'use strict';
 
+require('style/index.css');
+
 // included in both
 var size                = require('lodash/size');
 
@@ -20,6 +22,7 @@ function component () {
 
 setTimeout(function () {
     document.body.appendChild(component());
+    document.querySelector('div').innerHTML = require('style/comment.svg');
 }, 1000);
 
 
