@@ -1,8 +1,19 @@
+'use strict';
+
+// included in both
+var size                = require('lodash/size');
+
+const arr = [7,45,6];
+
 function component () {
     var element = document.createElement('div');
 
     /* lodash is required for the next line to work */
-    element.innerHTML = ['Hello2', 'webpack2', 'included', 'and', 'works', '-', 'just', 'array.join'].join(' - ')
+    element.innerHTML = [
+        'Hello2', 'webpack2', 'included', 'and', 'works', '-', 'just', 'array.join',
+        require('lib/both'),
+        size(arr)
+    ].join(' - ')
 
     return element;
 }

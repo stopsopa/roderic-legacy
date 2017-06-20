@@ -9,8 +9,8 @@ module.exports = {
         path.resolve(__dirname, '..', 'app'),
         path.resolve(__dirname, 'node_modules')
     ],
-    // alias: {
-    //     // 'log': path.join(__dirname, 'webpack', 'log'),
+    alias: {
+        'log': path.resolve(__dirname, 'webpack', 'logw'),
     //     log     : path.resolve('./webpack/log'),
     //
     //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -20,7 +20,7 @@ module.exports = {
     //     // https://github.com/jurassix/react-immutable-render-mixin
     //     update  : 'immutability-helper',
     //     fb: 'fbjs/lib',
-    // },
+    },
     // provide: {
     //     log: 'log'
     // },

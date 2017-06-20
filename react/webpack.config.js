@@ -3,13 +3,13 @@
 const path      = require('path');
 const webpack   = require('webpack');
 const utils     = require(path.resolve(".", "webpack", "utils"));
-const log       = require(path.resolve(".", "webpack", 'log'))
+const log       = require(path.resolve(".", "webpack", 'logn'))
 const env       = utils.setup(path.resolve('.', 'config.js'));
 
 /**
  * node_modules\.bin\webpack --config webpack.config.js
  */
-module.exports = {
+var config = {
     // entry: Object.assign(utils.entry(), {
     //     vendor: 'moment'
     // }),
@@ -55,3 +55,11 @@ module.exports = {
         })
     ]
 };
+
+if (utils.config.alias) {
+    config.resolve.alias = utils.config.alias;
+}
+
+log.json(config)
+
+module.exports = config;
