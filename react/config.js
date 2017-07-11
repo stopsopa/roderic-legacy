@@ -5,7 +5,8 @@ const path      = require("path");
 const web = path.resolve('..');
 
 module.exports = {
-    roots: [ // where to search by require
+    web: web,
+    roots: [ // where to search by require and files to watch
         path.resolve(__dirname, '..', 'app'),
         path.resolve(__dirname, 'node_modules')
     ],
@@ -27,7 +28,7 @@ module.exports = {
     //
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve('../app'),
+            path.resolve(__dirname, '..', 'app'),
             // ...
         ],
         // output: path.resolve(web + '/js')

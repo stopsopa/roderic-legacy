@@ -14,9 +14,8 @@ function findentries(root) {
     return entries;
 }
 
-module.exports = {
+var utils = {
     config: false,
-    env: process.env.WEBPACK_MODE || 'dev',
     setup: function (setup) {
 
         if (setup && !this.config) {
@@ -58,5 +57,11 @@ module.exports = {
         return tmp;
     }
 };
+
+utils.env   = process.env.WEBPACK_MODE || 'dev';
+utils.dev   = (utils.env === 'dev');
+utils.prod  = !utils.dev;
+
+module.exports = utils;
 
 
