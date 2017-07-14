@@ -54,6 +54,11 @@ var utils = {
             }
         });
 
+        if (!Object.keys(tmp).length) {
+
+            throw "Not found *.entry.js files";
+        }
+
         return tmp;
     }
 };
