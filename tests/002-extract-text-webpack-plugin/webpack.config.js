@@ -78,7 +78,7 @@ var config = {
                         name: '[path][name].[ext]',
                         // useRelativePath: true
                         // publicPath: '/',
-                        outputPath: '../../'
+                        outputPath: '../'
                     }
                 }
 

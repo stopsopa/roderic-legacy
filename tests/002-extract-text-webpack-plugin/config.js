@@ -32,7 +32,7 @@ module.exports = {
             // ...
         ],
         // output: path.resolve(web + '/js')
-        output: path.resolve(__dirname, 'dist', 'js')
+        output: path.resolve(__dirname, 'dist')
     },
     // scss: {
     //     entries: [ // only this scss files will be transformed to css
