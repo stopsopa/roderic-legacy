@@ -1,5 +1,5 @@
-https://blog.shakacode.com/migration-to-webpack-2-c9803871b931#3c8a
-https://webpack.js.org/plugins/loader-options-plugin/
+https://webpack.js.org/plugins/extract-text-webpack-plugin/
+https://github.com/webpack-contrib/extract-text-webpack-plugin
 
-
-
+@todo
+    include from node modules style with img
