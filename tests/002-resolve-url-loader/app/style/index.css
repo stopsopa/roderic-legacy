@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+body {
+    border: 1px solid red;
+    background-image: url("img/import.jpg");
+    background-repeat: no-repeat;
+}

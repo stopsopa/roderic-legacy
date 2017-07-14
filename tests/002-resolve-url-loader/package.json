@@ -1,0 +1,30 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
+    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "style-loader": "^0.18.2",
+    "svg-inline-loader": "^0.7.1",
+    "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "glob": "^7.1.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "resolve-url-loader": "^2.1.0",
+    "url-loader": "^0.5.9"
+  }
+}
