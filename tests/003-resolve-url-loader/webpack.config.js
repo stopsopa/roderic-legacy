@@ -47,7 +47,7 @@ var config = {
                     //         // }
                     //     }
                     },
-                    // 'resolve-url-loader'
+                    'resolve-url-loader'
                 ]
             },
             {
@@ -68,14 +68,14 @@ var config = {
         ]
     },
     plugins: [
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                context: path.join(__dirname), // where will be index.html
-                output: {
-                    path: utils.config.web
-                }
-            }
-        })
+        // new webpack.LoaderOptionsPlugin({
+        //     options: {
+        //         context: path.join(__dirname), // where will be index.html
+        //         output: {
+        //             path: utils.config.web
+        //         }
+        //     }
+        // })
     ]
 };
 
