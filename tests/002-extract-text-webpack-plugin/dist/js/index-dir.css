@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#test {
+    border: 1px solid red;
+    background-image: url(../../app/styledir/img/webpack.jpg);
+    background-repeat: no-repeat;
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+/*# sourceMappingURL=index-dir.css.map*/

@@ -76,9 +76,9 @@ var config = {
                     options: {
                         emitFile: false,
                         name: '[path][name].[ext]',
-                        // useRelativePath: false
-                        publicPath: '/',
-                        // outputPath: '/'
+                        // useRelativePath: true
+                        // publicPath: '/',
+                        outputPath: '../../'
                     }
                 }
 
@@ -86,7 +86,7 @@ var config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin("styles.css"),
+        new ExtractTextPlugin("[name].css"),
     ]
 };
 
