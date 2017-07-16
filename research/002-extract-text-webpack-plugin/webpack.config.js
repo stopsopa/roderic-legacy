@@ -124,11 +124,11 @@ var config = {
     ]
 };
 
-if (utils.config.alias) {
+if (utils.config.alias && Object.keys(utils.config.alias).length) {
     config.resolve.alias = utils.config.alias;
 }
 
-if (utils.config.provide) { // https://webpack.js.org/plugins/provide-plugin/
+if (utils.config.provide && Object.keys(utils.config.provide).length) { // https://webpack.js.org/plugins/provide-plugin/
     config.plugins.push(new webpack.ProvidePlugin(utils.config.provide));
 }
 
