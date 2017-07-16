@@ -4,8 +4,10 @@ const path      = require('path');
 const webpack   = require('webpack');
 const utils     = require(path.resolve(__dirname, "..", "..", "react", "webpack", "utils"));
 const log       = require(path.resolve(__dirname, "..", "..", "react", "webpack", 'logn'))
+const rmdir     = require(path.resolve(__dirname, "..", "..", "react", "webpack", 'rmdir'))
 const env       = utils.setup(path.resolve('.', 'config.js'));
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 var config = {
     entry: utils.entries(),
@@ -87,7 +89,38 @@ var config = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin([utils.config.js.output]),
         new ExtractTextPlugin("[name].css"),
+        // (function () { // https://webpack.js.org/api/plugins/
+        //     function MyPlugin(options) {}
+        //     MyPlugin.prototype.apply = function(compiler) {
+        //         compiler.plugin("compile", function(params) {
+        //             console.log('compile '.repeat(5) + "\n\n");
+        //             rmdir(utils.config.js.output);
+        //             process.exit(0);
+        //             // rmdir(utils.config.js.output);
+        //         });
+        //         // compiler.plugin("compilation", function(params) {
+        //         //     console.log('compilation '.repeat(5) + "\n\n");
+        //         // });
+        //         // compiler.plugin("before-hash", function(params) {
+        //         //     console.log('-- before-hash '.repeat(5) + "\n\n");
+        //         // });
+        //         // compiler.plugin("after-hash", function(params) {
+        //         //     console.log('-- after-hash '.repeat(5) + "\n\n");
+        //         // });
+        //         // compiler.plugin("make", function(params) {
+        //         //     console.log('make '.repeat(5) + "\n\n");
+        //         // });
+        //         // compiler.plugin("context-module-factory", function(params) {
+        //         //     console.log('context-module-factory '.repeat(5) + "\n\n");
+        //         // });
+        //         // compiler.plugin("normal-module-factory", function(params) {
+        //         //     console.log('normal-module-factory '.repeat(5) + "\n\n");
+        //         // });
+        //     };
+        //     return new MyPlugin();
+        // }())
     ]
 };
 
