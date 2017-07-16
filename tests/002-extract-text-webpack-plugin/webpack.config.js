@@ -69,7 +69,7 @@ var config = {
                 // ]
             },
             {
-                test: /\.(jpe?g|gif|png)$/,
+                test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
                 // loader: 'file-loader?emitFile=false&name=[path][name].[ext]',
                 use: {
                     loader: 'file-loader',

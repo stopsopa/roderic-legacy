@@ -7,11 +7,11 @@ const web = path.resolve('..');
 module.exports = {
     web: web,
     roots: [ // where to search by require and files to watch
-        path.resolve(__dirname, '..', 'app'),
-        path.resolve(__dirname, 'node_modules')
+        path.resolve('..', 'app'),
+        path.resolve('node_modules')
     ],
     alias: {
-        'log': path.resolve(__dirname, 'webpack', 'logw'),
+        'log': path.resolve('webpack', 'logw'),
     //     log     : path.resolve('./webpack/log'),
     //
     //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -28,7 +28,7 @@ module.exports = {
     //
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve(__dirname, '..', 'app'),
+            path.resolve('..', 'app'),
             // ...
         ],
         // output: path.resolve(web + '/js')
