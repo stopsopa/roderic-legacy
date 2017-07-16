@@ -12,7 +12,7 @@ module.exports = {
         path.resolve('node_modules'),
     ],
     alias: {
-        log: path.resolve('..', 'react', 'webpack', 'logw'),
+        log: path.resolve(web, 'react', 'webpack', 'logw'),
     //     log     : path.resolve('./webpack/log'),
     //
     //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -23,10 +23,9 @@ module.exports = {
     //     update  : 'immutability-helper',
     //     fb: 'fbjs/lib',
     },
-    // provide: {
-    //     log: 'log'
-    // },
-    //
+    provide: { // see format: https://webpack.js.org/plugins/provide-plugin/
+        log: 'log'
+    },
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
             path.resolve('app'),

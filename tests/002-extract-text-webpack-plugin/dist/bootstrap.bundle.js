@@ -63,20 +63,30 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = (function () {
+    try {
+        return console.log;
+    }
+    catch (e) {
+        return function () {}
+    }
+}());
+
+/***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
+/* 4 */,
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -90,25 +100,34 @@
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(log) {
 
 // this works
 // require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 // require('../../node_modules/bootstrap/dist/css/bootstrap-theme.css');
 
 // this works too, it's better to use
+__webpack_require__(7);
 __webpack_require__(6);
-__webpack_require__(5);
 
 // loading from local linked directory - so cool :)
-__webpack_require__(4);
+__webpack_require__(5);
+
+log('test autoloade (provide) log library');
 
 
 
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

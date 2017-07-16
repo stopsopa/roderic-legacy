@@ -128,6 +128,10 @@ if (utils.config.alias) {
     config.resolve.alias = utils.config.alias;
 }
 
+if (utils.config.provide) { // https://webpack.js.org/plugins/provide-plugin/
+    config.plugins.push(new webpack.ProvidePlugin(utils.config.provide));
+}
+
 if (utils.dev) {
 
 }
