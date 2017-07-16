@@ -15,7 +15,8 @@ var config = {
     },
     resolve: {
         modules: utils.config.roots,
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', '.json'],
+        symlinks: false
     },
     module: {
         rules: [
@@ -78,7 +79,7 @@ var config = {
                         name: '[path][name].[ext]',
                         // useRelativePath: true
                         // publicPath: '/',
-                        outputPath: '../'
+                        outputPath: '../' // because
                     }
                 }
 
