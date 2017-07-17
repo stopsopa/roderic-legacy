@@ -22,7 +22,9 @@ module.exports = function () {
         process.env.NODE_PATH = path.resolve.apply(this, args);
 
         global.rootrequire = function () {
+            
             var name = path.join.apply(this, Array.prototype.slice.call(arguments));
+            
             return require(path.resolve.apply(this, args.concat([name])));
         }
     }
