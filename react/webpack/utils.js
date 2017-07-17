@@ -3,14 +3,20 @@ var path      = require("path");
 var colors    = require('colors');
 
 function findentries(root) {
+    
     const list = glob.sync(root + "/**/*.entry.{js,jsx}");
+    
     let tmp, entries = {};
 
     for (let i = 0, l = list.length ; i < l ; i += 1) {
+        
         tmp = path.parse(list[i]);
+        
         tmp = path.basename(tmp.name, path.extname(tmp.name));
+        
         entries[tmp] = list[i];
     }
+    
     return entries;
 }
 
@@ -19,6 +25,7 @@ var utils = {
     setup: function (setup) {
 
         if (setup && !this.config) {
+            
             this.config = require(setup);
         }
 
@@ -28,17 +35,17 @@ var utils = {
     },
     entries: function () {
 
-        var root = this.config.js.entries;
+        var t, i, tmp = {}, root = this.config.js.entries;
 
         if (!root) {
+            
             throw "First specify root path for entry";
         }
 
         if (Object.prototype.toString.call( root ) !== '[object Array]') {
+            
             root = [root];
         }
-
-        var t, i, tmp = {};
 
         root.forEach(function (r) {
 
@@ -47,6 +54,7 @@ var utils = {
             for (i in t) {
 
                 if (tmp[i]) {
+                    
                     throw "Entry file key '" + i + "' generated from file '" + t[i] + "' already exist";
                 }
 
@@ -64,7 +72,9 @@ var utils = {
 };
 
 utils.env   = process.env.WEBPACK_MODE || 'dev';
+
 utils.dev   = (utils.env === 'dev');
+
 utils.prod  = !utils.dev;
 
 module.exports = utils;
