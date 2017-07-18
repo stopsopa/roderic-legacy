@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('log');
+
 // this works
 // require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 // require('../../node_modules/bootstrap/dist/css/bootstrap-theme.css');

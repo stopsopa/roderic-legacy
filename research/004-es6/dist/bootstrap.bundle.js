@@ -33,9 +33,6 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -63,71 +60,69 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = (function () {
+module.exports = function () {
     try {
         return console.log;
+    } catch (e) {
+        return function () {};
     }
-    catch (e) {
-        return function () {}
-    }
-}());
+}();
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
-/***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 8 */
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(log) {
+
+
+var log = __webpack_require__(33);
 
 // this works
 // require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 // require('../../node_modules/bootstrap/dist/css/bootstrap-theme.css');
 
 // this works too, it's better to use
-__webpack_require__(7);
-__webpack_require__(6);
+__webpack_require__(87);
+__webpack_require__(88);
 
 // loading from local linked directory - so cool :)
-__webpack_require__(5);
+__webpack_require__(89);
 
 log('test autoloade (provide) log library');
 
+/***/ }),
 
+/***/ 87:
+/***/ (function(module, exports) {
 
+// removed by extract-text-webpack-plugin
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/***/ }),
+
+/***/ 88:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 89:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
-/******/ ]);
+
+/******/ });

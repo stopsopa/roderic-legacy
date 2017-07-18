@@ -2,7 +2,7 @@
 
 const path      = require("path");
 
-const web = path.resolve('..', '..');
+const web = path.resolve(__dirname, '..', '..');
 
 module.exports = {
     web: web,
@@ -10,6 +10,7 @@ module.exports = {
         path.resolve('app'),
         path.resolve('linked'),
         path.resolve('node_modules'),
+        path.resolve(__dirname, '..', '..', 'app'),
     ],
     alias: {
         log: path.resolve(web, 'react', 'webpack', 'logw'),

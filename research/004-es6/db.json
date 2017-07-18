@@ -1,0 +1,14 @@
+{
+    "input": "test666",
+    "description": "test36666",
+    "radio": "male",
+    "checkbox": true,
+    "checkboxcomponent": true,
+    "withoutcheckbox": true,
+    "single": "apple",
+    "multiple": [
+        "banana",
+        "cranberry"
+    ],
+    "save": false
+}

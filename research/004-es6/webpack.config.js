@@ -35,7 +35,8 @@ var config = {
                             loader: 'css-loader',
                             options: {
                                 minimize: utils.prod,
-                                sourceMap: utils.prod
+                                sourceMap: utils.prod,
+                                //modules: true // more power? : https://github.com/css-modules/css-modules
                             //         // root: utils.config.web,
                             //         // https://stackoverflow.com/questions/41306822/webpack-url-file-loader-is-not-resolving-the-relative-path-of-url/41758240#41758240
                             //         // alias: { // https://webpack.js.org/loaders/css-loader/#alias
@@ -46,6 +47,25 @@ var config = {
                         // 'resolve-url-loader'
                     ]
                 }),
+            },
+            {
+                // https://babeljs.io/docs/plugins/transform-object-rest-spread/
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            path.resolve(__dirname, 'node_modules', 'babel-preset-env'),
+                            path.resolve(__dirname, 'node_modules', 'babel-preset-es2015'),
+                            path.resolve(__dirname, 'node_modules', 'babel-preset-react'),
+                            path.resolve(__dirname, 'node_modules', 'babel-preset-stage-0')
+                        ],
+                        plugins: [
+                            path.resolve(__dirname, 'node_modules', 'babel-plugin-transform-decorators-legacy'),
+                        ]
+                    }
+                }
             },
             {
                 test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
