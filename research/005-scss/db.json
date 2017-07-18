@@ -1,13 +1,13 @@
 {
-    "input": "test666-",
-    "description": "test36666-",
-    "radio": "female",
+    "input": "test777",
+    "description": "test3777",
+    "radio": "male",
     "checkbox": true,
     "checkboxcomponent": true,
     "withoutcheckbox": true,
     "single": "apple",
     "multiple": [
-        "apple",
+        "banana",
         "cranberry"
     ],
     "save": false

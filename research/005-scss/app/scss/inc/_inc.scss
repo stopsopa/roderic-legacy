@@ -1,0 +1,23 @@
+div.inc {
+    border: 3px dotted #333;
+
+
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    background-image: url('../inc/jpg/all.jpg');
+    //background-image: url('jpg/all.jpg');
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+    /* WARNING, "url()" resolve not relatively to included file but relative to including file */
+
+
+    background-repeat: no-repeat;
+    display: block;
+    width: 300px;
+    height: 100px;
+
+    margin: 4px;
+}

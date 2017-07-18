@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+
+#test {
+    border: 2px solid blue;
+    background-image: url("img/webpack.jpg");
+    background-repeat: no-repeat;
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+#url {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgMH/8QAJBAAAQMDAgcBAAAAAAAAAAAAAQIDBAUGEQASBxMhIjFBgRT/xAAUAQEAAAAAAAAAAAAAAAAAAAAF/8QAGxEAAwACAwAAAAAAAAAAAAAAAQIDACEEBXH/2gAMAwEAAhEDEQA/AK0K1KfOtaIoxo5W7GO1sMoAUlKBuyokYOD4GT70bVwFtxygvzI10Sf1oiqfSwtCD3BJO3zk+Oui1M4wtw6W1DESahvlpQ4lDwCV4AHUe/utqtyqQU2VUZ0mpw2Q7Df5bLkhGdhRkHGe0kj6Mac7B42iGRgSD5o4bxUpNyCujn//2Q==);
+}

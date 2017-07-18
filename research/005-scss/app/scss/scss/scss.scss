@@ -1,0 +1,19 @@
+#test {
+    display: block;
+    width: 300px;
+    border: 3px dashed red;
+    & > div.text {
+        background-color: lightblue;
+        color: dimgray;
+    }
+    & > div.png {
+        background-image: url('img/sass.png');
+        background-repeat: no-repeat;
+        display: block;
+        width: 199px;
+        height: 168px;
+        margin: 4px;
+    }
+}
+
+@import "../inc/inc.scss";
