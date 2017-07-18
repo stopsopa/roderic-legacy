@@ -21,7 +21,7 @@ var config = {
     resolve: {
         modules: utils.config.roots,
         extensions: ['.js', '.jsx', '.json'],
-        symlinks: false
+        symlinks: false // to properly resolve url() in css/scss thrugh web symlink
     },
     module: {
         rules: [
