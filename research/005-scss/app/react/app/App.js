@@ -32,7 +32,7 @@ export default class App extends React.Component {
         }).then((r) => r.json()).then((json) => {
             setTimeout(() => {
                 log('json', json)
-                this.setState(json)
+                this.setState(Object.assign(this.state, json));
             }, 1000);
         });
     }
