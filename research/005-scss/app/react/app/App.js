@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ajax from 'lib/ajax';
+// import ajax from 'lib/ajax';
 import Icheckbox from './Icheckbox';
 import { autobind } from 'core-decorators';
 

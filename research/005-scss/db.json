@@ -1,12 +1,13 @@
 {
-    "input": "c",
-    "description": "c",
-    "radio": "male",
+    "input": "ca",
+    "description": "ca",
+    "radio": "female",
     "checkbox": true,
     "checkboxcomponent": true,
-    "withoutcheckbox": false,
+    "withoutcheckbox": true,
     "single": "apple",
     "multiple": [
+        "apple",
         "banana",
         "cranberry"
     ],

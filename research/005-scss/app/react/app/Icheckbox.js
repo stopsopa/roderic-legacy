@@ -13,11 +13,11 @@ export default class Icheckbox extends React.Component {
     }
     componentDidMount() {
         var that = this;
-        ajax.json(this.props.url, null, function (json) {
-            setTimeout(function () {
-                that.setState(json);
-            }, 1000);
-        });
+        // ajax.json(this.props.url, null, function (json) {
+        //     setTimeout(function () {
+        //         that.setState(json);
+        //     }, 1000);
+        // });
     }
     render() {
         let {label} = this.props;
