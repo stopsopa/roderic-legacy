@@ -1,21 +1,26 @@
 #!/bin/bash
 
-rm -rf linked
+# relative path to linked
+LINKED="../../public_html/research/005-scss/linked";
 
-echo "creating dir 'linked'"
-mkdir -p linked
+# relative path of react directory form within linked directory
+DIRRELATIVE="../../../../research/005-scss"
 
-echo "creating symlink 'linked/example'"
-cd linked
+SCRIPT="$0"
 
-ln -s ../dir-to-link example
+rm -rf $LINKED
 
-cd ..
+mkdir -p $LINKED
 
-if [ -e "linked/example" ]; then
-    echo "linked/example exist"
+# jumb to linked directory
+cd $LINKED
+
+if [ -e "$DIRRELATIVE/$SCRIPT" ]; then
+    ln -s "$DIRRELATIVE/dir-to-link" example
+    ln -s "$DIRRELATIVE/app/react/assets" assets
 else
-    echo "linked/example DOESN'T EXIST"
+    echo fix DIRRELATIVE path
 fi
 
-
+# return to start directory
+cd $DIRRELATIVE

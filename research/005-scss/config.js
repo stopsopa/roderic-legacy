@@ -2,18 +2,21 @@
 
 const path      = require("path");
 
-const web = path.resolve(__dirname, '..', '..');
+// relative path to public server directory
+const web = path.resolve(__dirname, '..', '..', 'public_html');
 
 module.exports = {
     web: web,
     roots: [ // where to search by require and files to watch
         path.resolve('app'),
-        path.resolve('linked'),
+        path.resolve(web, 'research', '005-scss', 'linked'), // path to linked directory - should be somewhere in 'web'
         path.resolve('node_modules'),
+
+        // just for tests, remove this on prod
         path.resolve(__dirname, '..', '..', 'app'),
     ],
     alias: {
-        log: path.resolve(web, 'react', 'webpack', 'logw'),
+        log: path.resolve('..', '..', 'react', 'webpack', 'logw'),
     //     log     : path.resolve('./webpack/log'),
     //
     //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -33,13 +36,6 @@ module.exports = {
             // ...
         ],
         // output: path.resolve(web + '/js')
-        output: path.resolve('dist')
-    },
-    // scss: {
-    //     entries: [ // only this scss files will be transformed to css
-    //         path.resolve('./src/scss/**/*.scss')
-    //         // ...
-    //     ],
-    //     output: path.resolve(web + '/css')
-    // }
+        output: path.resolve(web, 'research', '005-scss', 'dist')
+    }
 }

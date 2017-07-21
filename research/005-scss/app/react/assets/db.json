@@ -1,7 +1,7 @@
 {
     "input": "on",
     "description": "on",
-    "radio": "male",
+    "radio": "female",
     "checkbox": true,
     "checkboxcomponent": true,
     "withoutcheckbox": true,

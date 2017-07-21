@@ -1,14 +1,26 @@
+@echo off
 
-rmdir /s/q linked
+rem relative path to linked
+SET "LINKED=..\..\public_html\research\005-scss\linked"
 
-echo "creating dir 'linked'"
-mkdir linked
+rem relative path of react directory form within linked directory
+SET "DIRRELATIVE=..\..\..\..\research\005-scss"
 
-echo "creating symlink 'linked/example'"
-cd linked
-mklink /D example "..\dir-to-link"
-cd ..
+SET SCRIPT=%0
 
+rmdir /s/q %LINKED%
 
+mkdir %LINKED%
 
+rem jumb to linked directory
+cd %LINKED%
 
+if exist "%DIRRELATIVE%\%SCRIPT%" (
+    mklink /D example "%DIRRELATIVE%\dir-to-link"
+    mklink /D assets "%DIRRELATIVE%\app\react\assets"
+) else (
+    echo fix DIRRELATIVE path
+)
+
+rem return to start directory
+cd %DIRRELATIVE%

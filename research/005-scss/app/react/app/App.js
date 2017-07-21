@@ -137,7 +137,7 @@ export default class App extends React.Component {
                         /> male
                     </label>
 
-                    <img className="gender" src={'/research/004-es6/app/react/img/'+this.state.radio+'.bmp'}/>
+                    <img className="gender" src={'/research/005-scss/linked/assets/img/'+this.state.radio+'.bmp'}/>
                 </div>
                 <div>
                     <label htmlFor="female">
@@ -189,7 +189,7 @@ export default class App extends React.Component {
                         </select> single
                     </label>
                     <div className="single">
-                        { (this.state.single === 'apple') && <img src={'/research/004-es6/app/react/img/apple.bmp'}/> }
+                        { (this.state.single === 'apple') && <img src={'/research/005-scss/linked/assets/img/apple.bmp'}/> }
                     </div>
                 </div>
                 <div className="relative">
@@ -202,7 +202,7 @@ export default class App extends React.Component {
                     </label>
                     <div className="multiple">
                         {this.state.multiple.map(function (i) {
-                            return <img key={i} src={'/research/004-es6/app/react/img/' + i + '.bmp'} />
+                            return <img key={i} src={'/research/005-scss/linked/assets/img/' + i + '.bmp'} />
                         })}
                     </div>
                 </div>

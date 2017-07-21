@@ -1,2 +1,0 @@
-#test{display:block;width:300px;border:3px dashed red}#test>div.text{background-color:#add8e6;color:dimgray}#test>div.png{background-image:url(../app/scss/scss/img/sass.png);width:199px;height:168px}#test>div.png,div.inc{background-repeat:no-repeat;display:block;margin:4px}div.inc{border:3px dotted #333;background-image:url(../app/scss/inc/jpg/all.jpg);width:300px;height:100px}
-/*# sourceMappingURL=scss.css.map*/
