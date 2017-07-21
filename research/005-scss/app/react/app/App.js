@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ajax from 'lib/ajax';
+// import ajax from 'lib/ajax';
 import Icheckbox from './Icheckbox';
 import { autobind } from 'core-decorators';
 
@@ -32,7 +32,7 @@ export default class App extends React.Component {
         }).then((r) => r.json()).then((json) => {
             setTimeout(() => {
                 log('json', json)
-                this.setState(json)
+                this.setState(Object.assign(this.state, json, {save: false}));
             }, 1000);
         });
     }
@@ -182,7 +182,7 @@ export default class App extends React.Component {
                 <div className="relative">
                     <label htmlFor="single">
                         <select value={this.state.single} name="single" onChange={this.onChangeSingle}>{/* https://facebook.github.io/react/docs/forms.html#why-select-value */}
-                            <option value="">-=select=-</option>
+                            <option>-=select=-</option>
                             <option value="apple">Apple</option>
                             <option value="banana">banana</option>
                             <option value="cranberry">cranberry</option>
