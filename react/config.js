@@ -2,16 +2,18 @@
 
 const path      = require("path");
 
-const web = path.resolve('..');
+const web = path.resolve(__dirname, '..', '..');
 
 module.exports = {
     web: web,
     roots: [ // where to search by require and files to watch
-        path.resolve('..', 'app'),
-        path.resolve('node_modules')
+        path.resolve('app'),
+        path.resolve('linked'),
+        path.resolve('node_modules'),
+        path.resolve(__dirname, '..', '..', 'app'),
     ],
     alias: {
-        'log': path.resolve('webpack', 'logw'),
+        log: path.resolve(web, 'react', 'webpack', 'logw'),
     //     log     : path.resolve('./webpack/log'),
     //
     //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -22,17 +24,16 @@ module.exports = {
     //     update  : 'immutability-helper',
     //     fb: 'fbjs/lib',
     },
-    // provide: {
-    //     log: 'log'
-    // },
-    //
+    provide: { // see format: https://webpack.js.org/plugins/provide-plugin/
+        log: 'log'
+    },
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve('..', 'app'),
+            path.resolve('app'),
             // ...
         ],
         // output: path.resolve(web + '/js')
-        output: path.resolve(web + '/dist/js')
+        output: path.resolve('dist')
     },
     // scss: {
     //     entries: [ // only this scss files will be transformed to css
