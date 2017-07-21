@@ -1,11 +1,11 @@
 {
     "input": "on",
-    "description": "on",
-    "radio": "female",
-    "checkbox": true,
-    "checkboxcomponent": true,
+    "description": "onl",
+    "radio": "male",
+    "checkbox": false,
+    "checkboxcomponent": false,
     "withoutcheckbox": true,
-    "single": "banana",
+    "single": "apple",
     "multiple": [
         "apple",
         "banana",

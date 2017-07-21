@@ -10578,7 +10578,7 @@ var _App2 = _interopRequireDefault(_App);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import ReactDOM from 'react-dom';
-(0, _reactDom.render)(_react2.default.createElement(_App2.default, { url: 'linked/assets/db.php' }), document.getElementById('app'));
+(0, _reactDom.render)(_react2.default.createElement(_App2.default, { url: 'linked/rassets/db.php' }), document.getElementById('app'));
 
 /***/ }),
 /* 93 */
@@ -22939,7 +22939,7 @@ var App = (_class = function (_React$Component) {
                         }),
                         ' male'
                     ),
-                    _react2.default.createElement('img', { className: 'gender', src: '/research/005-scss/linked/assets/img/' + this.state.radio + '.bmp' })
+                    _react2.default.createElement('img', { className: 'gender', src: '/research/005-scss/linked/rassets/img/' + this.state.radio + '.bmp' })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -23042,7 +23042,7 @@ var App = (_class = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'single' },
-                        this.state.single === 'apple' && _react2.default.createElement('img', { src: '/research/005-scss/linked/assets/img/apple.bmp' })
+                        this.state.single === 'apple' && _react2.default.createElement('img', { src: '/research/005-scss/linked/rassets/img/apple.bmp' })
                     )
                 ),
                 _react2.default.createElement(
@@ -23076,7 +23076,7 @@ var App = (_class = function (_React$Component) {
                         'div',
                         { className: 'multiple' },
                         this.state.multiple.map(function (i) {
-                            return _react2.default.createElement('img', { key: i, src: '/research/005-scss/linked/assets/img/' + i + '.bmp' });
+                            return _react2.default.createElement('img', { key: i, src: '/research/005-scss/linked/rassets/img/' + i + '.bmp' });
                         })
                     )
                 ),

@@ -8,6 +8,10 @@ Windows:
     npm: 3.10.10
     yarn: v0.21.3
 
+Things that you need to understand:
+
+    - url() in css or scss follow 'resolver' logic https://webpack.js.org/configuration/resolve/
+
 
 
 

@@ -2,19 +2,19 @@
 
 body {
     border: 1px solid red;
-    background-image: url(../app/style/img/import.jpg);
+    background-image: url(../linked/public/app/style/img/import.jpg);
     background-repeat: no-repeat;
 }
 @charset "UTF-8";
 
 pre {
-    background-image: url(../app/style/img/import.jpg);
+    background-image: url(../linked/public/app/style/img/import.jpg);
     background-repeat: no-repeat;
 }
 
 
 #for-imported {
-    background-image: url(../app/style/img/import.jpg);
+    background-image: url(../linked/public/app/style/img/import.jpg);
     background-repeat: no-repeat;
     display: block;
     width: 100px;

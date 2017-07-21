@@ -6,11 +6,25 @@ const path      = require("path");
 const web = path.resolve(__dirname, '..', '..', 'public_html');
 
 module.exports = {
-    web: web,
+
+
+    web: web, // @todo check this if we need that
+
+
     roots: [ // where to search by require and files to watch
+
+        // for app specific libraries
         path.resolve('app'),
-        path.resolve(web, 'research', '005-scss', 'linked'), // path to linked directory - should be somewhere in 'web'
+
+        // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
+        path.resolve(web, 'research', '005-scss', 'linked'),
+
+        // must be exposed somewhere in "linked" for publishing images from modules, default "public" dir
         path.resolve('node_modules'),
+
+        // for local project react component
+        path.resolve('.'),
+
 
         // just for tests, remove this on prod
         path.resolve(__dirname, '..', '..', 'app'),

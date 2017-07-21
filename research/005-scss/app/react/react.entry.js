@@ -9,4 +9,4 @@ import React from 'react';
 import {render} from 'react-dom';
 import App from './app/App';
 
-render(<App url="linked/assets/db.php"/>, document.getElementById('app'));
+render(<App url="linked/rassets/db.php" />, document.getElementById('app'));

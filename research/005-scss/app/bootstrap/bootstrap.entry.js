@@ -11,7 +11,7 @@ require('bootstrap/dist/css/bootstrap.css');
 require('bootstrap/dist/css/bootstrap-theme.css');
 
 // loading from local linked directory - so cool :)
-require('example/index.css');
+require('app/example/index.css');
 
 log('test autoloade (provide) log library');
 

@@ -114,7 +114,8 @@ var config = {
                         name: '[path][name].[ext]',
                         // useRelativePath: true
                         // publicPath: '/',
-                        outputPath: '../' // because
+                        // relative path from "dist" to main dir with webpack.config.js
+                        outputPath: '../linked/public/'
                     }
                 }
 
@@ -135,16 +136,14 @@ if (utils.config.provide && Object.keys(utils.config.provide).length) { // https
     config.plugins.push(new webpack.ProvidePlugin(utils.config.provide));
 }
 
-if (utils.dev) {
-
-}
-
 if (utils.prod) {
+
         // https://webpack.js.org/configuration/devtool/
         // http://cheng.logdown.com/posts/2016/03/25/679045
     // devtool: "eval-source-mahhp"
     // devtool: "cheap-eval-source-map"
     config.devtool = "source-map";
+
     config.plugins.push(new UglifyJSPlugin({
         sourceMap: true
     }));
