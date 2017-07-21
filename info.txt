@@ -4,9 +4,9 @@ Mac:
     yarn: v0.19.1
 
 Windows:
-    node:
-    npm:
-    yarn:
+    node: v6.10.0
+    npm: 3.10.10
+    yarn: v0.21.3
 
 
 
