@@ -2,7 +2,7 @@
     "input": "on",
     "description": "onl",
     "radio": "male",
-    "checkbox": false,
+    "checkbox": true,
     "checkboxcomponent": false,
     "withoutcheckbox": true,
     "single": "apple",

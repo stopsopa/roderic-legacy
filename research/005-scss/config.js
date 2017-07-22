@@ -45,6 +45,7 @@ module.exports = {
             // ...
         ],
         // output: path.resolve(web + '/js')
-        output: path.resolve(web, 'research', '005-scss', 'dist')
+        output: path.resolve(web, 'research', '005-scss', 'dist'),
+        linked: path.resolve(web, 'research', '005-scss', 'linked', 'public')
     }
 }
