@@ -1,7 +1,5 @@
 'use strict';
 
-var www = '../..';
-
 const path                  = require('path');
 const webpack               = require('webpack');
 const utils                 = require(path.resolve('webpack', "utils"));
@@ -9,7 +7,6 @@ const env                   = utils.setup(path.resolve('config.js'));
 const ExtractTextPlugin     = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
-// const log                   = require(path.resolve('webpack', 'logn'));
 
 var config = {
     entry: utils.entries(),

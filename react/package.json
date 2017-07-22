@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
-    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch"
+    "set": "node set.js",
+    "wprod": "set WEBPACK_MODE=prod &&    for /f \"tokens=*\" %a in ('echo %cd%\\public') do @set NODE_PATH=%a      && public\\.bin\\webpack --config webpack.config.js",
+    "wdev": "set WEBPACK_MODE=dev &&    for /f \"tokens=*\" %a in ('echo %cd%\\public') do @set NODE_PATH=%a    && public\\.bin\\webpack --config webpack.config.js --progress --watch",
+    "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js",
+    "dev": "export WEBPACK_MODE=dev && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js --progress --watch"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +25,6 @@
     "clean-webpack-plugin": "^0.1.16",
     "colors": "^1.1.2",
     "core-decorators": "^0.19.0",
-    "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",

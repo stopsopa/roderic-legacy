@@ -1,8 +1,0 @@
-@charset "UTF-8";
-@import "inc/import.css";
-
-body {
-    border: 1px solid red;
-    background-image: url("img/import.jpg");
-
-}
