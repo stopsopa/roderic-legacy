@@ -1,0 +1,15 @@
+/* included from perspective of path.resolve('.') */
+
+#test {
+    clear: both;
+    height: 61px;
+}
+#global {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 1px solid blue;
+    background-image: url('img/redux.jpg');
+    background-repeat: no-repeat;
+    float: left;
+}

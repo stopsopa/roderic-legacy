@@ -8,7 +8,7 @@ const web = path.resolve(__dirname, '..', '..', 'public_html');
 module.exports = {
 
 
-    web: web, // @todo check this if we need that
+    // web: web, // @todo check this if we need that
 
 
     roots: [ // where to search by require and files to watch

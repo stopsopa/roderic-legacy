@@ -120,6 +120,10 @@ export default class App extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <h3>Simple form</h3>
+                <div id="test">
+                    <div id="global"></div>
+                    <div id="react"></div>
+                </div>
                 <div>
                     <label htmlFor="input">
                         <input type="text" name="input" value={this.state.input} onChange={this.onChangeInput} />

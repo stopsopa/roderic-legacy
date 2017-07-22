@@ -1,3 +1,25 @@
+/* included from perspective of path.resolve('.') */
+#test {
+  clear: both;
+  height: 61px; }
+
+#global {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid blue;
+  background-image: url(../linked/public/app/react/style/img/redux.jpg);
+  background-repeat: no-repeat;
+  float: left; }
+/* included from perspective of path.resolve('app') */
+#react {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 1px dashed red;
+  background-image: url(../linked/public/app/react/style/img/react.jpg);
+  background-repeat: no-repeat;
+  float: left; }
 /**
  * @author Szymon Działowski
  */
