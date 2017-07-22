@@ -1,16 +1,19 @@
 'use strict';
 
-var www = '../..';
-
 const path                  = require('path');
 const webpack               = require('webpack');
-const utils                 = require(path.resolve(www, "react", "webpack", "utils"));
-const log                   = require(path.resolve(www, "react", "webpack", 'logn'))
-const rmdir                 = require(path.resolve(www, "react", "webpack", 'rmdir'))
+const utils                 = require(path.resolve('webpack', "utils"));
 const env                   = utils.setup(path.resolve('config.js'));
 const ExtractTextPlugin     = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
+// const log                   = require(path.resolve('webpack', 'logn'));
+
+var node_modules = 'public';
+
+// console.log(process.env.NODE_PATH)
+//
+// process.exit(0);
 
 var config = {
     entry: utils.entries(),
@@ -92,16 +95,16 @@ var config = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: path.resolve(node_modules, 'babel-loader'),
                     options: {
                         presets: [
-                            path.resolve(__dirname, 'node_modules', 'babel-preset-env'),
-                            path.resolve(__dirname, 'node_modules', 'babel-preset-es2015'),
-                            path.resolve(__dirname, 'node_modules', 'babel-preset-react'),
-                            path.resolve(__dirname, 'node_modules', 'babel-preset-stage-0')
+                            path.resolve(node_modules, 'babel-preset-env'),
+                            path.resolve(node_modules, 'babel-preset-es2015'),
+                            path.resolve(node_modules, 'babel-preset-react'),
+                            path.resolve(node_modules, 'babel-preset-stage-0')
                         ],
                         plugins: [
-                            path.resolve(__dirname, 'node_modules', 'babel-plugin-transform-decorators-legacy'),
+                            path.resolve(node_modules, 'babel-plugin-transform-decorators-legacy'),
                         ]
                     }
                 }
@@ -116,7 +119,8 @@ var config = {
                         name: '[path][name].[ext]',
                         // useRelativePath: true
                         // publicPath: '/',
-                        outputPath: '../' // because
+                        // relative path from "dist" to main dir with webpack.config.js
+                        outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
                     }
                 }
 
@@ -137,16 +141,14 @@ if (utils.config.provide && Object.keys(utils.config.provide).length) { // https
     config.plugins.push(new webpack.ProvidePlugin(utils.config.provide));
 }
 
-if (utils.dev) {
-
-}
-
 if (utils.prod) {
-        // https://webpack.js.org/configuration/devtool/
-        // http://cheng.logdown.com/posts/2016/03/25/679045
+
+    // https://webpack.js.org/configuration/devtool/
+    // http://cheng.logdown.com/posts/2016/03/25/679045
     // devtool: "eval-source-mahhp"
     // devtool: "cheap-eval-source-map"
     config.devtool = "source-map";
+
     config.plugins.push(new UglifyJSPlugin({
         sourceMap: true
     }));

@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "set": "node set.js",
-    "wprod": "set WEBPACK_MODE=prod &&    for /f \"tokens=*\" %a in ('echo %cd%\\public') do @set NODE_PATH=%a      && public\\.bin\\webpack --config webpack.config.js",
-    "wdev": "set WEBPACK_MODE=dev &&    for /f \"tokens=*\" %a in ('echo %cd%\\public') do @set NODE_PATH=%a    && public\\.bin\\webpack --config webpack.config.js --progress --watch",
+    "wdev": "set WEBPACK_MODE=dev && set.cmd",
+    "wprod": "set WEBPACK_MODE=prod && set.cmd",
     "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js",
     "dev": "export WEBPACK_MODE=dev && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js --progress --watch"
   },
