@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js",
-    "dev": "export WEBPACK_MODE=dev && export NODE_PATH=\"$(pwd)/public\" && public/.bin/webpack --config webpack.config.js --progress --watch",
-    "wdev": "set WEBPACK_MODE=dev && set.cmd",
-    "wprod": "set WEBPACK_MODE=prod && set.cmd"
+    "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public/public\" && public/public/.bin/webpack --config webpack.config.js",
+    "dev": "export WEBPACK_MODE=dev && export NODE_PATH=\"$(pwd)/public/public\" && public/public/.bin/webpack --config webpack.config.js --progress --watch",
+    "wdev": "win.cmd dev public\\public",
+    "wprod": "win.cmd prod public\\public"
   },
   "keywords": [],
   "author": "",

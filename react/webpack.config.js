@@ -9,7 +9,7 @@ const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
 // const log                   = require(path.resolve('webpack', 'logn'));
 
-var node_modules = 'public';
+var node_modules = path.join('public', 'public');
 
 // console.log(process.env.NODE_PATH)
 //
@@ -33,14 +33,14 @@ var config = {
                 test: /\.scss/,
                 use: ExtractTextPlugin.extract({
                     fallback: {
-                        loader: "style-loader",
+                        loader: path.resolve(node_modules, 'style-loader'),
                         options: {
                             sourceMap: utils.prod,
                         }
                     },
                     use: [
                         {
-                            loader: 'css-loader',
+                            loader: path.resolve(node_modules, 'css-loader'),
                             options: {
                                 minimize: utils.prod,
                                 sourceMap: utils.prod,
@@ -53,7 +53,7 @@ var config = {
                             }
                         },
                         {
-                            loader: 'sass-loader',
+                            loader: path.resolve(node_modules, 'sass-loader'),
                             options: {
                                 sourceMap: utils.prod
                             }
@@ -67,14 +67,14 @@ var config = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: {
-                        loader: "style-loader",
+                        loader: path.resolve(node_modules, 'style-loader'),
                         options: {
                             sourceMap: utils.prod,
                         }
                     },
                     use: [
                         {
-                            loader: 'css-loader',
+                            loader: path.resolve(node_modules, 'css-loader'),
                             options: {
                                 minimize: utils.prod,
                                 sourceMap: utils.prod,
@@ -113,7 +113,7 @@ var config = {
                 test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
                 // loader: 'file-loader?emitFile=false&name=[path][name].[ext]',
                 use: {
-                    loader: 'file-loader',
+                    loader: path.resolve(node_modules, 'file-loader'),
                     options: {
                         emitFile: false,
                         name: '[path][name].[ext]',
