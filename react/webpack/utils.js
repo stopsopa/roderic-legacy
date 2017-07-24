@@ -6,21 +6,25 @@ var colors      = require('colors');
 var fs          = require('fs');
 var mkdirp      = require('mkdirp');
 
+function json(data) {
+    return JSON.stringify(data, null, '    ').replace(/\\\\/g, '\\');
+}
+
 function findentries(root) {
-    
+
     const list = glob.sync(root + "/**/*.entry.{js,jsx}");
-    
+
     let tmp, entries = {};
 
     for (let i = 0, l = list.length ; i < l ; i += 1) {
-        
+
         tmp = path.parse(list[i]);
-        
+
         tmp = path.basename(tmp.name, path.extname(tmp.name));
-        
+
         entries[tmp] = list[i];
     }
-    
+
     return entries;
 }
 
@@ -99,13 +103,13 @@ var symlinkEnsure = (function () {
             catch (e) {
 
                 throw "Symlink '" + target + "' can't be created for path '" + relative
-                + "', \n\n   " + JSON.stringify({
+                + "', \n\n   " + json({
                     sym                     : target,
                     dir                     : dir,
                     relative                : relative,
                     "__dirname        "     : __dirname,
                     "process.cwd() now"     : process.cwd(),
-                }, null, '    ').replace(/\\\\/g, '\\')
+                })
                 + " ', \n\n    exception error:\n    " + e;
             }
         }
@@ -158,7 +162,7 @@ var utils = {
     setup: function (setup) {
 
         if (setup && !this.config) {
-            
+
             this.config = require(setup);
         }
 
@@ -171,12 +175,12 @@ var utils = {
         var t, i, tmp = {}, root = this.config.js.entries;
 
         if (!root) {
-            
+
             throw "First specify root path for entry";
         }
 
         if (Object.prototype.toString.call( root ) !== '[object Array]') {
-            
+
             root = [root];
         }
 
@@ -187,7 +191,7 @@ var utils = {
             for (i in t) {
 
                 if (tmp[i]) {
-                    
+
                     throw "Entry file key '" + i + "' generated from file '" + t[i] + "' already exist";
                 }
 
@@ -197,7 +201,7 @@ var utils = {
 
         if (!Object.keys(tmp).length) {
 
-            throw "Not found *.entry.js files";
+            throw "Not found *.entry.js files in directories : \n" + json(root, null, '    ');
         }
 
         return tmp;
@@ -216,12 +220,12 @@ var utils = {
 
                 if (typeof p.link !== 'string') {
 
-                    throw "'link' is not defined in resolve path object: " + JSON.stringify(p);
+                    throw "'link' is not defined in resolve path object: \n" + json(p);
                 }
 
                 if (typeof p.path !== 'string') {
 
-                    throw "'path' is not defined in resolve path object: " + JSON.stringify(p);
+                    throw "'path' is not defined in resolve path object: \n" + json(p);
                 }
 
                 dir = path.dirname(p.link);
@@ -234,7 +238,7 @@ var utils = {
                 }
                 catch (e) {
 
-                    throw "dirEnsure() error on resolve object: \n" + JSON.stringify(p, null, '    ') + "\n    error:\n        " + e;
+                    throw "dirEnsure() error on resolve object: \n" + json(p) + "\n    error:\n        " + e;
                 }
 
                 symlinkEnsure(p.link, p.path);
