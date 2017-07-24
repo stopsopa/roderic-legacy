@@ -17,7 +17,7 @@ cd %LINKED%
 
 if exist "%PUBLICWEBPACK%\%SCRIPT%" (
 
-    mklink /D public "%PUBLICWEBPACK%\public\public"
+    mklink /D public "%PUBLICWEBPACK%\node_modules"
 
     rem other dir for react
     mklink /D rassets ..\..\app\react\assets"

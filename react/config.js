@@ -5,7 +5,7 @@ const path      = require("path");
 // relative path to public server directory
 const web = path.resolve(__dirname, '..', 'public_html');
 
-var node_modules = path.join(__dirname, 'public', 'public');
+var node_modules = path.join(__dirname, 'node_modules');
 
 module.exports = {
     web: web,

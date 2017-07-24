@@ -9,7 +9,7 @@ const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
 // const log                   = require(path.resolve('webpack', 'logn'));
 
-var node_modules = path.join(__dirname, 'public', 'public');
+var node_modules = path.join(__dirname, 'node_modules');
 
 var config = {
     entry: utils.entries(),
