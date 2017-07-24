@@ -17,7 +17,7 @@ var config = {
         filename: "[name].bundle.js",
     },
     resolve: {
-        modules: utils.config.roots,
+        modules: utils.config.resolve,
         extensions: ['.js', '.jsx', '.json'],
         symlinks: false // to properly resolve url() in css/scss thrugh web symlink
     },

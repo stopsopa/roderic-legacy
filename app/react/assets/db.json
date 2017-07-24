@@ -1,14 +1,15 @@
 {
-    "input": "ona",
-    "description": "onla",
+    "input": "8",
+    "description": "8",
     "radio": "male",
     "checkbox": true,
-    "checkboxcomponent": true,
-    "withoutcheckbox": true,
+    "checkboxcomponent": false,
+    "withoutcheckbox": false,
     "single": "apple",
     "multiple": [
         "apple",
-        "banana"
+        "banana",
+        "cranberry"
     ],
     "save": false
 }

@@ -1,8 +1,10 @@
 'use strict';
 
-var glob      = require("glob");
-var path      = require("path");
-var colors    = require('colors');
+var glob        = require("glob");
+var path        = require("path");
+var colors      = require('colors');
+var fs          = require('fs');
+var mkdirp      = require('mkdirp');
 
 function findentries(root) {
     
@@ -21,6 +23,139 @@ function findentries(root) {
     
     return entries;
 }
+
+function dirEnsure(dir, createIfNotExist) {
+
+    if ( fs.existsSync(dir) ) {
+
+        if ( ! fs.lstatSync(dir).isDirectory() ) {
+
+            throw "'" + dir + "' is not directory";
+        }
+    }
+    else {
+
+        if (createIfNotExist) {
+
+            try {
+
+                mkdirp.sync(dir);
+
+                if ( ! fs.existsSync(dir) ) {
+
+                    throw "Directory '" + dir + "' doesn't exist, check after mkdirp.sync(" + dir + ")";
+                }
+            }
+            catch (e) {
+
+                throw "Can't create directory '" + dir + "', error: " + e;
+            }
+        }
+        else {
+
+            throw "Directory '" + dir + "' doesn't exist, (createIfNotExist = false) check";
+        }
+    }
+}
+
+var symlinkEnsure = (function () {
+    function unique(pattern) {
+        pattern || (pattern = 'file-xyxyxyxyxyxyxyxyxy.tmp');
+        return pattern.replace(/[xy]/g,
+            function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+    }
+    return function (target, dir) {
+
+        if ( fs.existsSync(target) ) {
+
+            if ( ! fs.lstatSync(target).isSymbolicLink() ) {
+
+                throw "'" + target + "' is not symlink";
+            }
+        }
+        else {
+
+            try {
+
+                var dirWhereToLink = path.resolve(target, '..');
+
+                var relative = path.relative(dirWhereToLink, dir);
+
+                process.chdir(dirWhereToLink);
+
+                fs.symlinkSync(relative, target, 'dir');
+
+                if ( ! fs.existsSync(target) ) {
+
+                    throw "Symlink '" + target + "' can't be created";
+                }
+
+                process.chdir(__dirname);
+            }
+            catch (e) {
+
+                throw "Symlink '" + target + "' can't be created for path '" + relative
+                + "', \n\n   " + JSON.stringify({
+                    sym: target,
+                    dir: dir,
+                    relative: relative,
+                    "__dirname        ": __dirname,
+                    "process.cwd() now" : process.cwd(),
+                }, null, '    ').replace(/\\\\/g, '\\')
+                + " ', \n\n    exception error:\n    " + e;
+            }
+        }
+
+        // now test to be sure
+
+        var file = unique();
+
+        var dirfile = path.resolve(dir, file);
+
+        var targetfile = path.resolve(target, file);
+
+        var fh = fs.openSync(dirfile, 'w');
+
+        fs.closeSync(fh);
+
+        if ( fs.existsSync(dirfile) ) {
+
+            if ( ! fs.lstatSync(dirfile).isFile() ) {
+
+                throw "Weird, created test file '" + dirfile + "' is not file";
+            }
+        }
+        else {
+
+            throw "Can't create test file '" + dirfile + "'"
+        }
+
+        if ( fs.existsSync(targetfile) ) {
+
+            if ( ! fs.lstatSync(targetfile).isFile() ) {
+
+                throw "Weird, created test file '" + targetfile + "' exist but is not file";
+            }
+
+            fs.unlinkSync(dirfile);
+
+            if ( fs.existsSync(targetfile) ) {
+
+                throw "Test file '" + targetfile + "' should be now deleted, but it still exist";
+            }
+        }
+        else {
+
+            throw "Test file '" + dirfile + "' was created but is not visible on the other side of symlink '" + targetfile + "', seems like wrong symlink";
+        }
+    }
+}());
+
+
 
 var utils = {
     config: false,
@@ -70,6 +205,49 @@ var utils = {
         }
 
         return tmp;
+    },
+    symlink : function (list) {
+
+        var fsdir, dir, link, nlist = [];
+
+        list.forEach(function (p) {
+
+            if (typeof p === 'string') {
+
+                nlist.push(p);
+            }
+            else {
+
+                if (typeof p.link !== 'string') {
+
+                    throw "'link' is not defined in resolve path object: " + JSON.stringify(p);
+                }
+
+                if (typeof p.path !== 'string') {
+
+                    throw "'path' is not defined in resolve path object: " + JSON.stringify(p);
+                }
+
+                dir = path.dirname(p.link);
+
+                try {
+
+                    dirEnsure(dir, true);
+
+                    dirEnsure(p.path);
+                }
+                catch (e) {
+
+                    throw "dirEnsure() error on resolve object: \n" + JSON.stringify(p, null, '    ') + "\n    error:\n        " + e;
+                }
+
+                symlinkEnsure(p.link, p.path);
+
+                nlist.push(p.link);
+            }
+        });
+
+        return nlist;
     }
 };
 

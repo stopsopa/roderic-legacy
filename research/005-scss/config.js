@@ -7,7 +7,7 @@ const web = path.resolve('..', '..', 'public_html');
 
 module.exports = {
     web: web,
-    roots: [ // where to search by require and files to watch
+    resolve: [ // where to search by require and files to watch
 
         // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
         path.resolve(web, 'research', '005-scss', 'linked'),

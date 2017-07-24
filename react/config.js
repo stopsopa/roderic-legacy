@@ -3,19 +3,39 @@
 const path      = require("path");
 
 // relative path to public server directory
-const web = path.resolve(__dirname, '..', 'public_html');
+const web           = path.resolve(__dirname, '..', 'public_html');
 
-var node_modules = path.join(__dirname, 'node_modules');
+var node_modules    = path.join(__dirname, 'node_modules');
+
+var linked          = path.resolve(web, 'linked');
+
+var root            = path.resolve(__dirname, '..');
 
 module.exports = {
     web: web,
-    roots: [ // where to search by require and files to watch
+    resolve: [ // where to search by require and files to watch
 
         // all custom libraries
-        path.resolve(web, 'linked'),
+        linked,
 
-        // node_modules
-        path.resolve(web, 'linked', 'public'),
+        { // symlink mode
+            path: node_modules,
+            link: path.resolve(linked, 'public')
+        },
+    ],
+    linked: [ // just create links, this links are not direct paths for resolver
+        {
+            path: path.resolve(root, 'app', 'react', 'assets'),
+            link: path.resolve(linked, 'rassets')
+        },
+        {
+            path: path.resolve(root, 'dir-to-link'),
+            link: path.resolve(linked, 'example')
+        },
+        {
+            path: path.resolve(root, 'app'),
+            link: path.resolve(linked, 'app')
+        }
     ],
     alias: {
         log: path.resolve(__dirname, 'webpack', 'logw'),

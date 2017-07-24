@@ -15,3 +15,24 @@ Things that you need to understand:
 
 
 
+Links created on windows should look like:
+
+D:\www\_machine\webpack2\runtime\public_html\linked>dir
+ Volume in drive D is Magazyn
+ Volume Serial Number is 54AB-00D8
+
+ Directory of D:\www\_machine\webpack2\runtime\public_html\linked
+
+2017-07-24  11:33 PM    <DIR>          .
+2017-07-24  11:33 PM    <DIR>          ..
+2017-07-24  11:33 PM    <SYMLINKD>     app [..\..\app]
+2017-07-24  11:33 PM    <SYMLINKD>     example [..\..\dir-to-link]
+2017-07-24  11:33 PM    <SYMLINKD>     public [..\..\react\node_modules]
+2017-07-24  11:33 PM    <SYMLINKD>     rassets [..\..\app\react\assets]
+               0 File(s)              0 bytes
+               6 Dir(s)  32,382,394,368 bytes free
+
+D:\www\_machine\webpack2\runtime\public_html\linked>
+
+
+

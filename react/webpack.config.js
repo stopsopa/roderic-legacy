@@ -18,7 +18,12 @@ var config = {
         filename: "[name].bundle.js",
     },
     resolve: {
-        modules: utils.config.roots,
+        modules: (function () {
+
+            utils.symlink(utils.config.linked);
+
+            return utils.symlink(utils.config.resolve);
+        }()),
         extensions: ['.js', '.jsx', '.json'],
         symlinks: false // to properly resolve url() in css/scss thrugh web symlink
     },
