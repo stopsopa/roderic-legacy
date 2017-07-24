@@ -1,15 +1,15 @@
 'use strict';
 
-const path      = require("path");
+const path              = require("path");
+
+const root              = path.resolve(__dirname, '..');
 
 // relative path to public server directory
-const web           = path.resolve(__dirname, '..', 'public_html');
+const web               = path.resolve(root, 'public_html');
 
-var node_modules    = path.join(__dirname, 'node_modules');
+const linked            = path.resolve(web, 'linked');
 
-var linked          = path.resolve(web, 'linked');
-
-var root            = path.resolve(__dirname, '..');
+const node_modules      = path.join(__dirname, 'node_modules');
 
 module.exports = {
     web: web,
@@ -18,7 +18,7 @@ module.exports = {
         // all custom libraries
         linked,
 
-        { // symlink mode
+        { // node_modules exposed on web - symlink mode
             path: node_modules,
             link: path.resolve(linked, 'public')
         },
@@ -39,22 +39,13 @@ module.exports = {
     ],
     alias: {
         log: path.resolve(__dirname, 'webpack', 'logw'),
-        //     log     : path.resolve('./webpack/log'),
-        //
-        //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
-        //     // https://www.npmjs.com/package/immutability-helper
-        //     // https://github.com/seansfkelley/pure-render-decorator/commit/137f8a3c6999aba4688f81ad6c9f4b9f0a180de1
-        //     // fbjs/lib/shallowEqual.js somewhere in node_modules from repository 'facebook/fbjs'
-        //     // https://github.com/jurassix/react-immutable-render-mixin
-        //     update  : 'immutability-helper',
-        //     fb: 'fbjs/lib',
     },
     provide: { // see format: https://webpack.js.org/plugins/provide-plugin/
         log: 'log'
     },
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve(__dirname, '..', 'app'),
+            path.resolve(root, 'app'),
             // ...
         ],
         output: path.resolve(web, 'dist'),

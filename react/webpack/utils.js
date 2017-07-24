@@ -100,11 +100,11 @@ var symlinkEnsure = (function () {
 
                 throw "Symlink '" + target + "' can't be created for path '" + relative
                 + "', \n\n   " + JSON.stringify({
-                    sym: target,
-                    dir: dir,
-                    relative: relative,
-                    "__dirname        ": __dirname,
-                    "process.cwd() now" : process.cwd(),
+                    sym                     : target,
+                    dir                     : dir,
+                    relative                : relative,
+                    "__dirname        "     : __dirname,
+                    "process.cwd() now"     : process.cwd(),
                 }, null, '    ').replace(/\\\\/g, '\\')
                 + " ', \n\n    exception error:\n    " + e;
             }
@@ -118,9 +118,7 @@ var symlinkEnsure = (function () {
 
         var targetfile = path.resolve(target, file);
 
-        var fh = fs.openSync(dirfile, 'w');
-
-        fs.closeSync(fh);
+        fs.closeSync(fs.openSync(dirfile, 'w'));
 
         if ( fs.existsSync(dirfile) ) {
 
@@ -131,7 +129,7 @@ var symlinkEnsure = (function () {
         }
         else {
 
-            throw "Can't create test file '" + dirfile + "'"
+            throw "Can't create test file '" + dirfile + "'";
         }
 
         if ( fs.existsSync(targetfile) ) {
