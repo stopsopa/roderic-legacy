@@ -1,0 +1,1 @@
+echo 'installation process test';
