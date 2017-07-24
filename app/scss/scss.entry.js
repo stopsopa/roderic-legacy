@@ -1,6 +1,6 @@
 'use strict';
 
-import './scss/scss.scss';
+import 'app/scss/scss/scss.scss';
 
 const log = require('log');
 

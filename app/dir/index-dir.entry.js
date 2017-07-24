@@ -1,3 +1,3 @@
 'use strict';
 
-require('../styledir/index.css');
+require('app/styledir/index.css');

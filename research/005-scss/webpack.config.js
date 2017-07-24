@@ -108,15 +108,12 @@ var config = {
                 test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
                 use: {
                     loader: 'file-loader',
-                    options: {
+                    options: { // https://github.com/webpack-contrib/file-loader/tree/docs
                         emitFile: false,
                         name: '[path][name].[ext]',
                         publicPath: '/',
                         context: utils.config.web,
                         useRelativePath: false
-                        // publicPath: path.resolve(__dirname, '..', '..', 'public_html'),
-                        // relative path from "dist" to main dir with webpack.config.js
-                        // outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
                     }
                 }
 

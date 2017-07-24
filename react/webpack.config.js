@@ -11,12 +11,6 @@ const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
 
 var node_modules = path.join(__dirname, 'public', 'public');
 
-console.log('-'.repeat(30), (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/'), '-'.repeat(30));
-
-// console.log(process.env.NODE_PATH)
-//
-// process.exit(0);
-
 var config = {
     entry: utils.entries(),
     output: {
@@ -116,13 +110,12 @@ var config = {
                 // loader: 'file-loader?emitFile=false&name=[path][name].[ext]',
                 use: {
                     loader: path.resolve(node_modules, 'file-loader'),
-                    options: {
+                    options: { // https://github.com/webpack-contrib/file-loader/tree/docs
                         emitFile: false,
                         name: '[path][name].[ext]',
-                        // useRelativePath: true,
-                        // publicPath: '/',
-                        // relative path from "dist" to main dir with webpack.config.js
-                        outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
+                        publicPath: '/',
+                        context: utils.config.web,
+                        useRelativePath: false
                     }
                 }
 

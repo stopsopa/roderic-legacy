@@ -9,22 +9,12 @@ module.exports = {
     web: web,
     roots: [ // where to search by require and files to watch
 
-        // for app specific libraries
-        // path.resolve('app'),
-
         // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
         path.resolve(web, 'research', '005-scss', 'linked'),
 
         // must be exposed somewhere in "linked" for publishing images from modules, default "public" dir
         // path.resolve('node_modules'),
-        path.resolve(web, 'research', '005-scss', 'linked', 'public', 'node_modules'),
-
-        // for local project react component
-        // path.resolve('.'),
-
-
-        // just for tests, remove this on prod
-        // path.resolve(__dirname, '..', '..', 'app'),
+        path.resolve(web, 'research', '005-scss', 'linked', 'public'),
     ],
     alias: {
         log: path.resolve('..', '..', 'react', 'webpack', 'logw'),
@@ -47,7 +37,6 @@ module.exports = {
             // ...
         ],
         // output: path.resolve(web + '/js')
-        output: path.resolve(web, 'research', '005-scss', 'dist'),
-        linked: path.resolve(web, 'research', '005-scss', 'linked', 'public')
+        output: path.resolve(web, 'research', '005-scss', 'dist')
     }
 }

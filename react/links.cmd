@@ -1,4 +1,5 @@
 
+
 rem relative path to linked
 SET "LINKED=..\public_html\linked"
 
@@ -16,11 +17,12 @@ cd %LINKED%
 
 if exist "%PUBLICWEBPACK%\%SCRIPT%" (
 
-    mklink /D public "%PUBLICWEBPACK%\public"
-    mklink /D example ..\..\dir-to-link
+    mklink /D public "%PUBLICWEBPACK%\public\public"
 
     rem other dir for react
-    rem mklink /D rassets "%PUBLICWEBPACK%\app\react\assets"
+    mklink /D rassets ..\..\app\react\assets"
+    mklink /D example ..\..\dir-to-link
+    mklink /D app ..\..\app
 ) else (
     echo fix PUBLICWEBPACK path
 )

@@ -3,30 +3,22 @@
 const path      = require("path");
 
 // relative path to public server directory
-const web = path.resolve('..', 'public_html');
+const web = path.resolve(__dirname, '..', 'public_html');
 
-var node_modules = path.join('public', 'public');
-
-// console.log(path.resolve(web, 'linked'));
-// process.exit(0);
+var node_modules = path.join(__dirname, 'public', 'public');
 
 module.exports = {
+    web: web,
     roots: [ // where to search by require and files to watch
 
-        // for app specific libraries
-        path.resolve('..', 'app'),
-
-        // must be exposed somewhere in "linked" for publishing images from modules, default "public" dir
-        path.resolve(node_modules),
-
-        // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
+        // all custom libraries
         path.resolve(web, 'linked'),
 
-        // for local project react component
-        path.resolve('.'),
+        // node_modules
+        path.resolve(web, 'linked', 'public'),
     ],
     alias: {
-        log: path.resolve('webpack', 'logw'),
+        log: path.resolve(__dirname, 'webpack', 'logw'),
         //     log     : path.resolve('./webpack/log'),
         //
         //     // https://facebook.github.io/react/docs/update.html g(Immutability Helpers)
@@ -42,10 +34,9 @@ module.exports = {
     },
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve('..', 'app'),
+            path.resolve(__dirname, '..', 'app'),
             // ...
         ],
         output: path.resolve(web, 'dist'),
-        linked: path.resolve(web, 'linked')
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-require('style/index.css');
-require('style/dir/test2.css');
-require('style/import/import.css');
+require('app/style/index.css');
+require('app/style/dir/test2.css');
+require('app/style/import/import.css');
 
 

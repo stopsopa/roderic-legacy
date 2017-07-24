@@ -263,8 +263,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot);
-  src: url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2) format('woff2'), url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff) format('woff'), url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(/research/005-scss/linked/public/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
+  src: url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.eot);
+  src: url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2) format('woff2'), url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.woff) format('woff'), url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(/research/005-scss/linked/public/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
 }
 .glyphicon {
   position: relative;
