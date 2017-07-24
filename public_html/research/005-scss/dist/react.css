@@ -8,7 +8,7 @@
   width: 40px;
   height: 40px;
   border: 1px solid blue;
-  background-image: url(../linked/public/app/react/style/img/redux.jpg);
+  background-image: url(/research/005-scss/linked/app/react/style/img/redux2.jpg);
   background-repeat: no-repeat;
   float: left; }
 /* included from perspective of path.resolve('app') */
@@ -17,7 +17,7 @@
   width: 40px;
   height: 40px;
   border: 1px dashed red;
-  background-image: url(../linked/public/app/react/style/img/react.jpg);
+  background-image: url(/research/005-scss/linked/app/react/style/img/react.jpg);
   background-repeat: no-repeat;
   float: left; }
 /**

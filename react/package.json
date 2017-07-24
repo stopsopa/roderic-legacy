@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public/public\" && public/public/.bin/webpack --config webpack.config.js",
     "dev": "export WEBPACK_MODE=dev && export NODE_PATH=\"$(pwd)/public/public\" && public/public/.bin/webpack --config webpack.config.js --progress --watch",
+    "prod": "export WEBPACK_MODE=prod && export NODE_PATH=\"$(pwd)/public/public\" && public/public/.bin/webpack --config webpack.config.js",
     "wdev": "win.cmd dev public\\public",
     "wprod": "win.cmd prod public\\public"
   },

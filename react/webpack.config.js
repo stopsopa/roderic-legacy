@@ -9,7 +9,9 @@ const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
 // const log                   = require(path.resolve('webpack', 'logn'));
 
-var node_modules = path.join('public', 'public');
+var node_modules = path.join(__dirname, 'public', 'public');
+
+console.log('-'.repeat(30), (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/'), '-'.repeat(30));
 
 // console.log(process.env.NODE_PATH)
 //
@@ -117,7 +119,7 @@ var config = {
                     options: {
                         emitFile: false,
                         name: '[path][name].[ext]',
-                        // useRelativePath: true
+                        // useRelativePath: true,
                         // publicPath: '/',
                         // relative path from "dist" to main dir with webpack.config.js
                         outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
@@ -129,7 +131,7 @@ var config = {
     },
     plugins: [
         new CleanWebpackPlugin([utils.config.js.output]),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].bundle.css"),
     ]
 };
 

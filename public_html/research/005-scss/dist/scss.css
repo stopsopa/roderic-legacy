@@ -6,7 +6,7 @@
     background-color: lightblue;
     color: dimgray; }
   #test > div.png {
-    background-image: url(../linked/public/app/scss/scss/img/sass.png);
+    background-image: url(/research/005-scss/linked/app/scss/scss/img/sass.png);
     background-repeat: no-repeat;
     display: block;
     width: 199px;
@@ -19,7 +19,7 @@ div.inc {
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */
-  background-image: url(../linked/public/app/scss/inc/jpg/all.jpg);
+  background-image: url(/research/005-scss/linked/app/scss/inc/dir/jpg/all.jpg);
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */
   /* WARNING, "url()" resolve not relatively to included file but relative to including file */

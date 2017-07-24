@@ -7,7 +7,6 @@
     "withoutcheckbox": true,
     "single": "apple",
     "multiple": [
-        "apple",
         "banana",
         "cranberry"
     ],

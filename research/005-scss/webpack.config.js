@@ -8,6 +8,8 @@ const ExtractTextPlugin     = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const UglifyJSPlugin        = require('uglifyjs-webpack-plugin');
 
+var node_modules = path.join(__dirname, 'public', 'public');
+
 var config = {
     entry: utils.entries(),
     output: {
@@ -104,16 +106,17 @@ var config = {
             },
             {
                 test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
-                // loader: 'file-loader?emitFile=false&name=[path][name].[ext]',
                 use: {
                     loader: 'file-loader',
                     options: {
                         emitFile: false,
                         name: '[path][name].[ext]',
-                        // useRelativePath: true
-                        // publicPath: '/',
+                        publicPath: '/',
+                        context: utils.config.web,
+                        useRelativePath: false
+                        // publicPath: path.resolve(__dirname, '..', '..', 'public_html'),
                         // relative path from "dist" to main dir with webpack.config.js
-                        outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
+                        // outputPath: (path.relative(utils.config.js.output, utils.config.js.linked) + path.sep).replace(/\\/g, '/')
                     }
                 }
 

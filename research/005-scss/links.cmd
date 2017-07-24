@@ -21,6 +21,8 @@ if exist "%PUBLICWEBPACK%\%SCRIPT%" (
 
     rem other dir for react
     mklink /D rassets "%PUBLICWEBPACK%\app\react\assets"
+    mklink /D example "%PUBLICWEBPACK%\app\dir-to-link"
+    mklink /D app "%PUBLICWEBPACK%\app"
 ) else (
     echo fix PUBLICWEBPACK path
 )

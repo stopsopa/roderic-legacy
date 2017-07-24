@@ -2,8 +2,8 @@
 
 
 #test {
-    border: 2px solid blue;
-    background-image: url("img/webpack.jpg");
+    border: 2px solid green;
+    background-image: url("img/webpack2.jpg");
     background-repeat: no-repeat;
     display: block;
     width: 100px;

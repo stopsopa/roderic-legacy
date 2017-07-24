@@ -7,17 +7,20 @@ const web = path.resolve('..', 'public_html');
 
 var node_modules = path.join('public', 'public');
 
+// console.log(path.resolve(web, 'linked'));
+// process.exit(0);
+
 module.exports = {
     roots: [ // where to search by require and files to watch
 
         // for app specific libraries
         path.resolve('..', 'app'),
 
-        // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
-        path.resolve(web, 'linked'),
-
         // must be exposed somewhere in "linked" for publishing images from modules, default "public" dir
         path.resolve(node_modules),
+
+        // path to linked directory - should be somewhere in 'web' - for css scss and others, can be also for js modules
+        path.resolve(web, 'linked'),
 
         // for local project react component
         path.resolve('.'),
@@ -43,6 +46,6 @@ module.exports = {
             // ...
         ],
         output: path.resolve(web, 'dist'),
-        linked: path.resolve(web, 'linked', 'public')
+        linked: path.resolve(web, 'linked')
     }
 }

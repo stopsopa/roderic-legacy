@@ -16,20 +16,16 @@ cd %LINKED%
 
 if exist "%PUBLICWEBPACK%\%SCRIPT%" (
 
-    mklink /D public "%PUBLICWEBPACK%"
+    mklink /D public "%PUBLICWEBPACK%\public"
+    mklink /D example ..\..\dir-to-link
 
     rem other dir for react
-    mklink /D rassets "%PUBLICWEBPACK%\app\react\assets"
+    rem mklink /D rassets "%PUBLICWEBPACK%\app\react\assets"
 ) else (
     echo fix PUBLICWEBPACK path
 )
 
 rem return to start directory
 cd %PUBLICWEBPACK%
-
-cd ..\app
-    rmdir /s/q example
-    mklink /D example "dir-to-link"
-cd ..\react
 
 
