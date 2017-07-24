@@ -153,8 +153,6 @@ var symlinkEnsure = (function () {
     }
 }());
 
-
-
 var utils = {
     config: false,
     setup: function (setup) {
