@@ -1,0 +1,12 @@
+yarn jest -- --watch
+
+or better to run local:
+
+npm run test -- --watch
+
+expect(add(2, 3)).toMatchSnapshot();
+
+
+more:
+    https://egghead.io/lessons/javascript-test-javascript-with-jest
+

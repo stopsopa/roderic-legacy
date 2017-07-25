@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`react test 1`] = `
+<div>
+  <h1>
+    one
+  </h1>
+  <ul>
+    <li>
+      apple - 🍎
+    </li>
+    <li>
+      banana - 🍌
+    </li>
+    <li>
+      pear - 🍐
+    </li>
+    <li>
+      tomato - 🍅
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`react test 2`] = `
+<div>
+  <h1>
+    two
+  </h1>
+  <ul>
+    <li>
+      apple - 🍎
+    </li>
+    <li>
+      banana - 🍌
+    </li>
+    <li>
+      pear - 🍐
+    </li>
+    <li>
+      tomato - 🍅
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`react test 3`] = `
+<div>
+  <h1>
+    three
+  </h1>
+  <ul>
+    <li>
+      apple - 🍎
+    </li>
+    <li>
+      banana - 🍌
+    </li>
+    <li>
+      pear - 🍐
+    </li>
+    <li>
+      tomato - 🍅
+    </li>
+  </ul>
+</div>
+`;

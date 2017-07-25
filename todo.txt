@@ -1,3 +1,5 @@
 - provide tool to relative path in react templates
     - in react inport(jpg)
 
+
+- babel integration for node
