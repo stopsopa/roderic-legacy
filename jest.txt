@@ -2,11 +2,38 @@ yarn jest -- --watch
 
 or better to run local:
 
+# run all and then run only changed (selective)
 npm run test -- --watch
+
+# every time run all
+npm run test -- --watchAll
+
+
+# more: https://facebook.github.io/jest/docs/en/cli.html#running-from-the-command-line
+    # run only one or matching test
+    npm run test test/veg.test.js
+    npm run test test/*e*.test.js
+    npm run test "[^a-z]tea"
+        # https://facebook.github.io/jest/docs/en/cli.html#jest-regexfortestfiles
 
 expect(add(2, 3)).toMatchSnapshot();
 
+known issues:
+    error during watch on mac sierra:
+        node[22581] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() => (null) (-22)
+            https://github.com/facebook/react-native/issues/9309#issuecomment-238966924
+            WARNING: second step replaced by (compilation doesn't work)
+                http://macappstore.org/watchman/  g(Install watchman on Mac OSX)
+                    currently installed version watchman 4.7.0
+
+
+
 
 more:
+    https://facebook.github.io/jest/docs/en/more-resources.html#content
     https://egghead.io/lessons/javascript-test-javascript-with-jest
+    about testing react:
+        https://facebook.github.io/jest/docs/en/more-resources.html#learn-by-example
+
+
 
