@@ -208,7 +208,7 @@ export default class App extends React.Component {
                         })}
                     </div>
                 </div>
-                <div>
+                <div data-test="react - i will search for this in tests">
                     {this.props.github ?
                         <input type="submit"
                                value="No php - can't save"

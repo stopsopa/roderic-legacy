@@ -6,7 +6,7 @@ expect.addSnapshotSerializer({
    print: (val) => `${val.emoji} ${val.title}`
 });
 
-const veg = require('../testlib/veg');
+const veg = require('../../testlib/veg');
 
 it('veg test', () => {
     expect(veg).toMatchSnapshot();

@@ -1,4 +1,5 @@
 language: node_js
+
 #node_js:
 #  - "7"
 #  - "6"
@@ -14,10 +15,10 @@ matrix:
       node_js: "6"
     - os: linux
       node_js: "4.3"
-    - os: osx
-      node_js: "8"
-    - os: osx
-      node_js: "7"
+#    - os: osx
+#      node_js: "8"
+#    - os: osx
+#      node_js: "7"
 
 before_script:
   - cd react
@@ -26,9 +27,12 @@ before_script:
 
 script:
   - cd ..
+  - export WEBPACK_MODE=dev
   - npm run test
   - cd react
   - npm run prod
   - cd ..
+  - rm -rf docs/dist/*
+  - export WEBPACK_MODE=prod
   - npm run test
 

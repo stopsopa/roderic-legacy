@@ -1,24 +1,18 @@
 'use strict';
 
-const React             = require('react');
-const renderer          = require('react-test-renderer');
-const List              = require('../testlib/List');
-const veg               = require('../testlib/veg');
+const path      = require('path');
 
+const reader    = require(path.resolve(__dirname, 'reader.js'));
 
-it('react test', () => {
+const log       = console.log;
 
-    ['one', 'two', 'three'].forEach((title) => {
+it('react', () => {
 
-        const component = renderer.create(
-            React.createElement(List, {list: veg, title: title})
-        );
+    const data = reader('react');
 
-        expect(component).toMatchSnapshot();
+    data.tcss('url(/asset/app/react/style/img/redux.jpg)', 1);
 
-    });
+    data.tcss('url(/asset/app/react/style/img/react.jpg)', 1);
 
-    // to test "testEnvironment" : "node"
-    // console.log(window);
-
+    data.tjs('react - i will search for this in tests', 1);
 });

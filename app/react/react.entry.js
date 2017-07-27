@@ -1,7 +1,5 @@
 'use strict';
 
-'use strict';
-
 // import 'scss/react.scss';
 // import 'css/icontrol_big_gray.css';
 

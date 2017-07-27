@@ -17,6 +17,7 @@ require('example/index.css');
 
 
 log('test autoloade (provide) log library');
+log('bootstrap - i will search for this in tests')
 
 
 
