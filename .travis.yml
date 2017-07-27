@@ -23,11 +23,14 @@ matrix:
 before_script:
   - cd react
   - yarn
+  - export WEBPACK_MODE=dev
+  - echo $WEBPACK_MODE
   - npm run devtest
+  - echo 'after devtest in before' && ls -la docs/dist/
 
 script:
   - cd ..
-  - ls -la docs/dist/
+  - echo 'after devtest in script' && ls -la docs/dist/
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - npm run test
@@ -35,7 +38,7 @@ script:
   - cd react
   - npm run prod
   - cd ..
-  - ls -la docs/dist/
+  - echo 'after prod' && ls -la docs/dist/
   - export WEBPACK_MODE=prod
   - echo $WEBPACK_MODE
   - npm run test
