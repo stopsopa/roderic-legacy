@@ -10,5 +10,5 @@ before_script:
   - npm run devtest
 
 script:
-  - cd react && npm run test
+  - npm run test
 
