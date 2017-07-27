@@ -26,10 +26,10 @@ before_script:
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - npm run devtest
+  - cd ..
   - echo 'after devtest in before' && ls -la docs/dist/
 
 script:
-  - cd ..
   - echo 'after devtest in script' && ls -la docs/dist/
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
