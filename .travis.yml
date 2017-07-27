@@ -27,4 +27,8 @@ before_script:
 script:
   - cd ..
   - npm run test
+  - cd react
+  - npm run prod
+  - cd ..
+  - npm run test
 
