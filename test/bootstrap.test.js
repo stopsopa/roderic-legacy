@@ -10,8 +10,6 @@ it('bootstrap', () => {
 
     const data = reader('bootstrap');
 
-    data.tcss('@charset "UTF-8";', 1);
-
     data.tcss('url(/asset/example/img/webpack3.jpg)', 1);
 
     data.tcss('url(data:image/jpeg;base64,/9j/4AAQSkZJRgABA', 1);

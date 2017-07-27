@@ -28,11 +28,13 @@ before_script:
 script:
   - cd ..
   - export WEBPACK_MODE=dev
+  - echo $WEBPACK_MODE
   - npm run test
   - cd react
   - npm run prod
   - cd ..
   - rm -rf docs/dist/*
   - export WEBPACK_MODE=prod
+  - echo $WEBPACK_MODE
   - npm run test
 
