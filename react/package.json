@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
-    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch"
+    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
+    "devtest": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress"
   },
   "keywords": [],
   "author": "",

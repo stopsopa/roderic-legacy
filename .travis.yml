@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+  - "stable"
+
+before_script:
+  - cd react && yarn install
+  - cd react && npm run
+
+script:
+  - cd react && npm run test
+

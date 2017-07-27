@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=master)](https://travis-ci.org/stopsopa/webpack3)
+
 
 installation:
 
