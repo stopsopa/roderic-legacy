@@ -1,15 +1,18 @@
 @charset "UTF-8";
 
-
+body {
+    margin: 10px;
+}
 #test {
     border: 2px solid orange;
     background-image: url("img/webpack3.jpg");
     background-repeat: no-repeat;
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 64px;
+    height: 64px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-
 #url {
     display: block;
     width: 16px;

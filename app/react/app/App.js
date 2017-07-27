@@ -134,21 +134,23 @@ export default class App extends React.Component {
                         <textarea name="description" value={this.state.description} onChange={this.onChangeDescription}></textarea>
                     </label>
                 </div>
-                <div className="relative">
-                    <label htmlFor="male">
-                        <input type="radio" name="radio" id="male" value="male"
-                               checked={this.state.radio === 'male'} onChange={this.onChangeRadio}
-                        /> male
-                    </label>
+                <div className="grid">
+                    <div className="inputs">
+                        <label htmlFor="male">
+                            <input type="radio" name="radio" id="male" value="male"
+                                   checked={this.state.radio === 'male'} onChange={this.onChangeRadio}
+                            /> male
+                        </label>
+                        <label htmlFor="female">
+                            <input type="radio" name="radio" id="female" value="female"
+                                   checked={this.state.radio === 'female'} onChange={this.onChangeRadio}
+                            /> female
+                        </label>
 
-                    <img className="gender" src={'/linked/rassets/img/'+this.state.radio+'.bmp'}/>
-                </div>
-                <div>
-                    <label htmlFor="female">
-                        <input type="radio" name="radio" id="female" value="female"
-                               checked={this.state.radio === 'female'} onChange={this.onChangeRadio}
-                        /> female
-                    </label>
+                    </div>
+                    <div className="icon">
+                        <img className="gender" src={'/asset/rassets/img/'+this.state.radio+'.bmp'}/>
+                    </div>
                 </div>
                 <div>
                     <label>
@@ -183,18 +185,14 @@ export default class App extends React.Component {
                         data-test="anoter attribute"
                     />
                 </div>
-                <div className="relative">
-                    <label htmlFor="single">
-                        <select value={this.state.single} name="single" onChange={this.onChangeSingle}>{/* https://facebook.github.io/react/docs/forms.html#why-select-value */}
-                            <option>-=select=-</option>
-                            <option value="apple">Apple</option>
-                            <option value="banana">banana</option>
-                            <option value="cranberry">cranberry</option>
-                        </select> single
-                    </label>
-                    <div className="single">
-                        { (this.state.single === 'apple') && <img src={'/linked/rassets/img/apple.bmp'}/> }
-                    </div>
+                <div className="single">
+                    <select value={this.state.single} name="single" onChange={this.onChangeSingle}>{/* https://facebook.github.io/react/docs/forms.html#why-select-value */}
+                        <option>-=select=-</option>
+                        <option value="apple">Apple</option>
+                        <option value="banana">banana</option>
+                        <option value="cranberry">cranberry</option>
+                    </select>
+                    { (this.state.single === 'apple') && <img src={'/asset/rassets/img/apple.bmp'}/> }
                 </div>
                 <div className="relative">
                     <label htmlFor="multiple">
@@ -206,7 +204,7 @@ export default class App extends React.Component {
                     </label>
                     <div className="multiple">
                         {this.state.multiple.map(function (i) {
-                            return <img key={i} src={'/linked/rassets/img/' + i + '.bmp'} />
+                            return <img key={i} src={'/asset/rassets/img/' + i + '.bmp'} />
                         })}
                     </div>
                 </div>

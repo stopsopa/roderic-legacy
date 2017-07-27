@@ -20,7 +20,7 @@ var config = {
     resolve: {
         modules: (function () {
 
-            utils.symlink(utils.config.linked);
+            utils.symlink(utils.config.asset);
 
             return utils.symlink(utils.config.resolve);
         }()),

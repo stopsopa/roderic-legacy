@@ -1,5 +1,8 @@
 /* included from perspective of path.resolve('app') */
-
+h3 {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
 #react {
     display: block;
     width: 40px;
@@ -8,4 +11,31 @@
     background-image: url('img/react.jpg');
     background-repeat: no-repeat;
     float: left;
+    margin-left: 5px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    & > div.inputs {
+        grid-column: 1;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 1fr;
+    }
+    & > div.icon {
+        grid-column: 2;
+    }
+}
+.single {
+    display: grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: auto;
+    height: 30px;
+    & > select {
+        grid-column: 1;
+    }
+    & > img {
+        grid-column: 2;
+    }
 }

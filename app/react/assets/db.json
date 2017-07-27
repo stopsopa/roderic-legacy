@@ -1,12 +1,13 @@
 {
-    "input": "8",
-    "description": "8",
+    "input": "input",
+    "description": "textarea",
     "radio": "male",
     "checkbox": true,
-    "checkboxcomponent": false,
+    "checkboxcomponent": true,
     "withoutcheckbox": false,
     "single": "apple",
     "multiple": [
+        "apple",
         "banana",
         "cranberry"
     ],

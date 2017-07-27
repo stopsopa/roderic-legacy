@@ -7,7 +7,7 @@ const root              = path.resolve(__dirname, '..');
 // relative path to public server directory
 const web               = path.resolve(root, 'public_html');
 
-const linked            = path.resolve(web, 'linked');
+const asset            = path.resolve(web, 'asset');
 
 const node_modules      = path.join(__dirname, 'node_modules');
 
@@ -16,25 +16,25 @@ module.exports = {
     resolve: [ // where to search by require and files to watch
 
         // all custom libraries
-        linked,
+        asset,
 
         { // node_modules exposed on web - symlink mode
             path: node_modules,
-            link: path.resolve(linked, 'public')
+            link: path.resolve(asset, 'public')
         },
     ],
-    linked: [ // just create links, this links are not direct paths for resolver
+    asset: [ // just create links, this links are not direct paths for resolver
         {
             path: path.resolve(root, 'app', 'react', 'assets'),
-            link: path.resolve(linked, 'rassets')
+            link: path.resolve(asset, 'rassets')
         },
         {
             path: path.resolve(root, 'dir-to-link'),
-            link: path.resolve(linked, 'example')
+            link: path.resolve(asset, 'example')
         },
         {
             path: path.resolve(root, 'app'),
-            link: path.resolve(linked, 'app')
+            link: path.resolve(asset, 'app')
         }
     ],
     alias: {

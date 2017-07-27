@@ -9,28 +9,21 @@
     <link rel="stylesheet" href="dist/test.bundle.css">
 </head>
 <body>
+<table>
+    <tbody>
+    <tr>
+        <td>
     <a href="index-dir.html">index-dir.html</a>
     <h4>resolve-url-loader test</h4>
-    <pre>
-        pre content
-        can't be loaded
-    </pre>
     <div id="for-imported"></div>
-    <script>
 
-        var log = (function () {try {return console.log}catch (e) {return function () {}}}());
-
-        (function test() {
-            log('test')
-            var el = document.querySelector('style');
-            if (el) {
-                log('found')
-                document.querySelector('pre').innerHTML = el.innerHTML;
-            }
-            else setTimeout(test, 100);
-        }());
-
-    </script>
+        </td>
+        <td>
+            <img src="/snapshots/nesteddir.png" width="151">
+        </td>
+    </tr>
+    </tbody>
+</table>
     <script src="dist/test.bundle.js"></script>
 </body>
 </html>

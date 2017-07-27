@@ -1,7 +1,19 @@
 @charset "UTF-8";
 
 body {
-    border: 1px solid red;
+    margin: 10px;
+}
+h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: white;
+}
+a {
+    color: white;
+}
+table > tbody > tr:first-child > td:first-child {
+    border: 1px solid lightblue;
     background-image: url("img/import.jpg");
+    /*background-position: 9px 9px;*/
     background-repeat: no-repeat;
 }
