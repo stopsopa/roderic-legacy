@@ -10,5 +10,7 @@ before_script:
   - npm run devtest
 
 script:
+  - cd ..
+  - yarn
   - npm run test
 
