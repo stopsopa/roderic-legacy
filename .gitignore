@@ -2,8 +2,8 @@ node_modules
 npm-debug.log
 /.idea
 /react/public
-/public_html/dist/*
 /app/example
 /web
+/public_html
 
 

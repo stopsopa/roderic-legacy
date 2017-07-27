@@ -12,4 +12,10 @@ import React from 'react';
 import {render} from 'react-dom';
 import App from './app/App';
 
-render(<App url="asset/rassets/db.php" />, document.getElementById('app'));
+let github = /github/.test(location.href);
+
+// github = true; // for test
+
+const url = github ? 'asset/rassets/db.json' : 'asset/rassets/db.php' ;
+
+render(<App url={url} github={github}/>, document.getElementById('app'));

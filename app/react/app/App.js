@@ -22,7 +22,7 @@ export default class App extends React.Component {
         }
     }
     componentDidMount() {
-        fetch(this.props.url, {
+        fetch(this.props.url, this.props.github ? {} : {
             method: "POST",
             headers : {
                 'Content-Type': 'application/json',
@@ -209,10 +209,16 @@ export default class App extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <input type="submit"
-                           value={this.state.save ? 'Saving...' : 'Submit'}
-                           disabled={this.state.save}
-                    />
+                    {this.props.github ?
+                        <input type="submit"
+                               value="No php - can't save"
+                               disabled={true}
+                        /> :
+                        <input type="submit"
+                               value={this.state.save ? 'Saving...' : 'Submit'}
+                               disabled={this.state.save}
+                        />
+                    }
                 </div>
             </form>
         );

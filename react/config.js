@@ -5,7 +5,7 @@ const path              = require("path");
 const root              = path.resolve(__dirname, '..');
 
 // relative path to public server directory
-const web               = path.resolve(root, 'public_html');
+const web               = path.resolve(root, 'docs');
 
 const asset            = path.resolve(web, 'asset');
 
