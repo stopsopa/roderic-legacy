@@ -2,14 +2,6 @@
 
 
 installation:
-
-    yarn install
-    npm run dev
-    npm run prod
-    
-    .
-    
-installator:
 ___
     
 v0.0.1
@@ -19,4 +11,9 @@ v0.0.1
     
     .
     
+        
+then go to **react** folder configure config.js and run one of:
+    
+    npm run dev
+    npm run prod
     

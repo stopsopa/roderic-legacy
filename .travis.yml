@@ -11,6 +11,5 @@ before_script:
 
 script:
   - cd ..
-  - yarn
   - npm run test
 
