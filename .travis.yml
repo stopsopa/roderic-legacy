@@ -5,8 +5,9 @@ node_js:
   - "stable"
 
 before_script:
-  - cd react && yarn
-  - cd react && npm run devtest
+  - cd react
+  - yarn
+  - npm run devtest
 
 script:
   - cd react && npm run test
