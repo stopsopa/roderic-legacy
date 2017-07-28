@@ -3,5 +3,7 @@
 
 
 - babel integration for node
+
+backend prerendering
 - https://youtu.be/tsEHfL-Ul1Y?t=5m29s
     postcss-loader autoprefixer
