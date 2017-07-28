@@ -14,9 +14,12 @@ module.exports = function (core) {
 
     const prod = (process.env.WEBPACK_MODE === 'prod');
 
-    expect(fs.existsSync(js + '.map')).toEqual(prod);
+    if (prod) {
 
-    expect(fs.existsSync(cs + '.map')).toEqual(prod);
+        expect(fs.existsSync(js + '.map')).toEqual(true);
+
+        expect(fs.existsSync(cs + '.map')).toEqual(true);
+    }
 
     return {
         js      : fs.readFileSync(js).toString(),
