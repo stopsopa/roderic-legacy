@@ -39,7 +39,6 @@ script:
   - npm run prod
   - cd ..
   - echo 'after prod' && ls -la docs/dist/
-  - cat docs/dist/*.map
   - export WEBPACK_MODE=prod
   - echo $WEBPACK_MODE
   - npm run test
