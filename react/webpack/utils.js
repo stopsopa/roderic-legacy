@@ -152,7 +152,7 @@ var symlinkEnsure = (function () {
         }
         else {
 
-            throw "Test file '" + dirfile + "' was created but is not visible on the other side of symlink '" + targetfile + "', seems like wrong symlink";
+            throw "Test file '" + dirfile + "' has been created but is not visible on the other side of symlink '" + targetfile + "', seems like wrong symlink";
         }
     }
 }());
