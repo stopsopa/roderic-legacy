@@ -191,8 +191,8 @@ var utils = {
             for (i in t) {
 
                 if (tmp[i]) {
-
-                    throw "Entry file key '" + i + "' generated from file '" + t[i] + "' already exist";
+                    
+                    throw "There are two entry files with the same name: '" + t[i] + "'"
                 }
 
                 tmp[i] = t[i];
