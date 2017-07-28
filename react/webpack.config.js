@@ -106,7 +106,8 @@ var config = {
                         ],
                         plugins: [
                             path.resolve(node_modules, 'babel-plugin-transform-decorators-legacy'),
-                        ]
+                        ],
+                        sourceMap: utils.prod
                     }
                 }
             },
@@ -120,7 +121,8 @@ var config = {
                         name: '[path][name].[ext]',
                         publicPath: '/',
                         context: utils.config.web,
-                        useRelativePath: false
+                        useRelativePath: false,
+                        sourceMap: utils.prod
                     }
                 }
 
@@ -140,6 +142,8 @@ if (utils.config.alias && Object.keys(utils.config.alias).length) {
 if (utils.config.provide && Object.keys(utils.config.provide).length) { // https://webpack.js.org/plugins/provide-plugin/
     config.plugins.push(new webpack.ProvidePlugin(utils.config.provide));
 }
+
+config.devtool = false;
 
 if (utils.prod) {
 
