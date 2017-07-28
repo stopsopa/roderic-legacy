@@ -15,10 +15,10 @@ matrix:
       node_js: "6"
     - os: linux
       node_js: "4.3"
-#    - os: osx
-#      node_js: "8"
-#    - os: osx
-#      node_js: "7"
+    - os: osx
+      node_js: "8"
+    - os: osx
+      node_js: "7"
 
 before_script:
   - cd react
