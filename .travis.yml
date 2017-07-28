@@ -31,7 +31,6 @@ before_script:
 
 script:
   - echo 'after devtest in script' && ls -la docs/dist/
-  - cat docs/dist/*.map
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - npm run test
