@@ -22,6 +22,11 @@ function findentries(root) {
 
         tmp = path.basename(tmp.name, path.extname(tmp.name));
 
+        if (entries[tmp]) {
+
+            throw "There are two entry files with the same name: '" + path.basename(entries[tmp]) + "'"
+        }
+
         entries[tmp] = list[i];
     }
 
@@ -192,7 +197,7 @@ var utils = {
 
                 if (tmp[i]) {
                     
-                    throw "There are two entry files with the same name: '" + t[i] + "'"
+                    throw "There are two entry files with the same name: '" + path.basename(t[i]) + "'"
                 }
 
                 tmp[i] = t[i];
