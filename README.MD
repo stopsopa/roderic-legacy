@@ -17,3 +17,8 @@ then go to **react** folder configure **config.js** and run one of:
     npm run dev
     npm run prod
     
+Templates
+____
+- [es6](https://github.com/stopsopa/webpack3/blob/master/template.es6.js)
+- [redux](https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js)
+    
