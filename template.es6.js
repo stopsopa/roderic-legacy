@@ -10,7 +10,7 @@ import classnames from 'classnames';
 // material-ui
 //   icons: https://material.io/icons/
 
-export default class Sandbox extends React.Component {
+class Sandbox extends React.Component {
     MAX_RANGE = 100
     // https:1//facebook.github.io/react/docs/typechecking-with-proptypes.html
     static PropTypes = {
@@ -63,6 +63,9 @@ export default class Sandbox extends React.Component {
         );
     }
 }
+Sandbox.childContextType = {
+    store: PropTypes.object
+};
 
 ReactDOM.render(
     <Sandbox />
@@ -88,4 +91,6 @@ const FilterLink = ({
         </a>
     )
 };
+
+export default Sandbox;
 
