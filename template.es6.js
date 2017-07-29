@@ -63,7 +63,12 @@ class Sandbox extends React.Component {
         );
     }
 }
+// context that we want to pass down
 Sandbox.childContextType = {
+    store: PropTypes.object
+};
+// context that we want receive
+Sandbox.contextTypes = {
     store: PropTypes.object
 };
 
