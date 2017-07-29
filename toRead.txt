@@ -2,6 +2,9 @@ https://webpack.js.org/guides/migrating/#more-cli-options
 
 node_modules\.bin\webpack  --config webpack.config.js
 
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator
+
 
 
 
