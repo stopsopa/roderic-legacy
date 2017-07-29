@@ -211,9 +211,6 @@ const todoApp = combineReducers({
     ).toEqual(stateAfter);
 })();
 
-// second reducer this type
-const store = createStore(todoApp);
-
 const getVisibleTodos = (
     todos,
     filter
@@ -228,13 +225,15 @@ const getVisibleTodos = (
     }
 };
 
-const FilterLink = ({
-    filter,
-    currentFilter,
+// this component doesn't know about behaviour
+// specify only appearance of link
+const Link = ({
+    active,
+    onClick,
     children
 }) => {
 
-    if (currentFilter === filter) {
+    if (active) {
 
         return <span>{children}</span>;
     }
@@ -243,10 +242,7 @@ const FilterLink = ({
         <a href="javascript;"
             onClick={e => {
                 e.preventDefault();
-                store.dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter
-                });
+                onClick();
             }}
         >
             {children}
@@ -254,70 +250,179 @@ const FilterLink = ({
     )
 };
 
-let nextTodoId = 0;
-
-class TodoApp extends React.Component {
+// this
+// this component doesn't know about appearance
+// but provide data and behaviour
+class FilterLink extends React.Component {
+    // do this always you want to call directly
+    // store.getState();
+    componentDidMount() {
+        log('componentDidMount')
+        this.unsubscribe = this.props.store.subscribe(
+            () => this.forceUpdate()
+        );
+    }
+    componentWillUnmount() {
+        log('componentWillUnmount')
+        this.unsubscribe();
+    }
     render() {
-        const {todos, visibilityFilter} = this.props;
-        const todosFiltered = getVisibleTodos(todos, visibilityFilter);
+        const props = this.props;
+        const state = props.store.getState();
+
         return (
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                store.dispatch({
-                    type: 'ADD_TODO',
-                    text: this.input.value,
-                    id: nextTodoId++
-                });
-                this.input.value = '';
-            }}>
-                <input ref={node => {
-                    this.input = node;
-                }} />
-                <button type="submit">
-                    Add Todo
-                </button>
-                <ul>
-                    {todosFiltered.map(todo =>
-                        <li
-                            key={todo.id}
-                            style={{
-                                textDecoration:
-                                    todo.completed ?
-                                        'line-through' :
-                                        'none'
-                            }}
-                            onClick={() => {
-                                store.dispatch({
-                                    type: 'TOGGLE_TODO',
-                                    id: todo.id
-                                });
-                            }}
-                        >
-                            {todo.text}
-                        </li>
-                    )}
-                </ul>
-                <p>
-                    Show:
-                    {' '}<FilterLink filter="SHOW_ALL" currentFilter={visibilityFilter}>All</FilterLink>
-                    {' '}<FilterLink filter="SHOW_ACTIVE" currentFilter={visibilityFilter}>Active</FilterLink>
-                    {' '}<FilterLink filter="SHOW_COMPLETED" currentFilter={visibilityFilter}>Completed</FilterLink>
-                </p>
-            </form>
+            <Link
+                active={
+                    props.filter ===
+                    state.visibilityFilter
+                }
+                onClick={() => props.store.dispatch({
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter: props.filter
+                })}
+            >{props.children}</Link>
         );
     }
 }
 
-const render = (() => {
-    const div = document.getElementById('app');
-    return () => {
-        log('render');
-        ReactDOM.render(
-            <TodoApp {...store.getState()} />,
-            div
+const Todo = ({
+    onToggle,
+    completed,
+    text
+}) => (
+    <li
+        onClick={() => onToggle()}
+        style={{
+            textDecoration:
+                completed ?
+                    'line-through' :
+                    'none'
+        }}
+    >
+        {text}
+    </li>
+);
+
+const TodoForm = ({store}) => {
+    let input;
+    return (
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            store.dispatch({
+                type: 'ADD_TODO',
+                text: input.value,
+                id: nextTodoId++
+            })
+            input.value = '';
+        }}>
+            <input ref={node => {
+                input = node;
+            }} />
+            <button type="submit">
+                Add Todo
+            </button>
+        </form>
+    );
+}
+
+const TodoList = ({
+    todos,
+    onToggle
+}) => (
+    <ul>
+        {todos.map(todo =>
+            <Todo
+                key={todo.id}
+                {...todo}
+                onToggle={() => onToggle(todo.id)}
+            />
+        )}
+    </ul>
+);
+
+const Footer = ({store}) => (
+    <p>
+        Show:
+        {' '}
+        <FilterLink
+            filter="SHOW_ALL"
+            store={store}
+        >All</FilterLink>
+        {' '}
+        <FilterLink
+            filter="SHOW_ACTIVE"
+            store={store}
+        >Active</FilterLink>
+        {' '}
+        <FilterLink
+            filter="SHOW_COMPLETED"
+            store={store}
+        >Completed</FilterLink>
+    </p>
+);
+
+// proper container component that subscribes to the store
+// and rerender ToolList every time the store state is changing
+class VisibleTodoList extends React.Component {
+    // do this always you want to call directly
+    // store.getState();
+    componentDidMount() {
+        log('componentDidMount')
+        this.unsubscribe = this.props.store.subscribe(
+            () => this.forceUpdate()
         );
     }
-})()
+    componentWillUnmount() {
+        log('componentWillUnmount')
+        this.unsubscribe();
+    }
+    render() {
+        const props = this.props;
+        const state = props.store.getState();
 
-store.subscribe(render);
-render();
+        return (
+            <TodoList
+                todos={getVisibleTodos(
+                    state.todos,
+                    state.visibilityFilter
+                )}
+                onToggle={id => props.store.dispatch({
+                    type: 'TOGGLE_TODO',
+                    id
+                })}
+            />
+        );
+    }
+}
+
+let nextTodoId = 0;
+
+// second reducer this type
+
+const TodoApp = ({store}) => (
+    <div>
+        <TodoForm store={store}/>
+        <VisibleTodoList store={store}/>
+        <Footer store={store}/>
+    </div>
+);
+
+// const render = (() => {
+//     const div = document.getElementById('app');
+//     return () => {
+//         log('render');
+//         ReactDOM.render(
+//             <TodoApp {...store.getState()} />,
+//             div
+//         );
+//     }
+// })()
+
+// no need anymore to rerender this level every change
+ReactDOM.render(
+    <TodoApp store={createStore(todoApp)}/>,
+    document.getElementById('app')
+);
+
+// store.subscribe(render);
+// render();
