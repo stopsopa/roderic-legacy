@@ -24,6 +24,11 @@ export default class Sandbox extends React.Component {
             input: '',
         };
     }
+    getChildContext() {
+        return {
+            store: this.props.store
+        }
+    }
     setState() { // override
         log('setState')
         return super.setState.apply(this, arguments);
