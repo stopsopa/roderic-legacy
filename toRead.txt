@@ -9,6 +9,8 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_
 
 dan abramov
 create-react-app
+PWA - progressive web app
+    plymer team invented this pattern
 https://youtu.be/OFnDCLIt6To?t=16m12s
     prpl pattern
         https://developers.google.com/web/fundamentals/performance/prpl-pattern/
@@ -18,6 +20,8 @@ https://youtu.be/OFnDCLIt6To?t=16m12s
     switching from react to preact:
         https://youtu.be/OFnDCLIt6To?t=22m8s
             http://bit.ly/switch-to-preact
+            bit.ly/treebo-webpack
+            
 
 
 
