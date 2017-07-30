@@ -15,6 +15,9 @@ https://youtu.be/OFnDCLIt6To?t=16m12s
     rel=preload attribute  
     https://preactjs.com/
     http://developit.github.io/js-repaint-perfs/#
+    switching from react to preact:
+        https://youtu.be/OFnDCLIt6To?t=22m8s
+            http://bit.ly/switch-to-preact
 
 
 
