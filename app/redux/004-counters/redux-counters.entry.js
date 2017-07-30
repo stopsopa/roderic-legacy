@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
 
@@ -250,40 +251,63 @@ const Link = ({
     )
 };
 
-// this
+// https://egghead.io/lessons/javascript-redux-generating-containers-with-connect-from-react-redux-footerlink
+const FilterLink = connect(
+    (state, props) => {
+        return {
+            active: props.filter ===  state.visibilityFilter
+        }
+    },
+    (dispatch, props) => {
+        return {
+            onClick: () => dispatch({
+                type: 'SET_VISIBILITY_FILTER',
+                filter: props.filter
+            })
+        };
+    }
+)(Link);
+
+
+// CONTAINER COMPONENT, CAN BE GENERATED
 // this component doesn't know about appearance
 // but provide data and behaviour
-class FilterLink extends React.Component {
-    // do this always you want to call directly
-    // store.getState();
-    componentDidMount() {
-        log('componentDidMount')
-        this.unsubscribe = this.props.store.subscribe(
-            () => this.forceUpdate()
-        );
-    }
-    componentWillUnmount() {
-        log('componentWillUnmount')
-        this.unsubscribe();
-    }
-    render() {
-        const props = this.props;
-        const state = props.store.getState();
-
-        return (
-            <Link
-                active={
-                    props.filter ===
-                    state.visibilityFilter
-                }
-                onClick={() => props.store.dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter: props.filter
-                })}
-            >{props.children}</Link>
-        );
-    }
-}
+// class FilterLink extends React.Component {
+//     // do this always you want to call directly
+//     // store.getState();
+//     componentDidMount() {
+//         const { store } = this.context;
+//         log('componentDidMount')
+//         this.unsubscribe = store.subscribe(
+//             () => this.forceUpdate()
+//         );
+//     }
+//     componentWillUnmount() {
+//         log('componentWillUnmount')
+//         this.unsubscribe();
+//     }
+//     render() {
+//         const props = this.props;
+//         const { store } = this.context;
+//         const state = store.getState();
+//
+//         return (
+//             <Link
+//                 active={
+//                     props.filter ===
+//                     state.visibilityFilter
+//                 }
+//                 onClick={() => store.dispatch({
+//                     type: 'SET_VISIBILITY_FILTER',
+//                     filter: props.filter
+//                 })}
+//             >{props.children}</Link>
+//         );
+//     }
+// }
+// FilterLink.contextTypes = {
+//     store: PropTypes.object
+// }
 
 const Todo = ({
     onToggle,
@@ -303,17 +327,18 @@ const Todo = ({
     </li>
 );
 
-const TodoForm = ({store}) => {
+let TodoForm = ({ dispatch }) => {
     let input;
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
-            store.dispatch({
+            dispatch({
                 type: 'ADD_TODO',
                 text: input.value,
                 id: nextTodoId++
             })
             input.value = '';
+            input.focus();
         }}>
             <input ref={node => {
                 input = node;
@@ -323,7 +348,25 @@ const TodoForm = ({store}) => {
             </button>
         </form>
     );
-}
+};
+
+import { connect } from 'react-redux';
+
+TodoForm = connect(
+    // state => {
+    //     return {}
+    // },
+    null, // this tells that there is no need to subscribe to the store
+    // performance advantage
+
+    // dispatch => {
+    //     return { dispatch };
+    // } // this is also common patter to return dispatcher only
+    // that's why you can pass here also null and achieve this result by default
+    null
+)(TodoForm);
+// WARNING: so actually it is equvalent of connect()(TodoForm)
+
 
 const TodoList = ({
     todos,
@@ -340,70 +383,130 @@ const TodoList = ({
     </ul>
 );
 
-const Footer = ({store}) => (
+const Footer = () => (
     <p>
         Show:
         {' '}
         <FilterLink
             filter="SHOW_ALL"
-            store={store}
         >All</FilterLink>
         {' '}
         <FilterLink
             filter="SHOW_ACTIVE"
-            store={store}
         >Active</FilterLink>
         {' '}
         <FilterLink
             filter="SHOW_COMPLETED"
-            store={store}
         >Completed</FilterLink>
     </p>
 );
 
-// proper container component that subscribes to the store
-// and rerender ToolList every time the store state is changing
-class VisibleTodoList extends React.Component {
-    // do this always you want to call directly
-    // store.getState();
-    componentDidMount() {
-        log('componentDidMount')
-        this.unsubscribe = this.props.store.subscribe(
-            () => this.forceUpdate()
-        );
-    }
-    componentWillUnmount() {
-        log('componentWillUnmount')
-        this.unsubscribe();
-    }
-    render() {
-        const props = this.props;
-        const state = props.store.getState();
+// you don't need to build it on your own because you can use also
+// external library react-redux
+// https://egghead.io/lessons/javascript-redux-passing-the-store-down-with-provider-from-react-redux
+// WARNING can create only 'store' context property
+import { Provider } from 'react-redux';
 
-        return (
-            <TodoList
-                todos={getVisibleTodos(
-                    state.todos,
-                    state.visibilityFilter
-                )}
-                onToggle={id => props.store.dispatch({
+// class Provider extends React.Component {
+//     getChildContext() {
+//         return {
+//             store: this.props.store
+//         };
+//     }
+//     render() {
+//         return this.props.children;
+//     }
+// }
+//
+// // context that we want to pass down
+// Provider.childContextTypes = {
+//     store: PropTypes.object
+// };
+
+    const mapStateToProps = (state) => {
+        return {
+            todos: getVisibleTodos(
+                state.todos,
+                state.visibilityFilter
+            )
+        };
+    };
+
+    const mapDspatchToProps = (dispatch) => {
+        return {
+            onToggle: (id) => {
+                dispatch({
                     type: 'TOGGLE_TODO',
                     id
-                })}
-            />
-        );
-    }
-}
+                });
+            }
+        }
+    };
+
+    const VisibleTodoList = connect(
+        mapStateToProps,
+        mapDspatchToProps
+    )(TodoList);
+
+    // instead of writing this class manually we can now generate it by
+    // just specifying how to transform data from 'store' to props of TodoList
+    // and how to bind events with dispatcher in TodoList
+    // to do that use 'connect' helper form react-redux package
+    // https://egghead.io/lessons/javascript-redux-generating-containers-with-connect-from-react-redux-visibletodolist
+
+    // in my own words
+    //      this is generating CONTAINER COMPONENT from presentationAL component
+    //      using react-redux connect helper
+
+    // proper container component that subscribes to the store
+    // and rerender ToolList every time the store state is changing
+    // class VisibleTodoList extends React.Component {
+    //     // do this always you want to call directly
+    //     // store.getState();
+    //     componentDidMount() {
+    //         const { store } = this.context;
+    //         log('componentDidMount')
+    //         this.unsubscribe = store.subscribe(
+    //             () => this.forceUpdate()
+    //         );
+    //     }
+    //     componentWillUnmount() {
+    //         log('componentWillUnmount')
+    //         this.unsubscribe();
+    //     }
+    //     render() {
+    //         const { store } = this.context;
+    //         const state = store.getState();
+    //
+    //         return (
+    //             <TodoList
+    //                 todos={getVisibleTodos(
+    //                     state.todos,
+    //                     state.visibilityFilter
+    //                 )}
+    //                 onToggle={id => store.dispatch({
+    //                     type: 'TOGGLE_TODO',
+    //                     id
+    //                 })}
+    //             />
+    //         );
+    //     }
+    // }
+    // // context that we want receive
+    // VisibleTodoList.contextTypes = {
+    //     store: PropTypes.object
+    // };
+
 
 let nextTodoId = 0;
 
 // second reducer this type
 
-const TodoApp = ({store}) => (
+const TodoApp = () => (
     <div>
-        <TodoForm store={store}/>
-        <VisibleTodoList store={store}/>
-        <Footer store={store}/>
+        <TodoForm />
+        <VisibleTodoList />
+        <Footer />
     </div>
 );
 
@@ -420,7 +523,9 @@ const TodoApp = ({store}) => (
 
 // no need anymore to rerender this level every change
 ReactDOM.render(
-    <TodoApp store={createStore(todoApp)}/>,
+    <Provider store={createStore(todoApp)}>
+        <TodoApp/>
+    </Provider>,
     document.getElementById('app')
 );
 
