@@ -16,6 +16,7 @@ https://youtu.be/OFnDCLIt6To?t=16m12s
         https://developers.google.com/web/fundamentals/performance/prpl-pattern/
     rel=preload attribute  
     https://preactjs.com/
+        preact cli
     http://developit.github.io/js-repaint-perfs/#
     switching from react to preact:
         https://youtu.be/OFnDCLIt6To?t=22m8s
