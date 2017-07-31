@@ -1,10 +1,9 @@
 [![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=master)](https://travis-ci.org/stopsopa/webpack3)
 
-
-Don't feel overhelmed by all files above, Their all there mainly for testing.
+Don't feel overhelmed by all files above, Their all are there mainly for testing.
 
 installation:
--
+___
     
 v0.0.1
 
@@ -24,3 +23,13 @@ Syntax templates
 - [es6](https://github.com/stopsopa/webpack3/blob/master/template.es6.js)
 - [redux](https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js)
     
+Features
+-
+- npm run dev
+- npm run prod
+- tests
+- resolving urls in css/scss to jpe?g|gif|png|eot|woff2?|ttf|svg
+- installator
+- ExtractTextPlugin - extracting css to separate css file
+- babel es2015, react, stage-0 presets, decorators-legacy
+- integrated plugins ProvidePlugin, UglifyJSPlugin, CleanWebpackPlugin
