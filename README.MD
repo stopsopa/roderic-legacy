@@ -3,7 +3,7 @@
 Don't feel overwhelmed by all files above, their all are there mainly for testing. I still promise that this configuration is simple.
 
 installation:
-___
+-
     
 v0.0.1
 
