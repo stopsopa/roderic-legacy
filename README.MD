@@ -1,8 +1,10 @@
 [![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=master)](https://travis-ci.org/stopsopa/webpack3)
 
 
+Don't feel overhelmed by all files above, Their all there mainly for testing.
+
 installation:
-___
+-
     
 v0.0.1
 
@@ -17,8 +19,8 @@ then go to **react** folder configure **config.js** and run one of:
     npm run dev
     npm run prod
     
-Templates
-____
+Syntax templates
+-
 - [es6](https://github.com/stopsopa/webpack3/blob/master/template.es6.js)
 - [redux](https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js)
     
