@@ -29,6 +29,6 @@ while read p; do
     echo "";
 
 done << EOF
-    $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/v0.0.1/install/files.list?$T)
+    $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
 EOF
 
