@@ -34,6 +34,10 @@ https://youtu.be/OFnDCLIt6To?t=16m12s
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
             
+            
+react problems:
+    https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f
+    https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4
 
 
 
