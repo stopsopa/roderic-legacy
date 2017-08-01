@@ -2,6 +2,48 @@ https://webpack.js.org/guides/migrating/#more-cli-options
 
 node_modules\.bin\webpack  --config webpack.config.js
 
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator
+
+
+
+dan abramov
+create-react-app - check it anyway !!!
+PWA - progressive web app
+    plymer team invented this pattern
+    bit.ly/pwa-react
+https://youtu.be/OFnDCLIt6To?t=16m12s
+    prpl pattern
+        https://developers.google.com/web/fundamentals/performance/prpl-pattern/
+    rel=preload attribute  
+    https://preactjs.com/
+        preact cli
+            https://youtu.be/OFnDCLIt6To?t=25m29s
+    http://developit.github.io/js-repaint-perfs/#
+    switching from react to preact:
+        https://youtu.be/OFnDCLIt6To?t=22m8s
+            http://bit.ly/switch-to-preact
+            bit.ly/treebo-webpack
+    http/2 server push
+    vue
+        vue cli
+            https://youtu.be/OFnDCLIt6To?t=35m8s
+    ebook:
+        https://addyosmani.com/resources/essentialjsdesignpatterns/book/index.html#singletonpatternjavascript
+
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+            
+            
+react problems:
+    https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f
+    https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4
+
+
+
+
+
+
 
 
 

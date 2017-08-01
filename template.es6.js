@@ -10,7 +10,7 @@ import classnames from 'classnames';
 // material-ui
 //   icons: https://material.io/icons/
 
-export default class Sandbox extends React.Component {
+class Sandbox extends React.Component {
     MAX_RANGE = 100
     // https:1//facebook.github.io/react/docs/typechecking-with-proptypes.html
     static PropTypes = {
@@ -23,6 +23,11 @@ export default class Sandbox extends React.Component {
         this.state = {
             input: '',
         };
+    }
+    getChildContext() {
+        return {
+            store: this.props.store
+        }
     }
     setState() { // override
         log('setState')
@@ -58,9 +63,39 @@ export default class Sandbox extends React.Component {
         );
     }
 }
+// context that we want to pass down
+Sandbox.childContextType = {
+    store: PropTypes.object
+};
+// context that we want receive
+Sandbox.contextTypes = {
+    store: PropTypes.object
+};
 
 ReactDOM.render(
     <Sandbox />
     document.getElementById('app')
 );
+
+// function component
+const FilterLink = ({
+    filter,
+    children
+}) => {
+    return (
+        <a href="javascript;">
+            onClick={e => {
+                e.preventDefault();
+                store.dispatch({
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter
+                });
+            }}
+        >
+            {children}
+        </a>
+    )
+};
+
+export default Sandbox;
 
