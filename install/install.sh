@@ -32,3 +32,19 @@ done << EOF
     $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
 EOF
 
+# test file
+
+STATUS=0;
+
+if [ "echo __check.js" == "__check.js" ]; then
+    printf "\e[92m    installation successful\e[0m";
+else
+    printf "\e[91m    installation failed\e[0m";
+    STATUS=1;
+fi
+
+rm -rf __check.js
+
+exit $STATUS;
+
+
