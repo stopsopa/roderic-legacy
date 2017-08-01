@@ -47,5 +47,5 @@ script:
   - export WEBPACK_MODE=prod
   - echo $WEBPACK_MODE
   - npm run test
-  - /bin/bash test/install.sh
+  - /bin/bash test/testinstall.sh
 
