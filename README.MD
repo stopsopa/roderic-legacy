@@ -4,13 +4,8 @@ Don't feel overwhelmed by all files above, their all are there mainly for testin
 
 installation:
 -
-    
-v0.0.1
-
-    $(wget -help &> /dev/null && echo "wget -qO-" || echo "curl -s") \
-    https://raw.githubusercontent.com/stopsopa/webpack3/v0.0.1/install/install.sh?$(date +%Y-%m-%d-%H-%M-%S) | bash
-    
-    .
+ 
+ Follow instructions for all [releases](https://github.com/stopsopa/webpack3/releases).
     
         
 then go to **react** folder configure **config.js** and run one of:
