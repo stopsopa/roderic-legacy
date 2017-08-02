@@ -36,7 +36,7 @@ EOF
 
 STATUS=0;
 
-if [ "echo __check.js" == "__check.js" ]; then
+if [ "$(cat __check.js)" == "__check.js" ]; then
     printf "\e[92m    installation successful\e[0m";
 else
     printf "\e[91m    installation failed\e[0m";
