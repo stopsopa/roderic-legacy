@@ -38,12 +38,14 @@ STATUS=0;
 
 if [ "$(cat __check.js)" == "__check.js" ]; then
     printf "\e[92m    installation successful\e[0m";
+    rm -rf __check.js
 else
     printf "\e[91m    installation failed\e[0m";
     STATUS=1;
 fi
 
-rm -rf __check.js
+echo '';
+
 
 exit $STATUS;
 
