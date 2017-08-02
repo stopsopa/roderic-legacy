@@ -34,8 +34,6 @@ while read p; do
 
     if [ -f "$p" ]; then printf "success"; else printf "failure"; fi
 
-    echo "";
-
 done << EOF
     $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
 EOF
@@ -43,8 +41,6 @@ EOF
 # test file
 
 STATUS=0;
-
-echo "";
 
 if [ "$(cat __check.js)" == "__check.js" ]; then
     printf "\e[92m    download successful\e[0m";
