@@ -54,13 +54,20 @@ yarn -v 2> /dev/null 1> /dev/null
 if [ "$?" == "0" ]; then # yarn
     yarn install
 else # npm
-    npm install
+
+    npm -v 2> /dev/null 1> /dev/null
+
+    if [ "$?" == "0" ]; then # yarn
+
+        npm install
+    else # npm
+        printf "\e[91mnpm not available, usually that's means that you need to install node.js\e[0m";
+    fi
 fi
 
-
 echo '';
 echo '';
-echo "Now run one of:";
+echo "next run one of:";
 echo "    npm run dev";
 echo "  or";
 echo "    npm run prod";
