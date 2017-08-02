@@ -22,7 +22,7 @@ while read p; do
 
     $EXE 1> /dev/null 2> /dev/null
 
-    printf "copying $p - ";
+    printf "downloading $p - ";
 
     if [ -f "$p" ]; then printf "success"; else printf "failure"; fi
 
@@ -36,6 +36,9 @@ EOF
 
 STATUS=0;
 
+echo '';
+echo '';
+
 if [ "$(cat __check.js)" == "__check.js" ]; then
     printf "\e[92m    installation successful\e[0m";
     rm -rf __check.js
@@ -44,16 +47,24 @@ else
     STATUS=1;
 fi
 
+cd react
+
+yarn -v 2> /dev/null 1> /dev/null
+
+if [ "$?" == "0" ]; then # yarn
+    yarn install
+else # npm
+    npm install
+fi
+
+
 echo '';
 echo '';
-echo "Now setup config file: react/config.js";
-echo "Install packages (recomended 'yarn install') in react directory";
-echo "And run one of commands:";
+echo "Now run one of:";
 echo "    npm run dev";
-echo "    or";
+echo "  or";
 echo "    npm run prod";
 echo "";
-
 
 exit $STATUS;
 
