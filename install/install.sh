@@ -45,6 +45,14 @@ else
 fi
 
 echo '';
+echo '';
+echo "Now setup config file: react/config.js";
+echo "Install packages (recomended 'yarn install') in react directory";
+echo "And run one of commands:";
+echo "    npm run dev";
+echo "    or";
+echo "    npm run prod";
+echo "";
 
 
 exit $STATUS;
