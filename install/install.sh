@@ -4,9 +4,17 @@ VER="v0.0.1"
 
 DIR=react;
 
-GETFILE="$(wget -help &> /dev/null && echo "wget" || echo "curl -LOk")";
+if [ ! -e $DIR ]; then  # not exist (fnode, directory, socket, etc.)
+    echo "";
+    echo "";
+    printf "\e[91m    directory $DIR already exist\e[0m";
+    echo "";
+    exit 1
+fi
 
-GETOUTPUT="$(wget -help &> /dev/null && echo "wget -qO-" || echo "curl -s")"
+GETFILE="$(wget -help 1> /dev/null 2> /dev/null && echo "wget" || echo "curl -LOk")";
+
+GETOUTPUT="$(wget -help 1> /dev/null 2> /dev/null && echo "wget -qO-" || echo "curl -s")"
 
 T="$(date +%Y-%m-%d-%H-%M-%S)"
 
@@ -36,8 +44,7 @@ EOF
 
 STATUS=0;
 
-echo '';
-echo '';
+echo "";
 
 if [ "$(cat __check.js)" == "__check.js" ]; then
     printf "\e[92m    download successful\e[0m";
@@ -55,8 +62,8 @@ if [ "$?" == "0" ]; then # yarn
     yarn install
 else # npm
 
-    echo '';
-    echo '';
+    echo "";
+    echo "";
 
     npm -v 2> /dev/null 1> /dev/null
 
@@ -68,9 +75,12 @@ else # npm
     fi
 fi
 
-echo '';
-echo '';
-echo "next run one of:";
+echo "";
+echo "";
+echo "now run:";
+echo "    cd react";
+echo "";
+echo "and next one of:";
 echo "    npm run dev";
 echo "  or";
 echo "    npm run prod";
