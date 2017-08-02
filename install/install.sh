@@ -40,10 +40,10 @@ echo '';
 echo '';
 
 if [ "$(cat __check.js)" == "__check.js" ]; then
-    printf "\e[92m    installation successful\e[0m";
+    printf "\e[92m    download successful\e[0m";
     rm -rf __check.js
 else
-    printf "\e[91m    installation failed\e[0m";
+    printf "\e[91m    download failed - files malformed\e[0m";
     STATUS=1;
 fi
 
@@ -55,13 +55,16 @@ if [ "$?" == "0" ]; then # yarn
     yarn install
 else # npm
 
+    echo '';
+    echo '';
+
     npm -v 2> /dev/null 1> /dev/null
 
     if [ "$?" == "0" ]; then # yarn
 
         npm install
     else # npm
-        printf "\e[91mnpm not available, usually that's means that you need to install node.js\e[0m";
+        printf "\e[91m'npm' not available, usually that's means that you need to install node.js\e[0m";
     fi
 fi
 
