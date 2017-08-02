@@ -45,17 +45,16 @@ EOF
 STATUS=0;
 
 if [ "$(cat __check.js)" == "__check.js" ]; then
-    printf "\e[92m    download successful\e[0m";
+    printf "\r\e[92m    download successful\e[0m";
     rm -rf __check.js
 else
-    printf "\e[91m    download failed - files malformed\e[0m";
+    printf "\r\e[91m    download failed - files malformed\e[0m";
     STATUS=1;
 fi
 
-cd react
+printf "                                 ";
 
-echo "";
-echo "";
+cd react
 
 yarn -v 2> /dev/null 1> /dev/null
 
