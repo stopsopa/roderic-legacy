@@ -4,10 +4,10 @@ VER="v0.0.1"
 
 DIR=react;
 
-if [ ! -e $DIR ]; then  # not exist (fnode, directory, socket, etc.)
-    echo "";
+if [ -e $DIR ]; then  # not exist (fnode, directory, socket, etc.)
     echo "";
     printf "\e[91m    directory $DIR already exist\e[0m";
+    echo "";
     echo "";
     exit 1
 fi
