@@ -4,9 +4,17 @@ VER="v0.0.1"
 
 DIR=react;
 
-GETFILE="$(wget -help &> /dev/null && echo "wget" || echo "curl -LOk")";
+if [ -e $DIR ]; then  # not exist (fnode, directory, socket, etc.)
+    echo "";
+    printf "\e[91m    directory '$DIR' already exist\e[0m";
+    echo "";
+    echo "";
+    exit 1
+fi
 
-GETOUTPUT="$(wget -help &> /dev/null && echo "wget -qO-" || echo "curl -s")"
+GETFILE="$(wget -help 1> /dev/null 2> /dev/null && echo "wget" || echo "curl -LOk")";
+
+GETOUTPUT="$(wget -help 1> /dev/null 2> /dev/null && echo "wget -qO-" || echo "curl -s")"
 
 T="$(date +%Y-%m-%d-%H-%M-%S)"
 
@@ -22,11 +30,11 @@ while read p; do
 
     $EXE 1> /dev/null 2> /dev/null
 
-    printf "copying $p - ";
+    printf "\rdownloading $p - ";
 
     if [ -f "$p" ]; then printf "success"; else printf "failure"; fi
 
-    echo "";
+    printf "                                 ";
 
 done << EOF
     $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
@@ -36,14 +44,45 @@ EOF
 
 STATUS=0;
 
-if [ "echo __check.js" == "__check.js" ]; then
-    printf "\e[92m    installation successful\e[0m";
+if [ "$(cat __check.js)" == "__check.js" ]; then
+    printf "\r\e[92m    download successful\e[0m";
+    rm -rf __check.js
 else
-    printf "\e[91m    installation failed\e[0m";
+    printf "\r\e[91m    download failed - files malformed\e[0m";
     STATUS=1;
 fi
 
-rm -rf __check.js
+printf "                                 ";
+
+cd react
+
+yarn -v 2> /dev/null 1> /dev/null
+
+if [ "$?" == "0" ]; then # yarn
+    yarn install
+else # npm
+
+    npm -v 2> /dev/null 1> /dev/null
+
+    if [ "$?" == "0" ]; then # yarn
+
+        npm install
+    else # npm
+        printf "\e[91m'npm' not available, usually that's means that you need to install node.js\e[0m";
+    fi
+fi
+
+echo "";
+echo "";
+echo "now run:";
+echo "    cd react";
+echo "    setup manually config.js";
+echo "";
+echo "and next run one of:";
+echo "    npm run dev";
+echo "  or";
+echo "    npm run prod";
+echo "";
 
 exit $STATUS;
 
