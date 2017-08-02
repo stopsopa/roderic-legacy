@@ -30,9 +30,11 @@ while read p; do
 
     $EXE 1> /dev/null 2> /dev/null
 
-    printf "downloading $p - ";
+    printf "\rdownloading $p - ";
 
     if [ -f "$p" ]; then printf "success"; else printf "failure"; fi
+
+    printf "                                 ";
 
 done << EOF
     $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
