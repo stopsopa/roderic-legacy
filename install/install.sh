@@ -6,7 +6,7 @@ DIR=react;
 
 if [ -e $DIR ]; then  # not exist (fnode, directory, socket, etc.)
     echo "";
-    printf "\e[91m    directory $DIR already exist\e[0m";
+    printf "\e[91m    directory '$DIR' already exist\e[0m";
     echo "";
     echo "";
     exit 1
@@ -56,14 +56,14 @@ fi
 
 cd react
 
+echo "";
+echo "";
+
 yarn -v 2> /dev/null 1> /dev/null
 
 if [ "$?" == "0" ]; then # yarn
     yarn install
 else # npm
-
-    echo "";
-    echo "";
 
     npm -v 2> /dev/null 1> /dev/null
 
