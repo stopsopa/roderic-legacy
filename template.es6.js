@@ -58,6 +58,13 @@ class Sandbox extends React.Component {
                     var item = this.state.list[i];
                     return <div key={i}>{item.name}</div>
                 })}
+
+                {{
+                    info: <Info text={text} />,
+                    warning: <Warning text={text} />,
+                    error: <Error text={text} />,
+                }[state]}
+
                 <button onClick={this.onFetch.bind(this, 'json')}></button>
             </form>
         );
