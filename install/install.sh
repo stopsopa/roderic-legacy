@@ -64,15 +64,14 @@ else # npm
 
     npm -v 2> /dev/null 1> /dev/null
 
-    if [ "$?" == "0" ]; then # yarn
+    if [ "$?" == "0" ]; then
 
         npm install
-    else # npm
+    else
         printf "\e[91m'npm' not available, usually that's means that you need to install node.js\e[0m";
     fi
 fi
 
-echo "";
 echo "";
 echo "now run:";
 echo "    cd react";
