@@ -3,6 +3,7 @@ react/webpack.config.js
 react/yarn.lock
 react/package.json
 react/.gitignore
+react/server.js
 react/webpack/logn.js
 react/webpack/logw.js
 react/webpack/rootrequire.js
