@@ -6,7 +6,8 @@
   "scripts": {
     "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
     "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
-    "devtest": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress"
+    "devtest": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress",
+    "server" : "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -44,5 +45,8 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
 }

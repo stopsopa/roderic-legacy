@@ -3,8 +3,6 @@
  * @license MIT License (c) copyright 2017-present original author or authors
  * @homepage https://github.com/stopsopa/webpack3
  */
-
-
 'use strict';
 
 // -- test --- vvv
@@ -15,7 +13,7 @@
 //
 //         console.log('------------ 1');
 //
-//         log('raz')('dwa')('trzy');
+//         log('one')('two')('three');
 //
 //         console.log('------------ 2');
 //
@@ -31,19 +29,19 @@
 //
 //         console.log('------------ json');
 //
-//         log.json({raz: "dwa", trzy: [5, 'osiem']})
+//         log.json({one: "two", three: [5, 'eight']})
 //
-//         log.stack(2).json({raz: "dwa", trzy: [5, 'osiem']})({raz: "dwa", trzy: [5, 'oddsiem']})
+//         log.stack(2).json({one: "two", three: [5, 'eight']})({one: "two", three: [5, 'eight']})
 //
 //         console.log('------------ dump');
 //
 //         // only one arg
-//         log.dump({raz: "dwa", trzy: [5, 'osiem']}, 2 /* show levels (must be int > 0) */);
+//         log.dump({one: "two", three: [5, 'eight']}, 2 /* show levels (must be int > 0) */);
 //
 //         console.log('------------ stack dump ');
 //
 //         // in second cascade call 'level' is not necessary (stil .dump() accept only one ar
-//         log.stack(2).dump({raz: "dwa", trzy: [5, 'osiem']}, 2)({raz: "dwa", trzy: [5, 'oddsiem']})
+//         log.stack(2).dump({one: "two", three: [5, 'eight']}, 2)({one: "two", three: [5, 'eight']})
 //
 //
 //     }());
