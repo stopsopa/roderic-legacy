@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { autobind } from 'core-decorators';
 import PropTypes from 'prop-types';
