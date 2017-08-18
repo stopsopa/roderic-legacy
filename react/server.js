@@ -3,6 +3,7 @@
 const path              = require('path');
 const bodyParser        = require('body-parser');
 const express           = require('express');
+const compression       = require('compression');
 const config            = require(path.resolve(__dirname, 'config'));
 
 const ip = process.argv[2], port = parseInt(process.argv[3]);
@@ -45,6 +46,18 @@ if ( port < 0 || port > 65535 ) {
 // process.exit(0);
 
 const app               = express();
+
+app.use(compression({filter: shouldCompress}))
+
+function shouldCompress (req, res) {
+    if (req.headers['x-no-compression']) {
+        // don't compress responses with this request header
+        return false
+    }
+
+    // fallback to standard filter function
+    return compression.filter(req, res)
+}
 
 app.use(bodyParser.urlencoded({extended: false}));
 
