@@ -30,12 +30,12 @@ before_script:
   - yarn
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
-  - npm run devtest
+  - npm run devnowatch
   - cd ..
-  - echo 'after devtest in before' && ls -la docs/dist/
+  - echo 'after devnowatch in before' && ls -la docs/dist/
 
 script:
-  - echo 'after devtest in script' && ls -la docs/dist/
+  - echo 'after devnowatch in script' && ls -la docs/dist/
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - npm run test
