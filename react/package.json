@@ -7,7 +7,7 @@
     "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
     "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
     "devnowatch": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress",
-    "server" : "node server.js"
+    "server": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -43,10 +43,11 @@
     "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.9",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "express": "^4.15.4"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.4"
   }
 }
