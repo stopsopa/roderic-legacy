@@ -83,7 +83,16 @@ var symlinkEnsure = (function () {
                 return v.toString(16);
             });
     }
-    return function (target, dir) {
+    return function (target, dir, colors) {
+
+        if (colors) {
+
+            console.log("\n        link: ".yellow, path.dirname(target) + path.sep + path.basename(target).green, "\n        path: ".yellow, dir);
+        }
+        else {
+
+            console.log("\n        link: ".yellow, target, "\n        path: ".yellow, dir);
+        }
 
         if ( fs.existsSync(target) ) {
 
@@ -217,13 +226,15 @@ var utils = {
 
         return tmp;
     },
-    symlink : function (list) {
+    symlink : function (list, colors) {
 
         var fsdir, dir, link, nlist = [];
 
         list.forEach(function (p) {
 
             if (typeof p === 'string') {
+
+                console.log("\n        path: ".yellow, p);
 
                 nlist.push(p);
             }
@@ -252,7 +263,7 @@ var utils = {
                     throw "dirEnsure() error on resolve object: \n" + json(p) + "\n    error:\n        " + e;
                 }
 
-                symlinkEnsure(p.link, p.path);
+                symlinkEnsure(p.link, p.path, colors);
 
                 nlist.push(p.link);
             }
