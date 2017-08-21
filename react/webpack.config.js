@@ -26,9 +26,19 @@ var config = {
     resolve: {
         modules: (function () {
 
-            utils.symlink(utils.config.asset);
+            console.log('Mounting symlinks:');
 
-            return utils.symlink(utils.config.resolve);
+            console.log("\n    assets:");
+
+            utils.symlink(utils.config.asset, true);
+
+            console.log("\n    resolver:");
+
+            const list = utils.symlink(utils.config.resolve);
+
+            console.log("\n");
+
+            return list;
         }()),
         extensions: ['.js', '.jsx', '.json'],
         symlinks: false // to properly resolve url() in css/scss thrugh web symlink
