@@ -50,4 +50,9 @@ REDUCER COMPOSITION
         generator 'connect' helper from 'react-redux' package
         
 ACTION CREATORS:        
-    separate functions that maintain logic for dispatching event        
+    separate functions that maintain logic for dispatching event
+    
+    
+Stopped at:
+https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project
+https://reacttraining.com/react-router/            

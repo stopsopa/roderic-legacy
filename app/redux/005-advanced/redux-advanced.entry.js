@@ -11,3 +11,4 @@ ReactDOM.render(
     <Root store={configureStore()} />,
     document.getElementById('app')
 );
+
