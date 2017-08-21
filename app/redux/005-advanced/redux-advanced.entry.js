@@ -10,6 +10,10 @@ import expect from 'expect';
 
 import { createStore /*, combineReducers */ } from 'redux';
 
+import { loadState, saveState } from './localStorage';
+
+import log from '../../../react/webpack/logw';
+
 const addCounter = () => {
     return [...list, 0];
 }
@@ -327,16 +331,18 @@ const Todo = ({
     </li>
 );
 
+const addTodo = value => store.dispatch({
+    type: 'ADD_TODO',
+    text: value,
+    id: store.getState().todos.length
+});
+
 let TodoForm = ({ dispatch }) => {
     let input;
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
-            dispatch({
-                type: 'ADD_TODO',
-                text: input.value,
-                id: nextTodoId++
-            })
+            addTodo(input.value);
             input.value = '';
             input.focus();
         }}>
@@ -407,6 +413,7 @@ const Footer = () => (
 // WARNING can create only 'store' context property
 import { Provider } from 'react-redux';
 
+//// manual implementation of Provider
 // class Provider extends React.Component {
 //     getChildContext() {
 //         return {
@@ -521,9 +528,22 @@ const TodoApp = () => (
 //     }
 // })()
 
+const store = createStore(todoApp, loadState());
+
+store.subscribe(() => {
+
+    const state = store.getState();
+
+    const { visibilityFilter, ...save } = state;
+
+    log('sub', save)
+
+    saveState(save);
+})
+
 // no need anymore to rerender this level every change
 ReactDOM.render(
-    <Provider store={createStore(todoApp /* ,default data */)}>
+    <Provider store={store}>
         <TodoApp/>
     </Provider>,
     document.getElementById('app')

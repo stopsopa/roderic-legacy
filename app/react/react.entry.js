@@ -17,3 +17,18 @@ let github = /github/.test(location.href);
 const url = github ? 'asset/rassets/db.json' : 'asset/rassets/db.php' ;
 
 render(<App url={url} github={github}/>, document.getElementById('app'));
+
+// spread syntax
+
+var k = {
+    one: 'two',
+    three: 'four',
+    six: 'seven'
+};
+
+log('k', k);
+
+const { three, ...test} = k;
+
+log('three', three)
+log('test', test)
