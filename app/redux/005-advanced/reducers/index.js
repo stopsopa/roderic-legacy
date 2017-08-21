@@ -3,17 +3,7 @@ import { createStore /*, combineReducers */ } from 'redux';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
 
-const visibilityFilter = (
-    state = 'SHOW_ALL',
-    action
-) => {
-    switch (action.type) {
-        case "SET_VISIBILITY_FILTER":
-            return action.filter;
-        default:
-            return state;
-    }
-};
+import todos from './todos';
 
 // https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
 function combineReducers(reducers) {
@@ -31,65 +21,22 @@ function combineReducers(reducers) {
     }
 }
 
-// https://egghead.io/lessons/javascript-redux-reducer-composition-with-arrays
-const todo = (state, action) => {
+const visibilityFilter = (
+    state = 'SHOW_ALL',
+    action
+) => {
     switch (action.type) {
-        case 'ADD_TODO':
-            return {
-                id: action.id,
-                text: action.text,
-                completed: false
-            };
-        case 'TOGGLE_TODO':{
-            if (state.id !== action.id) {
-                return state;
-            }
-            return {
-                ...state,
-                completed: !state.completed
-            }
-        }
-        default:
-            return state;
-    }
-}
-
-// https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
-const todos = (state = [], action) => {
-    switch (action.type) {
-        case 'ADD_TODO':
-            return [
-                ...state,
-                todo(undefined, action)
-            ]
-        case 'TOGGLE_TODO':
-            return state.map(item => todo(item, action))
+        case "SET_VISIBILITY_FILTER":
+            return action.filter;
         default:
             return state;
     }
 };
 
-// const todoApp = (state = {}, action) => {
-//     return {
-//         todos: todos(
-//             state.todos,
-//             action
-//         ),
-//         visibilityFilter: visibilityFilter(
-//             state.visibilityFilter,
-//             action
-//         )
-//     }
-// };
-
-// shorter version using buildin helper
 const todoApp = combineReducers({
     todos, // Object Literal Shorthand Syntax
     visibilityFilter
 });
-
-
-
 
 // https://egghead.io/lessons/javascript-redux-reducer-composition-with-objects
 (() => {
@@ -112,7 +59,6 @@ const todoApp = combineReducers({
     });
 
 })();
-
 
 (() => {
     const stateBefore = [];

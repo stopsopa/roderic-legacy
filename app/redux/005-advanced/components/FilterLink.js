@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Link from './Link';
 
 // https://egghead.io/lessons/javascript-redux-generating-containers-with-connect-from-react-redux-footerlink
