@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { autobind } from 'core-decorators';
 import PropTypes from 'prop-types';
 import trim from 'lodash/trim';
