@@ -12,7 +12,7 @@ body.dev::after {
     background-color: white;
     color: gray;
     font-family: Tahoma;
-    animation:linear infinite alternate;
+    animation: ease-in infinite;
     animation-name: run;
     animation-duration: 10s;
     content: "1";
@@ -20,12 +20,18 @@ body.dev::after {
 /**
  * fix that later
  */
-@-webkit-keyframes run {
-    5%, 50% {
+@keyframes run {
+    0%, 45%, 100% {
         left: 0;
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
     }
-    55%, 0%{
-        left: 80%;
+    50%, 95% {
+        left: 100%;
+        -webkit-transform: translate(-100%, 0);
+        -ms-transform: translate(-100%, 0);
+        transform: translate(-100%, 0);
     }
 }
 
