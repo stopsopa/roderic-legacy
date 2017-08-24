@@ -90,8 +90,10 @@ ReactDOM.render(
 
 // function component
 const FilterLink = ({
+    component: Component,
     filter,
-    children
+    children,
+    ...rest
 }) => {
     return (
         <a href="javascript;">
