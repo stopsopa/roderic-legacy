@@ -48,8 +48,11 @@ class Sandbox extends React.Component {
     onFetch(method, e) {
     }
     render() {
+        
+        const { component: Component, ...props } = this.props;
+        
         return (
-            <form onSubmit={this.onSubmit}>
+            <form {...props} onSubmit={this.onSubmit}>
                 <label>
                     <input type="text" value={this.state.input} onChange={this.onChange} />
                 </label>
