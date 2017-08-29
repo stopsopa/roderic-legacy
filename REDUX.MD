@@ -58,4 +58,5 @@ https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project
 https://reacttraining.com/react-router/         
 
 finished at:
-    https://reacttraining.com/react-router/web/example/auth-workflow   
+    https://reacttraining.com/react-router/web/example/auth-workflow
+    https://reacttraining.com/react-router/web/example/sidebar   
