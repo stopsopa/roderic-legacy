@@ -58,7 +58,16 @@ cd react
 
 yarn -v 2> /dev/null 1> /dev/null
 
-if [ "$?" == "0" ]; then # yarn
+if [ "$YARN" == "0" ]; then # yarn
+
+    PM="yarn"
+else # npm
+
+    PM="node run"
+fi
+
+if [ "$PM" == "yarn" ]; then # yarn
+
     yarn install
 else # npm
 
@@ -68,6 +77,7 @@ else # npm
 
         npm install
     else
+    
         printf "\e[91m'npm' not available, usually that's means that you need to install node.js\e[0m";
     fi
 fi
@@ -78,9 +88,11 @@ echo "    cd react";
 echo "    setup manually config.js";
 echo "";
 echo "and next run one of:";
-echo "    npm run dev";
+echo "    $PM dev";
 echo "  or";
-echo "    npm run prod";
+echo "    $PM prod";
+echo "  and to return dev server";
+echo "    sudo $PM server 0.0.0.0 80";
 echo "";
 
 exit $STATUS;
