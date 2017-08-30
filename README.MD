@@ -12,6 +12,14 @@ then go to **react** folder configure **config.js** and run one of:
     
     npm run dev
     npm run prod
+    sudo npm run server 0.0.0.0 80
+    
+or
+
+    yarn dev
+    yarn prod
+    sudo yarn server 0.0.0.0 80
+    
     
 Syntax templates
 -
