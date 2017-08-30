@@ -58,12 +58,12 @@ cd react
 
 yarn -v 2> /dev/null 1> /dev/null
 
-if [ "$YARN" == "0" ]; then # yarn
+if [ "$?" == "0" ]; then # yarn
 
     PM="yarn"
 else # npm
 
-    PM="node run"
+    PM="npm run"
 fi
 
 if [ "$PM" == "yarn" ]; then # yarn
