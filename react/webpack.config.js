@@ -146,6 +146,7 @@ var config = {
         ]
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new CleanWebpackPlugin([utils.config.js.output]),
         new ExtractTextPlugin("[name].bundle.css"),
     ]
