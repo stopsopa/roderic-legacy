@@ -54,8 +54,7 @@ ACTION CREATORS:
     
     
 Stopped at:
-https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project
-https://reacttraining.com/react-router/         
+https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project         
 
 finished at:
     https://reacttraining.com/react-router/web/example/auth-workflow

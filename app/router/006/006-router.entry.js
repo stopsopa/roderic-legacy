@@ -33,7 +33,7 @@ const Person = ({ match }) => {
     const person = find(match.params.id);
 
     return (
-        <div style={{border: '1px solid gray', padding: '4px'}}>
+        <div className="gray">
             <h3>{person.name}’s Friends</h3>
             <ul>
                 {person.friends.map(id => (
