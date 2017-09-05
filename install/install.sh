@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="v0.0.1"
+VER="v0.0.2"
 
 DIR=react;
 
@@ -82,18 +82,19 @@ else # npm
     fi
 fi
 
-echo "";
-echo "now run:";
-echo "    cd react";
-echo "    setup manually config.js";
-echo "";
-echo "and next run one of:";
-echo "    $PM dev";
-echo "  or";
-echo "    $PM prod";
-echo "  and to return dev server";
-echo "    sudo $PM server 0.0.0.0 80";
-echo "";
+cat <<end-of-man
+
+now run:
+    cd react
+    setup manually config.js
+and next run one of:
+    $PM dev
+  or
+    $PM prod
+  and to return dev server
+    sudo $PM server 0.0.0.0 80
+
+end-of-man
 
 exit $STATUS;
 
