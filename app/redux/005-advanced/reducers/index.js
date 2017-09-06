@@ -3,7 +3,7 @@ import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
 
-import todos from './todos';
+import todos, * as fromTodos  from './todos';
 
 // import visibilityFilter from './visibilityFilter';
 
@@ -115,3 +115,6 @@ const todoApp = combineReducers({
 })();
 
 export default todoApp;
+
+export const getVisibleTodos = (state, filter) =>
+    fromTodos.getVisibleTodos(state.todos, filter)

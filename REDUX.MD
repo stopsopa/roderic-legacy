@@ -56,7 +56,10 @@ ACTION CREATORS:
             type: 'TOGGLE_TODO',
             id
         });
-    
+SELECTOR:
+    method that prepares the data to be displayed by ui
+    https://egghead.io/lessons/javascript-redux-colocating-selectors-with-reducers        
+    selector because it select something from the current state
     
 Stopped at:
 https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project         
