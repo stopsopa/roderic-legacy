@@ -9,7 +9,7 @@ import App from './App';
 const Root = ({ store }) => (
     <Provider store={store}>
         <Router>
-            <Route path="/redux/005-advanced/app.html" component={App} />
+            <Route path="/redux/005-advanced/" component={App} />
         </Router>
     </Provider>
 );
