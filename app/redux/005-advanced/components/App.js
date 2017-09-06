@@ -9,9 +9,7 @@ import Footer from './Footer';
 const App = ({ match }) => (
     <div>
         <TodoForm />
-        <VisibleTodoList
-            filter={match.params.filter}
-        />
+        <VisibleTodoList />
         <Footer />
     </div>
 );
