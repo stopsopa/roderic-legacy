@@ -52,6 +52,11 @@ REDUCER COMPOSITION
 ACTION CREATORS:        
     separate functions that maintain logic for dispatching event
     
+        const toggleTodo = id => dispatch({
+            type: 'TOGGLE_TODO',
+            id
+        });
+    
     
 Stopped at:
 https://egghead.io/lessons/javascript-redux-adding-react-router-to-the-project         

@@ -28,13 +28,16 @@ const mapStateToProps = (state, { match }) => {
     };
 };
 
+// action createor function
+const toggleTodo = id => ({
+    type: 'TOGGLE_TODO',
+    id
+});
+
 const mapDspatchToProps = (dispatch) => {
     return {
         onToggle: (id) => {
-            dispatch({
-                type: 'TOGGLE_TODO',
-                id
-            });
+            dispatch(toggleTodo(id));
         }
     }
 };
