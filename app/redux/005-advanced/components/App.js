@@ -6,10 +6,12 @@ import TodoForm from './TodoForm';
 import VisibleTodoList from './VisibleTodoList';
 import Footer from './Footer';
 
-const App = () => (
+const App = ({ match }) => (
     <div>
         <TodoForm />
-        <VisibleTodoList />
+        <VisibleTodoList
+            filter={match.params.filter}
+        />
         <Footer />
     </div>
 );
