@@ -1,7 +1,7 @@
 
 import { createStore, combineReducers } from 'redux';
-import deepFreeze from 'deep-freeze';
-import expect from 'expect';
+// import deepFreeze from 'deep-freeze';
+// import expect from 'expect';
 
 import todos, * as fromTodos  from './todos';
 
