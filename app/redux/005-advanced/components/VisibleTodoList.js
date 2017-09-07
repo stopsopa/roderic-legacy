@@ -8,11 +8,9 @@ import TodoList from './TodoList';
 import { getVisibleTodos } from '../reducers';
 
 // action createor function
-import receiveTodos from '../actions/receiveTodos';
-import toggleTodo from '../actions/toggleTodo';
+import { fetchTodos } from '../actions/receiveTodos';
 
-// api
-import { fetchTodos } from '../api';
+import toggleTodo from '../actions/toggleTodo';
 
 class VisibleTodoList extends Component {
     componentDidMount() {
@@ -28,12 +26,9 @@ class VisibleTodoList extends Component {
     }
     fetchData() {
 
-        const { filter, receiveTodos } = this.props;
+        const { filter, fetchTodos } = this.props;
 
-        fetchTodos(filter).then((todos) => {
-
-            receiveTodos(filter, todos);
-        });
+        fetchTodos(filter)
     }
     render() {
 
@@ -57,7 +52,7 @@ VisibleTodoList = withRouter(connect(
     mapStateToProps,
     { // must have the same params in this case both (id)
         onToggle : toggleTodo,
-        receiveTodos
+        fetchTodos
     }
 )(VisibleTodoList));
 
