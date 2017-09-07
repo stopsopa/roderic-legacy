@@ -4,50 +4,52 @@ import debounce from 'lodash/debounce';
 import log from '../../../react/webpack/logw';
 import todoApp from './reducers';
 
-const addLoggingToDispatch = (store) => {
-    const rawDispatch = store.dispatch;
+const logger = store => next => {
 
     if (!console || !console.group) {
 
-        return rawDispatch;
+        return next;
     }
 
-    return (action) => {
+    return action => {
         console.group(action.type);
             log('%c action', 'color:blue', action);
             log('%c prev', 'color:gray', store.getState());
-            const returnValue = rawDispatch(action);
+            const returnValue = next(action);
             log('%c next', 'color: green', store.getState())
         console.groupEnd(action.type);
         return returnValue;
     }
-}
+};
 
-const addPromiseSupportToDispatch = store => {
+const promiseMiddleware = store => next => action => {
 
-    const rawDispatch = store.dispatch;
+    if (typeof action.then === 'function') {
 
-    return action => {
-
-        if (typeof action.then === 'function') {
-
-            return action.then(rawDispatch);
-        }
-
-        return rawDispatch(action);
+        return action.then(next);
     }
-}
+
+    return next(action);
+};
+
+const wrapDispatchWithMiddlewares = (store, middlewares) => {
+    middlewares.forEach(middleware => store.dispatch = middleware(store)(store.dispatch))
+};
 
 const configureStore = () => {
 
     const store = createStore(todoApp);
 
+    const middlewares = [];
+
     if (process.env.NODE_ENV !== 'production') {
 
-        store.dispatch = addLoggingToDispatch(store);
+        middlewares.push(logger)
     }
 
-    store.dispatch = addPromiseSupportToDispatch(store);
+    middlewares.push(promiseMiddleware);
+
+    wrapDispatchWithMiddlewares(store, middlewares);
 
     return store;
 };
