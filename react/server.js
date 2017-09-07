@@ -92,7 +92,7 @@ app.all(/^\/(redux|router)\/([^\/]+)\/(.*)?$/, (req, res) => {
                 log('error', err)
                 // next(err);
             } else {
-                log('Sent:', file);
+                // log('Sent:', file);
             }
         });
     }

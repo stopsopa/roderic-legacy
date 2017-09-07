@@ -30,89 +30,89 @@ const todoApp = combineReducers({
 });
 
 // https://egghead.io/lessons/javascript-redux-reducer-composition-with-objects
-(() => {
-    const app = createStore(todoApp);
-
-    function render () {
-        log('state', JSON.stringify(app.getState(), null, '    '));
-    }
-    app.subscribe(render);
-    render();
-    app.dispatch({
-        type: 'ADD_TODO',
-        id: 0,
-        text: 'first'
-    });
-    app.dispatch({
-        type: 'ADD_TODO',
-        id: 1,
-        text: 'second'
-    });
-
-})();
-
-(() => {
-    const stateBefore = [];
-    const action = {
-        type: 'ADD_TODO',
-        id: 0,
-        text: 'Learn Redux'
-    };
-
-    const stateAfter = [
-        {
-            id: 0,
-            text: 'Learn Redux',
-            completed: false
-        }
-    ];
-
-    deepFreeze(stateBefore);
-    deepFreeze(action);
-
-    expect(
-        todos(stateBefore, action)
-    ).toEqual(stateAfter);
-})();
-
-(() => {
-    const stateBefore = [
-        {
-            id: 0,
-            text: 'Learn Redux',
-            completed: false
-        },
-        {
-            id: 1,
-            text: 'Go shopping',
-            completed: false
-        }
-    ];
-    const action = {
-        type: 'TOGGLE_TODO',
-        id: 1
-    };
-
-    const stateAfter = [
-        {
-            id: 0,
-            text: 'Learn Redux',
-            completed: false
-        },
-        {
-            id: 1,
-            text: 'Go shopping',
-            completed: true
-        }
-    ];
-
-    deepFreeze(stateBefore);
-    deepFreeze(action);
-
-    expect(
-        todos(stateBefore, action)
-    ).toEqual(stateAfter);
-})();
+// (() => {
+//     const app = createStore(todoApp);
+//
+//     function render () {
+//         log('state', JSON.stringify(app.getState(), null, '    '));
+//     }
+//     app.subscribe(render);
+//     render();
+//     app.dispatch({
+//         type: 'ADD_TODO',
+//         id: 0,
+//         text: 'first'
+//     });
+//     app.dispatch({
+//         type: 'ADD_TODO',
+//         id: 1,
+//         text: 'second'
+//     });
+//
+// })();
+//
+// (() => {
+//     const stateBefore = [];
+//     const action = {
+//         type: 'ADD_TODO',
+//         id: 0,
+//         text: 'Learn Redux'
+//     };
+//
+//     const stateAfter = [
+//         {
+//             id: 0,
+//             text: 'Learn Redux',
+//             completed: false
+//         }
+//     ];
+//
+//     deepFreeze(stateBefore);
+//     deepFreeze(action);
+//
+//     expect(
+//         todos(stateBefore, action)
+//     ).toEqual(stateAfter);
+// })();
+//
+// (() => {
+//     const stateBefore = [
+//         {
+//             id: 0,
+//             text: 'Learn Redux',
+//             completed: false
+//         },
+//         {
+//             id: 1,
+//             text: 'Go shopping',
+//             completed: false
+//         }
+//     ];
+//     const action = {
+//         type: 'TOGGLE_TODO',
+//         id: 1
+//     };
+//
+//     const stateAfter = [
+//         {
+//             id: 0,
+//             text: 'Learn Redux',
+//             completed: false
+//         },
+//         {
+//             id: 1,
+//             text: 'Go shopping',
+//             completed: true
+//         }
+//     ];
+//
+//     deepFreeze(stateBefore);
+//     deepFreeze(action);
+//
+//     expect(
+//         todos(stateBefore, action)
+//     ).toEqual(stateAfter);
+// })();
 
 export default todoApp;
 
