@@ -1,6 +1,4 @@
 
-import todo from './todo';
-
 import { combineReducers } from 'redux';
 
 // reducer
@@ -8,31 +6,56 @@ import { combineReducers } from 'redux';
 const byId = (state = {}, action) => {
     switch (action.type) {
         case 'RECEIVE_TODOS':
-            const obj = {};
-            if (action.response) {
-                action.response.forEach(d => {
-                    obj[d.id] = d;
-                });
-                return obj;
-            }
-            return {};
-        case 'ADD_TODO':
-        case 'TOGGLE_TODO':
-            return {
-                ...state,
-                [action.id]: todo(state[action.id], action)
-            }
+            const nextState = { ...state };
+            action.response.forEach(todo => {
+                nextState[todo.id] = todo;
+            })
+            return nextState;
         default:
             return state;
     }
 };
 
-const addIds = (state = [], action) => {
+const allIds = (state = [], action) => {
+
+    if (action.filter !== 'all') {
+
+        return state;
+    }
+
     switch (action.type) {
         case 'RECEIVE_TODOS':
-            return (action.response && action.response.length) ? action.response.map(d => d.id) : [];
-        case 'ADD_TODO':
-            return [ ...state, action.id ];
+            return action.response.map(d => d.id);
+        default:
+            return state;
+    }
+}
+
+const activeIds = (state = [], action) => {
+
+    if (action.filter !== 'active') {
+
+        return state;
+    }
+
+    switch (action.type) {
+        case 'RECEIVE_TODOS':
+            return action.response.map(d => d.id);
+        default:
+            return state;
+    }
+}
+
+const completedIds = (state = [], action) => {
+
+    if (action.filter !== 'completed') {
+
+        return state;
+    }
+
+    switch (action.type) {
+        case 'RECEIVE_TODOS':
+            return action.response.map(d => d.id);
         default:
             return state;
     }
@@ -40,12 +63,14 @@ const addIds = (state = [], action) => {
 
 const todos = combineReducers({
     byId,
-    addIds
+    idsByFilter: combineReducers({
+        all: allIds,
+        active: activeIds,
+        completed: completedIds
+    })
 })
 
 export default todos;
-
-const getAllTodos = state => state.addIds.map(id => state.byId[id]);
 
 // selector
 // https://egghead.io/lessons/javascript-redux-colocating-selectors-with-reducers
@@ -53,14 +78,7 @@ export const getVisibleTodos = (
     state,
     filter
 ) => {
-    const allTodos = getAllTodos(state);
-    switch (filter) {
-        case 'completed':
-            return allTodos.filter(t => t.completed)
-        case 'active':
-            return allTodos.filter(t => !t.completed)
-        case 'all':
-        default:
-            return allTodos;
-    }
+    filter = filter || 'all';
+    const ids = state.idsByFilter[filter];
+    return ids.map(id => state.byId[id]);
 };

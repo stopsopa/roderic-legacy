@@ -41,6 +41,9 @@ STORE - createStore() from Redux:
         - store.getState()
         - store.dispatch({type: ...}) 
         - store.subscribe(fn)  
+    ENHANCER:
+        function that overrides store.dispatch method in order to log or support promise actions
+            more: https://egghead.io/lessons/javascript-redux-applying-redux-middleware
 REDUCER COMPOSITION    
     PRESENTATIONAL COMPONENT (usually Dumb Components - function)
         why: https://egghead.io/lessons/javascript-redux-extracting-container-components-filterlink

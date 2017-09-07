@@ -13,7 +13,7 @@ const receiveTodos = (filter, response) => ({
 
 export const fetchTodos = filter => api.fetchTodos(filter).then(
     todos => {
-        log('before receiveTodos')
+        filter = filter || 'all';
         return receiveTodos(filter, todos)
     }
 );
