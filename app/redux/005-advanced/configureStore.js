@@ -1,8 +1,10 @@
 
-import { createStore /*, combineReducers */ } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import debounce from 'lodash/debounce';
 import log from '../../../react/webpack/logw';
 import todoApp from './reducers';
+import { createLogger } from 'redux-logger';
+import promisify from 'redux-promise';
 
 const logger = store => next => {
 
@@ -22,36 +24,23 @@ const logger = store => next => {
     }
 };
 
-const promiseMiddleware = store => next => action => {
-
-    if (typeof action.then === 'function') {
-
-        return action.then(next);
-    }
-
-    return next(action);
-};
-
 const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.forEach(middleware => store.dispatch = middleware(store)(store.dispatch))
 };
 
 const configureStore = () => {
 
-    const store = createStore(todoApp);
-
-    const middlewares = [];
+    const middlewares = [promisify];
 
     if (process.env.NODE_ENV !== 'production') {
 
-        middlewares.push(logger)
+        middlewares.push(createLogger())
     }
 
-    middlewares.push(promiseMiddleware);
-
-    wrapDispatchWithMiddlewares(store, middlewares);
-
-    return store;
+    return createStore(
+        todoApp,
+        applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
+    );
 };
 
 export default configureStore;
