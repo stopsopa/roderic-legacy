@@ -39,8 +39,6 @@ const configureStore = () => {
 
         const { visibilityFilter, ...save } = state;
 
-        log('sub', save)
-
         saveState(save);
     }, 300));
 

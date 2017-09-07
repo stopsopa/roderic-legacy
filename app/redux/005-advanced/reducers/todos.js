@@ -34,12 +34,7 @@ const todos = combineReducers({
 
 export default todos;
 
-const getAllTodos = state => {
-    const data = state.addIds.map(id => state.byId[id]);
-
-    log('stae', state);
-    return data;
-}
+const getAllTodos = state => state.addIds.map(id => state.byId[id]);
 
 // selector
 // https://egghead.io/lessons/javascript-redux-colocating-selectors-with-reducers
