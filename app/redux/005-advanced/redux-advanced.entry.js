@@ -9,12 +9,6 @@ import Root from './components/Root';
 
 import './css/style.scss';
 
-import { fetchTodos } from './api';
-
-fetchTodos('all').then(todos => {
-    log(todos);
-})
-
 const store = configureStore();
 
 ReactDOM.render(
