@@ -4,16 +4,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TodoList from './TodoList';
 
+import * as actions from '../actions';
+
 // reducers
 import { getVisibleTodos, getIsFetching } from '../reducers';
-
-// action createor function
-import { fetchTodos } from '../actions/receiveTodos';
-
-// action createor function
-import requestTodos from '../actions/requestTodos';
-
-import toggleTodo from '../actions/toggleTodo';
 
 class VisibleTodoList extends Component {
     componentDidMount() {
@@ -64,11 +58,7 @@ const mapStateToProps = (state, { match }) => {
 
 VisibleTodoList = withRouter(connect(
     mapStateToProps,
-    { // must have the same params in this case both (id)
-        toggleTodo : toggleTodo,
-        fetchTodos,
-        requestTodos
-    }
+    actions
 )(VisibleTodoList));
 
 export default VisibleTodoList;
