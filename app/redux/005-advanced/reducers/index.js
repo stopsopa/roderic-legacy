@@ -34,3 +34,8 @@ export const getIsFetching = (state, filter = 'all') => {
 
     return fromList.getIsFetching(state.listByFilter[filter])
 }
+
+export const getErrorMessage = (state, filter = 'all') => {
+
+    return fromList.getErrorMessage(state.listByFilter[filter])
+}

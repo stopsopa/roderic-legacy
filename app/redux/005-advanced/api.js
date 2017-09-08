@@ -1,4 +1,6 @@
 
+'use strict';
+
 import uuid4 from 'uuid/v4';
 
 const fakeDatabase = {
@@ -24,6 +26,12 @@ const fakeDatabase = {
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const fetchTodos = filter => delay(500).then(() => {
+
+    if (Math.random() > 0.5) {
+
+        return Promise.reject('Boom!');
+    }
+
     switch (filter) {
         case 'active':
             return fakeDatabase.todos.filter(t => !t.completed);
