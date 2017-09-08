@@ -28,9 +28,14 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.forEach(middleware => store.dispatch = middleware(store)(store.dispatch))
 };
 
+const thunk = store => next => action =>
+    typeof action === 'function' ?
+        action(store.dispatch) :
+        next(action)
+
 const configureStore = () => {
 
-    const middlewares = [promisify];
+    const middlewares = [thunk, promisify];
 
     if (process.env.NODE_ENV !== 'production') {
 
