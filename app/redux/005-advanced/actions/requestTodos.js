@@ -1,8 +1,6 @@
 
 // action createor function
-const requestTodos = (filter) => {
-
-    filter = filter || 'all';
+const requestTodos = (filter = 'all') => {
 
     return {
         type: 'REQUEST_TODOS',

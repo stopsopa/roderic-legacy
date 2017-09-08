@@ -3,8 +3,11 @@ import { createStore, applyMiddleware } from 'redux';
 import debounce from 'lodash/debounce';
 import log from '../../../react/webpack/logw';
 import todoApp from './reducers';
+
+// middlewares
 import { createLogger } from 'redux-logger';
 import promisify from 'redux-promise';
+import thunk from 'redux-thunk';
 
 const logger = store => next => {
 
@@ -28,10 +31,10 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.forEach(middleware => store.dispatch = middleware(store)(store.dispatch))
 };
 
-const thunk = store => next => action =>
-    typeof action === 'function' ?
-        action(store.dispatch) :
-        next(action)
+// const thunk = store => next => action =>
+//     typeof action === 'function' ?
+//         action(store.dispatch, store.getState) :
+//         next(action)
 
 const configureStore = () => {
 

@@ -25,7 +25,7 @@ class VisibleTodoList extends Component {
 
         const { filter, fetchTodos } = this.props;
 
-        fetchTodos(filter);
+        fetchTodos(filter).then(sent => log(`fetchTodo in VisibleTodoList, filter:'${filter}', sent:'${sent}' - done`));
     }
     render() {
 
@@ -42,7 +42,7 @@ class VisibleTodoList extends Component {
 
 const mapStateToProps = (state, { match }) => {
 
-    const filter = match.params.filter;
+    const filter = match.params.filter || 'all';
 
     return {
         todos: getVisibleTodos(

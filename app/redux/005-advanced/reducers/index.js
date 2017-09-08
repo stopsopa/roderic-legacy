@@ -22,19 +22,15 @@ export default todos;
 // https://egghead.io/lessons/javascript-redux-colocating-selectors-with-reducers
 export const getVisibleTodos = (
     state,
-    filter
+    filter = 'all'
 ) => {
-
-    filter = filter || 'all';
 
     const ids = fromList.getIds(state.listByFilter[filter]);
 
     return ids.map(id => fromById.getTodo(state.byId, id));
 };
 
-export const getIsFetching = (state, filter) => {
-
-    filter = filter || 'all';
+export const getIsFetching = (state, filter = 'all') => {
 
     return fromList.getIsFetching(state.listByFilter[filter])
 }
