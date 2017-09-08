@@ -52,6 +52,10 @@ REDUCER COMPOSITION
     CONTAINER COMPONENT
         generator 'connect' helper from 'react-redux' package
         
+    TOP LEVEL REDUCER FILE:
+        reducers/index.js
+            # mentioned in https://egghead.io/lessons/javascript-redux-displaying-loading-indicators
+        
 ACTION CREATORS:        
     separate functions that maintain logic for dispatching event
     
