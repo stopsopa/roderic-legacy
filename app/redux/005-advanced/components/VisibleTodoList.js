@@ -37,15 +37,14 @@ class VisibleTodoList extends Component {
     }
     render() {
 
-
-        const { onToggle, todos, isFetching } = this.props;
+        const { toggleTodo, todos, isFetching } = this.props;
 
         if (isFetching && !todos.length) {
 
             return <p>Loading...</p>;
         }
 
-        return <TodoList todos={todos} onToggle={onToggle} />;
+        return <TodoList todos={todos} toggleTodo={toggleTodo} />;
     }
 }
 
@@ -66,7 +65,7 @@ const mapStateToProps = (state, { match }) => {
 VisibleTodoList = withRouter(connect(
     mapStateToProps,
     { // must have the same params in this case both (id)
-        onToggle : toggleTodo,
+        toggleTodo : toggleTodo,
         fetchTodos,
         requestTodos
     }

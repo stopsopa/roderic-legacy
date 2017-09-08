@@ -4,14 +4,14 @@ import Todo from './Todo';
 
 const TodoList = ({
     todos,
-    onToggle
+    toggleTodo
 }) => (
     <ul>
         {todos.map(todo =>
             <Todo
                 key={todo.id}
                 {...todo}
-                onToggle={() => onToggle(todo.id)}
+                toggleTodo={() => toggleTodo(todo.id)}
             />
         )}
     </ul>

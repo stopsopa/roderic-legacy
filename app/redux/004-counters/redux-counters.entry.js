@@ -310,12 +310,12 @@ const FilterLink = connect(
 // }
 
 const Todo = ({
-    onToggle,
+    toggleTodo,
     completed,
     text
 }) => (
     <li
-        onClick={() => onToggle()}
+        onClick={() => toggleTodo()}
         style={{
             textDecoration:
                 completed ?
@@ -370,14 +370,14 @@ TodoForm = connect(
 
 const TodoList = ({
     todos,
-    onToggle
+    toggleTodo
 }) => (
     <ul>
         {todos.map(todo =>
             <Todo
                 key={todo.id}
                 {...todo}
-                onToggle={() => onToggle(todo.id)}
+                toggleTodo={() => toggleTodo(todo.id)}
             />
         )}
     </ul>
@@ -434,7 +434,7 @@ import { Provider } from 'react-redux';
 
     const mapDspatchToProps = (dispatch) => {
         return {
-            onToggle: (id) => {
+            toggleTodo: (id) => {
                 dispatch({
                     type: 'TOGGLE_TODO',
                     id
@@ -484,7 +484,7 @@ import { Provider } from 'react-redux';
     //                     state.todos,
     //                     state.visibilityFilter
     //                 )}
-    //                 onToggle={id => store.dispatch({
+    //                 toggleTodo={id => store.dispatch({
     //                     type: 'TOGGLE_TODO',
     //                     id
     //                 })}

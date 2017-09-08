@@ -2,12 +2,12 @@
 import React from 'react';
 
 const Todo = ({
-    onToggle,
+    toggleTodo,
     completed,
     text
 }) => (
     <li
-        onClick={() => onToggle()}
+        onClick={() => toggleTodo()}
         style={{
             textDecoration:
                 completed ?
