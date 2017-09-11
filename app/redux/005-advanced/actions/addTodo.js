@@ -1,11 +1,19 @@
 
 // action createor function
-import uuid4 from 'uuid/v4';
 
-const addTodo = (dispatch, value) => dispatch({
-    type: 'ADD_TODO',
-    text: value,
-    id: uuid4()
-});
+import * as api from '../api';
+
+const addTodo = (text) => {
+    return (dispatch) => {
+        api.addTodo(text).then(response => {
+            dispatch({
+                type: 'ADD_TODO_SUCCESS',
+                response
+            });
+        })
+    }
+}
+
+;
 
 export default addTodo;

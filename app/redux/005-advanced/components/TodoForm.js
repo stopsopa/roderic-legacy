@@ -8,7 +8,7 @@ let TodoForm = ({ dispatch }) => {
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
-            addTodo(dispatch, input.value);
+            dispatch(addTodo(input.value));
             input.value = '';
             input.focus();
         }}>

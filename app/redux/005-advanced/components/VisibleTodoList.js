@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { autobind } from 'core-decorators';
 import TodoList from './TodoList';
 import FetchError from './FetchError';
 
@@ -22,6 +23,7 @@ class VisibleTodoList extends Component {
             this.fetchData();
         }
     }
+    @autobind
     fetchData() {
 
         const { filter, fetchTodos } = this.props;
@@ -43,7 +45,7 @@ class VisibleTodoList extends Component {
 
                 return <FetchError
                     message={errorMessage}
-                    onRetry={() => this.fetchData()}
+                    onRetry={this.fetchData}
                 />
             }
         }

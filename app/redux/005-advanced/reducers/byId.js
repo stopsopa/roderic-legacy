@@ -7,6 +7,12 @@ const byId = (state = {}, action) => {
                 nextState[todo.id] = todo;
             })
             return nextState;
+        case 'ADD_TODO_SUCCESS':
+            const todo = action.response;
+            return {
+                ...state,
+                [todo.id]: todo
+            };
         default:
             return state;
     }
