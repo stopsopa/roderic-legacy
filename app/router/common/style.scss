@@ -55,3 +55,10 @@ pre {
     border: 1px solid gray;
     padding: 4px;
 }
+a,
+:visited {
+    color: rgb(0, 0, 238);
+}
+.active {
+    color: red;
+}

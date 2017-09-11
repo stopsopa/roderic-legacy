@@ -8,7 +8,7 @@ import isNumber from 'lodash/isNumber';
 import log from '../../../react/webpack/logw';
 import '../common/style.scss';
 
-import { BrowserRouter as Router, Route, Link, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, NavLink, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';
 
 const home = '/router/006';
 
@@ -24,6 +24,11 @@ const find = (id) => PEEPS.find(p => p.id == id);
 const RecursiveExample = () => (
     <Router>
         <div>
+
+            <Link to={home}>home</Link>
+            <span style={{marginRight: '10px'}} />
+            <Link to={`${home}/3/1/0/1/0/2/1/0/2/3/1`}>/router/006/3/1/0/1/0/2/1/0/2/3/1</Link>
+
             { /index/.test(location.href) &&
                 <Redirect exact from={`${home}/index.html`} to={home} />
             }
@@ -51,9 +56,12 @@ const Person = ({ match }) => {
             <ul>
                 {person.friends.map(id => (
                     <li key={id}>
-                        <Link to={`${match.url}/${id}`}>
+                        <NavLink
+                            to={`${match.url}/${id}`}
+                            activeClassName="active"
+                        >
                             {find(id).name}
-                        </Link>
+                        </NavLink>
                     </li>
                 ))}
             </ul>
