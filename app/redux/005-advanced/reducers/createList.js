@@ -15,6 +15,8 @@ const createList = filter => {
                 return filter === 'completed'
                     ? state
                     : [...state, action.response.id]
+            case 'TOGGLE_TODO_SUCCESS':
+                return [ ...state ]; // just to trigger refresh
             default:
                 return state;
         }
