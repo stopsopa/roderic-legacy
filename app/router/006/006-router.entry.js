@@ -4,12 +4,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { autobind } from 'core-decorators';
+import isNumber from 'lodash/isNumber';
 import log from '../../../react/webpack/logw';
 import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';
 
-const home = location.pathname;
+const home = '/router/006';
 
 const PEEPS = [
     { id: 0, name: 'Michelle', friends: [ 1, 2, 3 ] },
@@ -22,15 +23,27 @@ const find = (id) => PEEPS.find(p => p.id == id);
 
 const RecursiveExample = () => (
     <Router>
-        <Person match={{ params: { id: 0 }, url: home }} />
+        <div>
+            { /index/.test(location.href) &&
+                <Redirect exact from={`${home}/index.html`} to={home} />
+            }
+            <Person match={{ params: { id: 0 }, url: home }} />
+        </div>
     </Router>
 )
 
 const Person = ({ match }) => {
 
-    log(match);
+    log('match', match);
 
     const person = find(match.params.id);
+
+    log('person', person);
+
+    if ( ! person ) {
+
+        return <div>id '{match.params.id}' don't match to any person</div>
+    }
 
     return (
         <div className="gray">

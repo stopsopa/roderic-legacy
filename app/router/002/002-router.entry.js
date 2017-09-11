@@ -7,7 +7,7 @@ import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
-const home = location.pathname;
+const home = '/router/002';
 
 // class One extends Component {
 //     render() {
@@ -82,16 +82,16 @@ const BasicExample = () => (
         <WrappedScrollToTop>
             <div>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/topics">Topics</Link></li>
+                    <li><Link to={`${home}`}>Home</Link></li>
+                    <li><Link to={`${home}/about`}>About</Link></li>
+                    <li><Link to={`${home}/topics`}>Topics</Link></li>
                 </ul>
 
                 <hr/>
 
-                <Route exact path="/" component={Home}/>
-                <Route path="/about" component={About}/>
-                <Route path="/topics" component={Topics}/>
+                <Route exact path={`${home}`} component={Home}/>
+                <Route path={`${home}/about`} component={About}/>
+                <Route path={`${home}/topics`} component={Topics}/>
             </div>
         </WrappedScrollToTop>
     </Router>

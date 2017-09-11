@@ -9,21 +9,22 @@ import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';
 
+const home = '/router/005';
 
 const NoMatchExample = () => (
     <Router>
         <div>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/old-match">Old Match, to be redirected</Link></li>
-                <li><Link to="/will-match">Will Match</Link></li>
-                <li><Link to="/will-not-match">Will Not Match</Link></li>
-                <li><Link to="/also/will/not/match">Also Will Not Match</Link></li>
+                <li><Link to={`${home}/`}>Home</Link></li>
+                <li><Link to={`${home}/old-match`}>Old Match, to be redirected</Link></li>
+                <li><Link to={`${home}/will-match`}>Will Match</Link></li>
+                <li><Link to={`${home}/will-not-match`}>Will Not Match</Link></li>
+                <li><Link to={`${home}/also/will/not/match`}>Also Will Not Match</Link></li>
             </ul>
             <Switch>
-                <Route path="/" exact component={Home}/>
-                <Redirect from="/old-match" to="/will-match"/>
-                <Route path="/will-match" component={WillMatch}/>
+                <Route path={`${home}/`} exact component={Home}/>
+                <Redirect from={`${home}/old-match`} to={`${home}/will-match`}/>
+                <Route path={`${home}/will-match`} component={WillMatch}/>
                 <Route component={NoMatch}/>
             </Switch>
         </div>

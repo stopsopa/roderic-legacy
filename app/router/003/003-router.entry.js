@@ -9,7 +9,7 @@ import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
-const home = location.pathname;
+const home = '/router/003';
 
 const auth = {
     authenticated : false,
@@ -31,7 +31,6 @@ class Status extends Component {
         const { history } = this.props;
 
         auth.signout(() => {
-            log('push');
             history.push('/')
         })
     }
@@ -60,14 +59,14 @@ class BaseComponent extends Component {
                 <div>
                     <Status />
                     <ul>
-                        <ul><Link to="/public">Public</Link></ul>
-                        <ul><Link to="/protected">Protected</Link></ul>
+                        <ul><Link to={`${home}/public`}>Public</Link></ul>
+                        <ul><Link to={`${home}/protected`}>Protected</Link></ul>
                     </ul>
 
-                    <Route path="/public" component={Public} />
-                    <AuthRoute path="/protected" component={Protected} />
+                    <Route path={`${home}/public`} component={Public} />
+                    <AuthRoute path={`${home}/protected`} component={Protected} />
 
-                    <Route path="/login" component={Login} />
+                    <Route path={`${home}/login`} component={Login} />
                 </div>
             </Router>
         );
@@ -87,7 +86,7 @@ class AuthRoute extends Component {
                 return auth.authenticated
                     ? <Component {...props} />
                     : <Redirect to={{ // can redirect to object
-                        pathname: '/login',
+                        pathname: `${home}/login`,
                         state: { from: props.location }
                     }} />
             }} />

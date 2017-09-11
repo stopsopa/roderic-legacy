@@ -9,18 +9,19 @@ import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter, Prompt } from 'react-router-dom';
 
+const home = '/router/004';
 
 const PreventingTransitionsExample = () => (
     <Router>
         <div>
             <ul>
-                <li><Link to="/">Form</Link></li>
-                <li><Link to="/one">One</Link></li>
-                <li><Link to="/two">Two</Link></li>
+                <li><Link to={home}>Form</Link></li>
+                <li><Link to={`${home}/one`}>One</Link></li>
+                <li><Link to={`${home}/two`}>Two</Link></li>
             </ul>
-            <Route path="/" exact component={Form}/>
-            <Route path="/one" render={() => <h3>One</h3>}/>
-            <Route path="/two" render={() => <h3>Two</h3>}/>
+            <Route path={home} exact component={Form}/>
+            <Route path={`${home}/one`} render={() => <h3>One</h3>}/>
+            <Route path={`${home}/two`} render={() => <h3>Two</h3>}/>
         </div>
     </Router>
 )

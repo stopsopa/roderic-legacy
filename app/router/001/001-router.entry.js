@@ -7,7 +7,7 @@ import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
-const home = location.pathname;
+const home = '/router/001';
 
 // class One extends Component {
 //     render() {
@@ -36,10 +36,10 @@ class ScrollToTop extends Component { // https://reacttraining.com/react-router/
             // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
             // WARNING: better polyfill: https://gist.github.com/paulirish/1579671
             window.requestAnimFrame = (function(){
-                return  window.requestAnimationFrame       ||
+                return window.requestAnimationFrame ||
                     window.webkitRequestAnimationFrame ||
-                    window.mozRequestAnimationFrame    ||
-                    function( callback ){
+                    window.mozRequestAnimationFrame ||
+                    function( callback ) {
                         window.setTimeout(callback, 1000 / 60);
                     };
             })();
@@ -120,31 +120,31 @@ ReactDOM.render(
                 <div className="left">
                     {animals.map((path) => (
                         <div key={path}>
-                            <Link to={`/animal/${path}`}>
+                            <Link to={`${home}/animal/${path}`}>
                                 {path}
                             </Link>
                         </div>
                     ))}
-                    <Route path="/animal/:path" component={Props} />
+                    <Route path={`${home}/animal/:path`} component={Props} />
                 </div>
 
                 <div className="right">
                     <Link to={home}>{home}</Link> <br/>
-                    <Link to="/router">/router</Link>
+                    <Link to={`${home}/router`}>/router</Link>
                     {numbers.map((num) => (
                         <div key={num}>
-                            <Link to={`/router/${num}`}>
+                            <Link to={`${home}/router/${num}`}>
                                 {num}
                             </Link>
                         </div>
                     ))}
-                    <Route exact path="/router" render={(props) => (
+                    <Route exact path={`${home}/router`} render={(props) => (
                         <h4>Hello router - exact</h4>
                     )} />
-                    <Route path="/router" render={(props) => (
+                    <Route path={`${home}/router`} render={(props) => (
                         <h4>Hello router - not exact</h4>
                     )} />
-                    <Route path="/router/:num" render={({ match, ...props }) => (<pre>
+                    <Route path={`${home}/router/:num`} render={({ match, ...props }) => (<pre>
                         param: {match.params.num}
                         {"\n"}
                         this.props: {JSON.stringify(Object.assign(props, {match: match}), null, '    ')}
