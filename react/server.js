@@ -87,14 +87,27 @@ app.all(/^\/(redux|router)\/([^\/]+)\/(.*)?$/, (req, res) => {
             }
         };
 
-        res.sendFile(rel, options, function (err) {
-            if (err) {
-                log('error', err)
-                // next(err);
-            } else {
-                // log('Sent:', file);
-            }
-        });
+        let html = fs.readFileSync(file);
+
+        if (/<div id="apdp"><\/div>/.test(html)) {
+
+
+        }
+        else {
+            res.set({
+                'Content-type' : 'text/html; charset=utf-8'
+            })
+            .send(html);
+        }
+
+        // res.sendFile(rel, options, function (err) {
+        //     if (err) {
+        //         log('error', err)
+        //         // next(err);
+        //     } else {
+        //         // log('Sent:', file);
+        //     }
+        // });
     }
     else {
 
