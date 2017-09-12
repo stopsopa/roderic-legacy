@@ -173,12 +173,12 @@ if (utils.prod) {
     config.plugins.push(new UglifyJSPlugin({
         sourceMap: true
     }));
-
-    config.plugins.push(new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify('production')
-        }
-    }));
 }
+
+config.plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+        NODE_ENV: JSON.stringify(utils.prod ? 'production' : 'development')
+    }
+}));
 
 module.exports = config;
