@@ -139,12 +139,61 @@ global.__line = (function () {
 }());
 
 var native = (function () {
-    try {
-        return console.log.bind(console);
+
+    const nat = (function () {
+        try {
+            return console.log.bind(console);
+        }
+        catch (e) {
+            return function () {};
+        }
+    }());
+
+    let
+        emmit = true,
+        cache = [];
+    ;
+
+    const tool = function () {
+
+        const args = Array.prototype.slice.call(arguments, 0);
+
+        if (emmit) {
+
+            nat.apply(this, args);
+        }
+        else {
+
+            cache = cache.concat(args);
+        }
     }
-    catch (e) {
-        return function () {};
-    }
+
+    tool.start = function () {
+
+        emmit = true;
+
+        tool.flush();
+
+        emmit = false;
+
+        return tool;
+    };
+
+    tool.flush = function () {
+
+        emmit = true;
+
+        if (emmit && cache.length) {
+
+            tool.call(this, cache.join("\n"));
+        }
+
+        cache = [];
+
+        return tool;
+    };
+
+    return tool;
 }());
 
 var stack = false;
@@ -180,11 +229,15 @@ log.json = function () {
 
     stack = false;
 
+    native.start();
+
     Array.prototype.slice.call(arguments).forEach(function (a) {
         return (JSON.stringify(a, null, '  ') + '').split(/\n/g).forEach(function (l) {
-            native(l)
+            native(l);
         });
     });
+
+    native.flush();
 
     return function () {
         return log.stack(s).json.apply(true, Array.prototype.slice.call(arguments, 0));
@@ -293,6 +346,8 @@ log.stack = function (n /* def: 0 */) {
 
     log.dump = function () {
 
+        native.start();
+
         var args = Array.prototype.slice.call(arguments, 0);
 
         var limit = args[args.length - 1];
@@ -351,6 +406,8 @@ log.stack = function (n /* def: 0 */) {
         args.forEach(function (d) {
             inner(d);
         });
+
+        native.flush();
 
         return function () {
             var args = Array.prototype.slice.call(arguments, 0);
