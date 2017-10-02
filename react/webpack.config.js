@@ -147,7 +147,9 @@ var config = {
     },
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new CleanWebpackPlugin([utils.config.js.output]),
+        new CleanWebpackPlugin([utils.config.js.output], {
+            root: root
+        }),
         new ExtractTextPlugin("[name].bundle.css"),
     ]
 };
