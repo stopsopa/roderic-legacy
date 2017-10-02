@@ -18,6 +18,7 @@ const asset            = path.resolve(web, 'asset');
 const node_modules      = path.join(__dirname, 'node_modules');
 
 module.exports = {
+    root: root,
     web: web,
     resolve: [ // where to search by require and files to watch
 

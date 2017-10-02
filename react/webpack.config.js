@@ -114,6 +114,7 @@ var config = {
                 use: {
                     loader: path.resolve(node_modules, 'babel-loader'),
                     options: {
+                        babelrc: false,
                         presets: [
                             path.resolve(node_modules, 'babel-preset-env'),
                             path.resolve(node_modules, 'babel-preset-es2015'),
@@ -147,7 +148,10 @@ var config = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([utils.config.js.output]),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new CleanWebpackPlugin([utils.config.js.output], {
+            root: utils.config.root
+        }),
         new ExtractTextPlugin("[name].bundle.css"),
     ]
 };
@@ -173,12 +177,12 @@ if (utils.prod) {
     config.plugins.push(new UglifyJSPlugin({
         sourceMap: true
     }));
-
-    config.plugins.push(new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify('production')
-        }
-    }));
 }
+
+config.plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+        NODE_ENV: JSON.stringify(utils.prod ? 'production' : 'development')
+    }
+}));
 
 module.exports = config;
