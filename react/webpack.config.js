@@ -114,6 +114,7 @@ var config = {
                 use: {
                     loader: path.resolve(node_modules, 'babel-loader'),
                     options: {
+                        babelrc: false,
                         presets: [
                             path.resolve(node_modules, 'babel-preset-env'),
                             path.resolve(node_modules, 'babel-preset-es2015'),
