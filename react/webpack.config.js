@@ -123,6 +123,7 @@ var config = {
                         ],
                         plugins: [
                             path.resolve(node_modules, 'babel-plugin-transform-decorators-legacy'),
+                            path.resolve(node_modules, 'babel-plugin-transform-object-rest-spread'),
                         ],
                         sourceMap: utils.prod
                     }
