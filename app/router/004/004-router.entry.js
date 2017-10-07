@@ -18,11 +18,11 @@ const PreventingTransitionsExample = () => (
                 <li><Link to={home}>Form</Link></li>
                 <li><Link to={`${home}/one`}>One</Link></li>
                 <li><Link to={`${home}/two`}>Two</Link></li>
+                <li><a href="//www.google.co.uk/search?q=reacttraining.com+preventing+transitions">google search</a></li>
             </ul>
             <Route path={home} exact component={Form}/>
             <Route path={`${home}/one`} render={() => <h3>One</h3>}/>
             <Route path={`${home}/two`} render={() => <h3>Two</h3>}/>
-            <a href="//www.google.co.uk/search?q=reacttraining.com+preventing+transitions">google search</a>
         </div>
     </Router>
 )
