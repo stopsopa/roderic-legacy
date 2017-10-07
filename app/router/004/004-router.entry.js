@@ -22,6 +22,7 @@ const PreventingTransitionsExample = () => (
             <Route path={home} exact component={Form}/>
             <Route path={`${home}/one`} render={() => <h3>One</h3>}/>
             <Route path={`${home}/two`} render={() => <h3>Two</h3>}/>
+            <a href="//www.google.co.uk/search?q=reacttraining.com+preventing+transitions">google search</a>
         </div>
     </Router>
 )
