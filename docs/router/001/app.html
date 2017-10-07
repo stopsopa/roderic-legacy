@@ -7,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Router 001</title>
     <link rel="stylesheet" href="../../dist/001-router.bundle.css">
+    <script>document.addEventListener('DOMContentLoaded',function(){document.getElementById('home').setAttribute('href',location.pathname)})</script>
 </head>
 <body class="dev">
     <a href="../002/app.html">next</a><br>
     <a href="https://www.youtube.com/watch?v=a4kqMQorcnE" target="_blank">doc</a> <br>
     <a href="https://reacttraining.com/react-router/web/example/url-params" target="_blank">only id</a>
     <hr>
-    <a href="../001/app.html">home</a>
+    <a id="home">home</a>
     <div id="app"></div>
     <script src="../../dist/001-router.bundle.js"></script>
 </body>

@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Router - auth</title>
     <link rel="stylesheet" href="../../dist/003-router.bundle.css">
+    <script>document.addEventListener('DOMContentLoaded',function(){document.getElementById('home').setAttribute('href',location.pathname)})</script>
 </head>
 <body class="dev">
     <a href="../004/app.html">next</a> <br>
     <a href="https://reacttraining.com/react-router/web/example/auth-workflow" target="_blank">live example</a>
     <hr>
-    <a href="../003/app.html">home</a>
+    <a id="home">home</a>
     <div id="app"></div>
     <script src="../../dist/003-router.bundle.js"></script>
 </body>
