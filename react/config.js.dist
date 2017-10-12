@@ -36,7 +36,7 @@ module.exports = {
     ],
     asset: [ // just create links, this links are not direct paths for resolver
         {
-            path: path.resolve(root, 'app', 'react', 'assets'),
+            path: path.resolve(root, 'app', 'other', 'react', 'assets'),
             link: path.resolve(asset, 'rassets')
         },
         {
