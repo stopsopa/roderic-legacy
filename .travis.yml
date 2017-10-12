@@ -33,7 +33,7 @@ before_script:
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - yarn devnowatch
-  - sudo node index.server.js 1>> log.log 2>>log.log & disown
+  - node index.server.js 1>> log.log 2>>log.log & disown
   - sleep 3
   - cat log.log
   - cd ..
@@ -48,7 +48,7 @@ script:
   - cd react
   - yarn prod
   - sudo kill -SIGTERM $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}')
-  - sudo node index.server.js 1>> log2.log 2>>log2.log & disown
+  - node index.server.js 1>> log2.log 2>>log2.log & disown
   - sleep 3
   - cat log2.log
   - cd ..
