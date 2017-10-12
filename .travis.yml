@@ -26,6 +26,8 @@ matrix:
 #      node_js: "4.3"
 
 before_script:
+  - cp app/config.js.dist app/config.js
+  - cp react/config.js.dist react/config.js
   - cd react
   - yarn
   - export WEBPACK_MODE=dev
