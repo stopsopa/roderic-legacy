@@ -26,6 +26,8 @@ matrix:
 #      node_js: "4.3"
 
 before_script:
+  - pwd
+  - ls -la
   - cp app/config.js.dist app/config.js
   - cp react/config.js.dist react/config.js
   - cd react
@@ -33,6 +35,7 @@ before_script:
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - yarn devnowatch
+  - pwd
   - node index.server.js 1>> log.log 2>>log.log & disown
   - sleep 3
   - cat log.log
@@ -40,6 +43,7 @@ before_script:
   - echo 'after devnowatch in before' && ls -la docs/dist/
 
 script:
+  - pwd
   - echo 'after devnowatch in script' && ls -la docs/dist/
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
