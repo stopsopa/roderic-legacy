@@ -51,7 +51,11 @@ process.on('uncaughtException', function (e) {
 
 const app = express();
 
-app.use(favicon(path.join(config.web, 'favicon.ico')))
+console.log('config.web', config.web);
+
+console.log('icopath', path.resolve(config.web, 'favicon.ico'));
+
+app.use(favicon(path.resolve(config.web, 'favicon.ico')))
 
 app.use(bodyParser.urlencoded({extended: false}));
 
