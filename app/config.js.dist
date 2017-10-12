@@ -1,0 +1,19 @@
+/**
+ * WARNING
+ * WARNING
+ * WARNING
+ * WARNING
+ * WARNING: be carefull with exposing here vulnerable data, because this file is sended to browser
+ * WARNING
+ * WARNING
+ * WARNING
+ * WARNING: ... and don't remove this message, please...
+ */
+
+const pingserver = 'localhost:86';
+
+module.exports = {
+    pingserver: pingserver,
+    fake: true,
+    // delay: 1000 // delay in all feeds for debugging - don't enable on prod
+}

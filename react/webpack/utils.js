@@ -16,9 +16,14 @@ function json(data) {
     return JSON.stringify(data, null, '    ').replace(/\\\\/g, '\\');
 }
 
-function findentries(root) {
+function findentries(root, mask) {
 
-    const list = glob.sync(root + "/**/*.entry.{js,jsx}");
+    if (typeof mask === 'undefined') {
+
+        mask = "/**/*.entry.{js,jsx}";
+    }
+
+    const list = glob.sync(root + mask);
 
     let tmp, entries = {};
 
@@ -190,7 +195,7 @@ var utils = {
 
         return this.env;
     },
-    entries: function () {
+    entries: function (mask, suppressNotFoundError) {
 
         var t, i, tmp = {}, root = this.config.js.entries;
 
@@ -206,7 +211,7 @@ var utils = {
 
         root.forEach(function (r) {
 
-            t = findentries(r);
+            t = findentries(r, mask);
 
             for (i in t) {
 
@@ -219,7 +224,7 @@ var utils = {
             }
         });
 
-        if (!Object.keys(tmp).length) {
+        if ( ! suppressNotFoundError && ! Object.keys(tmp).length) {
 
             throw "Not found *.entry.js files in directories : \n" + json(root, null, '    ');
         }

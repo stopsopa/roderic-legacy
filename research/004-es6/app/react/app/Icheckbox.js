@@ -5,7 +5,7 @@ import './icontrol_big_gray.css';
 import PropTypes from 'prop-types'; // ES6
 
 export default class Icheckbox extends React.Component {
-    static PropTypes = {
+    static propTypes = {
         label: PropTypes.string.isRequired
     };
     constructor(...args) {

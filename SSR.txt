@@ -1,0 +1,6 @@
+https://www.youtube.com/watch?v=tsEHfL-Ul1Y&index=1&list=WL&t=9s
+https://www.youtube.com/watch?v=duhudXkHRf4
+
+todo:
+    - <title> and other meta management from react
+    -

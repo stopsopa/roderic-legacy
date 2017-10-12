@@ -1,2 +1,10 @@
-#test{border:1px solid red;background-image:url(/asset/app/styledir/img/webpack.jpg);background-repeat:no-repeat;display:block;width:60px;height:60px}
-/*# sourceMappingURL=index-dir.bundle.css.map*/
+@charset "UTF-8";
+
+#test {
+    border: 1px solid red;
+    background-image: url(/asset/app/other/styledir/img/webpack.jpg);
+    background-repeat: no-repeat;
+    display: block;
+    width: 60px;
+    height: 60px;
+}

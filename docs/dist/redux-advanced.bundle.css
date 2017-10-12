@@ -1,2 +1,4 @@
-.active-link{text-decoration:none;color:#000;cursor:default}
-/*# sourceMappingURL=redux-advanced.bundle.css.map*/
+.active-link {
+  text-decoration: none;
+  color: black;
+  cursor: default; }

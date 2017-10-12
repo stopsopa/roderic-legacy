@@ -1,0 +1,38 @@
+.global-loader-component {
+    z-index: 1000;
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    height: 20px;
+    & > * {
+        float: left;
+    }
+    & > span {
+        padding-left: 4px;
+    }
+    &.err,
+    &.msg {
+        font-weight: bold;
+        color: white;
+    }
+    &.err {
+        background-color: #db2828;
+        border-right: 40px solid #db2828;
+        border-left: 40px solid #db2828;
+    }
+    &.msg {
+        background-color: green;
+        border-right: 40px solid green;
+        border-left: 40px solid green;
+    }
+    &.load {
+        background-color: white;
+    }
+}
+body .global-loader-component .ui.loader {
+    top: 3px;
+}

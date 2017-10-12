@@ -31,6 +31,9 @@ before_script:
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
   - npm run devnowatch
+  - sudo node index.server.js & disown
+  - sleep 3
+  - kill -SIGTERM $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}')
   - cd ..
   - echo 'after devnowatch in before' && ls -la docs/dist/
 
@@ -42,6 +45,9 @@ script:
   - rm -rf docs/dist/*
   - cd react
   - npm run prod
+  - kill -SIGTERM $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}')
+  - sudo node index.server.js & disown
+  - sleep 3
   - cd ..
   - echo 'after prod' && ls -la docs/dist/
   - export WEBPACK_MODE=prod

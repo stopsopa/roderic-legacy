@@ -1,2 +1,36 @@
-body{margin:10px}h4{margin-top:2px;margin-bottom:2px}a,h4{color:#fff}table>tbody>tr:first-child>td:first-child{border:1px solid #add8e6;background-image:url(/asset/app/style/img/import.jpg);background-repeat:no-repeat}pre{background-image:url(/asset/app/style/img/import.jpg);background-repeat:no-repeat}#for-imported{background-image:url(/asset/app/style/img/import.jpg);background-repeat:no-repeat;display:block;width:100px;height:100px}
-/*# sourceMappingURL=test.bundle.css.map*/
+@charset "UTF-8";
+
+body {
+    margin: 10px;
+}
+h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: white;
+}
+table > tbody > tr:first-child > td:first-child {
+    border: 1px solid lightblue;
+    background-image: url(/asset/app/other/style/img/import.jpg);
+    /*background-position: 9px 9px;*/
+    background-repeat: no-repeat;
+}
+table a {
+    color: white;
+}
+@charset "UTF-8";
+
+pre {
+    background-image: url(/asset/app/other/style/img/import.jpg);
+    background-repeat: no-repeat;
+}
+
+
+#for-imported {
+    background-image: url(/asset/app/other/style/img/import.jpg);
+    background-repeat: no-repeat;
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+@charset "UTF-8";
+

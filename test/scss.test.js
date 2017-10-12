@@ -10,9 +10,9 @@ it('scss', () => {
 
     const data = reader('scss');
 
-    data.tcss('url(/asset/app/scss/scss/img/sass.png)', 1);
+    data.tcss('url(/asset/app/other/scss/scss/img/sass.png)', 1);
 
-    data.tcss('url(/asset/app/scss/inc/jpg/all.jpg)', 1);
+    data.tcss('url(/asset/app/other/scss/inc/jpg/all.jpg)', 1);
 
     data.tjs('scss - i will search for this in tests', 1);
 });

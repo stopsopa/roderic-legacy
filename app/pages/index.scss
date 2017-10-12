@@ -1,0 +1,137 @@
+@import "./variables.scss";
+@import "./indicator.scss";
+
+.container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "navi"
+        "content"
+    ;
+    & > div.navi {
+        grid-area: navi;
+
+        & > .menu {
+            & > .active {
+                & > div {
+                    background-color: lightgray;
+                }
+            }
+        }
+        //border: 1px solid blue;
+        .buttons {
+            button {
+                padding-left: 9px;
+                padding-right: 9px;
+            }
+        }
+    }
+    & > div.content {
+        grid-area: content;
+        //border: 1px solid red;
+        & > div > h1.header {
+            margin-top: 15px;
+        }
+    }
+}
+
+body .facebook-paragraph {
+    p {
+        line-height: 1.3em;
+    }
+    p:nth-child(2) {
+        .p:first-child {
+            margin-right: 5px;
+        }
+    }
+    .fp-box.icon {
+        width: 18px;
+        height: 18px;
+        margin-top: 10px;
+    }
+}
+.list {
+    .content {
+        .header {
+            .mini {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (min-width: $screen-sm-min) {
+    .container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+                "navi"
+                "content"
+        ;
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: $screen-md-min) {
+    .container {
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "navi content";
+    }
+}
+
+/* Large desktop */
+@media (min-width: $screen-lg-min) {
+    .container {
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "navi content";
+    }
+}
+
+.table {
+    & > .cell {
+        display: grid;
+        grid-template-columns: 20px 1fr 74px;
+        grid-template-rows: auto;
+        grid-template-areas: "ico tbody actions";
+        border-bottom: 1px solid lightgray;
+        padding-bottom: 3px;
+        padding-top: 4px;
+        & > :nth-child(2) {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-template-columns: 35px auto;
+            grid-template-areas:
+                'tico ttop'
+                'tbottom tbottom'
+            ;
+            .tico {
+                grid-area: tico;
+                justify-self: start;
+            }
+            .ttop {
+                grid-area: ttop;
+            }
+            .tbottom {
+                grid-area: tbottom;
+            }
+        }
+        .ico {
+            grid-area: ico;
+            align-self: center;
+            justify-self: center;
+        }
+        .actions {
+            grid-area: actions;
+            align-self: center;
+        }
+    }
+}
+.capone {
+    padding-right: 20px;
+}
+
+

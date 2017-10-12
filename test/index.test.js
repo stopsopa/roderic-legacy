@@ -10,7 +10,7 @@ it('test', () => {
 
     const data = reader('test');
 
-    data.tcss('url(/asset/app/style/img/import.jpg)', 3);
+    data.tcss('url(/asset/app/other/style/img/import.jpg)', 3);
 
     // nothing to test in js
 });

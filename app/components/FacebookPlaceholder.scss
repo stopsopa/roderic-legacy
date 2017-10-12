@@ -1,0 +1,49 @@
+.facebook-paragraph {
+    p {
+        line-height: 2em;
+        margin-right: 1ex;
+        overflow: hidden;
+        margin-bottom: 0;
+        .p {
+            position: relative;
+            background-color: #ececec;
+            color: #ececec;
+            &::before {
+                position: absolute;
+                content: '';
+                background-color: #ececec;
+                top: 0;
+                bottom: 0;
+                width: 0.5ex;
+                left: 100%;
+            }
+        }
+        ::selection {
+            background-color: #ececec;
+            color: #ececec;
+        }
+    }
+    .fp-box {
+        background-color: #ececec;
+        height: 3em;
+        width: 3em;
+        margin-right: 0.5em;
+        margin-bottom: 0.5em;
+        display: inline-block;
+        float:left;
+        margin-top: 0.4em;
+    }
+    .fp-belt {
+        position: relative;
+        height: 1em;
+        &::before {
+            position: absolute;
+            content: '';
+            background-color: #ececec;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 80%;
+        }
+    }
+}

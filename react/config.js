@@ -13,11 +13,15 @@ const root              = path.resolve(__dirname, '..');
 // relative path to public server directory
 const web               = path.resolve(root, 'docs');
 
-const asset            = path.resolve(web, 'asset');
+const asset             = path.resolve(web, 'asset');
 
 const node_modules      = path.join(__dirname, 'node_modules');
 
+const app               = path.resolve(root, 'app');
+
 module.exports = {
+    // just name for this project, it's gonna show up in some places
+    name: 'webpack-demo',
     root: root,
     web: web,
     resolve: [ // where to search by require and files to watch
@@ -28,11 +32,11 @@ module.exports = {
         { // node_modules exposed on web - symlink mode
             path: node_modules,
             link: path.resolve(asset, 'public')
-        },
+        }
     ],
     asset: [ // just create links, this links are not direct paths for resolver
         {
-            path: path.resolve(root, 'app', 'react', 'assets'),
+            path: path.resolve(root, 'app', 'other', 'react', 'assets'),
             link: path.resolve(asset, 'rassets')
         },
         {
@@ -44,17 +48,24 @@ module.exports = {
             link: path.resolve(asset, 'app')
         }
     ],
-    alias: {
-        log: path.resolve(__dirname, 'webpack', 'logw'),
+    aliasForWeb: {
+        log         : path.resolve(__dirname, 'webpack', 'logw'),
+        transport   : path.resolve(app, 'transport')
     },
-    provide: { // see format: https://webpack.js.org/plugins/provide-plugin/
+    provideForWeb: { // see format: https://webpack.js.org/plugins/provide-plugin/
         log: 'log'
     },
     js: {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
-            path.resolve(root, 'app'),
+            app,
             // ...
         ],
-        output: path.resolve(web, 'dist'),
+        outputForWeb: path.resolve(web, 'dist'),
+    },
+    server: {
+        host: '0.0.0.0',
+        port: 85,
+        watchAndReload: path.resolve(__dirname, 'index.server.js')
     }
+
 }
