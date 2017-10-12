@@ -64,8 +64,7 @@ module.exports = {
     },
     server: {
         host: '0.0.0.0',
-        port: 85,
+        port: 1025,
         watchAndReload: path.resolve(__dirname, 'index.server.js')
     }
-
 }

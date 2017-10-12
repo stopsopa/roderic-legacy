@@ -10,7 +10,7 @@
  * WARNING: ... and don't remove this message, please...
  */
 
-const pingserver = 'localhost:86';
+const pingserver = 'localhost:1025';
 
 module.exports = {
     pingserver: pingserver,
