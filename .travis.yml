@@ -32,9 +32,10 @@ before_script:
   - yarn
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
-  - npm run devnowatch
-  - sudo node index.server.js & disown
+  - yarn devnowatch
+  - sudo node index.server.js 1>> log.log 2>>log.log & disown
   - sleep 3
+  - cat log.log
   - cd ..
   - echo 'after devnowatch in before' && ls -la docs/dist/
 
@@ -42,17 +43,18 @@ script:
   - echo 'after devnowatch in script' && ls -la docs/dist/
   - export WEBPACK_MODE=dev
   - echo $WEBPACK_MODE
-  - npm run test
+  - yarn test
   - rm -rf docs/dist/*
   - cd react
-  - npm run prod
+  - yarn prod
   - sudo kill -SIGTERM $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}')
-  - sudo node index.server.js & disown
+  - sudo node index.server.js 1>> log2.log 2>>log2.log & disown
   - sleep 3
+  - cat log2.log
   - cd ..
   - echo 'after prod' && ls -la docs/dist/
   - export WEBPACK_MODE=prod
   - echo $WEBPACK_MODE
-  - npm run test
+  - yarn test
   - /bin/bash test/testinstall.sh
 
