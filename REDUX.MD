@@ -8,15 +8,15 @@ REDUCER function need to be pure function
     - REDUCER COMPOSITION   import { createStore, combineReducers } from 'redux';
             - combineReducers implementation https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
         https://egghead.io/lessons/javascript-redux-reducer-composition-with-arrays
-        https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js#L73
-        https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js#L76
+        https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js#L73
+        https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js#L76
         combining redusers to new reducer:
             https://egghead.io/lessons/javascript-redux-reducer-composition-with-objects
                 this reducer calls other reducers to manage part of the state and 
                 combines the states in the single state object
                 examples:
-                    redux: https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js#L124
-                    manual: https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js#L110
+                    redux: https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js#L124
+                    manual: https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js#L110
         - convention: always name reducers after the state key they manage                    
     - if you pass to reducer as a STATE undefined then you need to return INITIAL STATE OF THE APPLICATIONS
     simpliest example:

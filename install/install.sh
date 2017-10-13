@@ -26,7 +26,7 @@ echo "";
 
 while read p; do
 
-    EXE="wget https://raw.githubusercontent.com/stopsopa/webpack3/$VER/$p?$T -O $p 1> /dev/null 2> /dev/null"
+    EXE="wget https://raw.githubusercontent.com/stopsopa/roderic/$VER/$p?$T -O $p 1> /dev/null 2> /dev/null"
 
     $EXE 1> /dev/null 2> /dev/null
 
@@ -37,7 +37,7 @@ while read p; do
     printf "                                 ";
 
 done << EOF
-    $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/webpack3/$VER/install/files.list?$T)
+    $($GETOUTPUT https://raw.githubusercontent.com/stopsopa/roderic/$VER/install/files.list?$T)
 EOF
 
 # test file

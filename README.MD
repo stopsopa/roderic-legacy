@@ -1,12 +1,12 @@
-<a href="https://stopsopa.github.io/webpack3">
-    <img src="https://stopsopa.github.io/webpack3/logo.svg" alt="Roderic logo"
+<a href="https://stopsopa.github.io/roderic">
+    <img src="https://stopsopa.github.io/roderic/logo.svg" alt="Roderic logo"
          title="Roderic" align="right" width="82" height="82"/>
 </a>
 
 Roderic
 ======
 
-[![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=redux)](https://travis-ci.org/stopsopa/webpack3)
+[![Build Status](https://travis-ci.org/stopsopa/roderic.svg?branch=redux)](https://travis-ci.org/stopsopa/roderic)
 
 Another Webpack boilderplate. Main goals: 
 
@@ -18,7 +18,7 @@ Don't feel overwhelmed by all files above, their all are there mainly for testin
 installation:
 -
  
- Follow instructions for all [releases](https://github.com/stopsopa/webpack3/releases).
+ Follow instructions for all [releases](https://github.com/stopsopa/roderic/releases).
     
         
 then go to **react** folder configure **config.js** and run one of:
@@ -34,8 +34,8 @@ or
     
 Syntax templates
 -
-- [es6](https://github.com/stopsopa/webpack3/blob/master/template.es6.js)
-- [redux](https://github.com/stopsopa/webpack3/blob/redux/app/redux/004-counters/redux-counters.entry.js)
+- [es6](https://github.com/stopsopa/roderic/blob/master/template.es6.js)
+- [redux](https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js)
     
 Features
 -
