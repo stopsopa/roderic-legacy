@@ -91,6 +91,7 @@ const resolve = {
 const web = {
     name: `[ ${utils.config.name} ]`.blue + ` browser bundling`.yellow,
     entry: utils.entries(),
+    context: __dirname,
     output: {
         path: utils.config.js.outputForWeb,
         filename: "[name].bundle.js",
@@ -197,6 +198,7 @@ if (Object.keys(serverEndpoints).length) {
         name: `[ ${utils.config.name} ]`.blue + ` server-side rendering`.yellow,
         entry: serverEndpoints,
         target: 'node',
+        context: __dirname,
         node: {
             // https://github.com/webpack/webpack/issues/1599
             __dirname: true,
