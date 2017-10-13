@@ -3,9 +3,7 @@
 const path      = require('path');
 const webpack   = require('webpack');
 const utils     = require(path.resolve(__dirname, "..", "..", "react", "webpack", "utils"));
-const log       = require(path.resolve(__dirname, "..", "..", "react", "webpack", 'logn'))
-const rmdir     = require(path.resolve(__dirname, "..", "..", "react", "webpack", 'rmdir'))
-const env       = utils.setup(path.resolve('.', 'config.js'));
+// const log       = require(path.resolve(__dirname, "..", "..", "react", "webpack", 'logn'));
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
