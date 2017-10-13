@@ -18,15 +18,11 @@ GETOUTPUT="$(wget -help 1> /dev/null 2> /dev/null && echo "wget -qO-" || echo "c
 
 T="$(date +%Y-%m-%d-%H-%M-%S)"
 
-# if react exist stop
-
-mkdir -p react/webpack
-
 echo "";
 
 while read p; do
 
-    EXE="$GETOUTPUT https://raw.githubusercontent.com/stopsopa/roderic/$VER/$p?$T -O $p 1> /dev/null 2> /dev/null"
+    EXE="curl https://raw.githubusercontent.com/stopsopa/roderic/$VER/$p?$T --create-dirs -o $p 1> /dev/null 2> /dev/null"
 
     $EXE 1> /dev/null 2> /dev/null
 
@@ -77,7 +73,7 @@ else # npm
 
         npm install
     else
-    
+
         printf "\e[91m'npm' not available, usually that's means that you need to install node.js\e[0m";
     fi
 fi
