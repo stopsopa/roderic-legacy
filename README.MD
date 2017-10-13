@@ -8,6 +8,11 @@ Roderic
 
 [![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=redux)](https://travis-ci.org/stopsopa/webpack3)
 
+Another Webpack boilderplate. Main goals: 
+
+1) simple as possible (brutally simple and this is priority number one), 
+2) yet with maximal configuration flexibility
+
 Don't feel overwhelmed by all files above, their all are there mainly for testing. I still promise that this configuration is simple.
 
 installation:
@@ -20,13 +25,11 @@ then go to **react** folder configure **config.js** and run one of:
     
     npm run dev
     npm run prod
-    sudo npm run server 0.0.0.0 80
     
 or
 
     yarn dev
     yarn prod
-    sudo yarn server 0.0.0.0 80
     
     
 Syntax templates
