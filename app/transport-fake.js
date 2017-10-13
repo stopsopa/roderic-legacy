@@ -69,6 +69,12 @@ export const fakeReturn = (url, ...rest) => {
 
         ret.json = () => fake[key].data(...rest);
 
+        try { // for tests
+            document.querySelector('flares').innerHTML += `--${url}--\n`;
+        }
+        catch (e) {
+        }
+
         return Promise.resolve(ret);
     }
 };

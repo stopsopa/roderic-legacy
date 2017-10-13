@@ -18,4 +18,7 @@ const request = path => fetch(`http://${ip}${p}${path}`);
 
 it('ssr', () => request('/gui')
     .then(res => res.text())
-    .then(html => expect(html).toContain('<a href="http://domain-d.com" target="_blank" data-reactid="')))
+    .then(html => {
+        expect(html).toContain('<a href="http://domain-d.com" target="_blank" data-reactid="');
+        expect(html).toContain(`":"http:\\u002F\\u002Fdomain-d.com","`);
+    }))

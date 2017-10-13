@@ -1,3 +1,11 @@
+<a href="https://stopsopa.github.io/webpack3">
+    <img src="https://stopsopa.github.io/webpack3/logo.svg" alt="Roderic logo"
+         title="Roderic" align="right" width="82" height="82"/>
+</a>
+
+Roderic
+======
+
 [![Build Status](https://travis-ci.org/stopsopa/webpack3.svg?branch=redux)](https://travis-ci.org/stopsopa/webpack3)
 
 Don't feel overwhelmed by all files above, their all are there mainly for testing. I still promise that this configuration is simple.
