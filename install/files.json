@@ -1,0 +1,38 @@
+[
+  {
+    "source": "react/config.js"
+  },
+  {
+    "source": "react/webpack.config.js"
+  },
+  {
+    "source": "react/yarn.lock"
+  },
+  {
+    "source": "react/package.json"
+  },
+  {
+    "source": "react/.gitignore"
+  },
+  {
+    "source": "react/server.js"
+  },
+  {
+    "source": "react/webpack/logn.js"
+  },
+  {
+    "source": "react/webpack/logw.js"
+  },
+  {
+    "source": "react/webpack/rootrequire.js"
+  },
+  {
+    "source": "react/webpack/utils.js"
+  },
+  {
+    "source": "__check.js"
+  }
+]
+
+
+
