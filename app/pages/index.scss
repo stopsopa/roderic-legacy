@@ -1,6 +1,25 @@
 @import "./variables.scss";
 @import "./indicator.scss";
 
+.bem {
+    @at-root #{&}__element {
+        color: red;
+    }
+    @at-root #{&}--modifier {
+        color: blue;
+    }
+}
+/*
+.bem__element {
+    color: red;
+}
+
+.bem--modifier {
+    color: blue;
+}
+*/
+
+
 .container {
     display: grid;
     grid-template-columns: auto;

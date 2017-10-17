@@ -65,6 +65,9 @@ app.use(express.static(config.web));
 
 app.use((req, res) => {
 
+    // read later: TTFB https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67#ee91
+    // if we want to handle 301 or 404 i you shouldnt use TTFB
+
     const store = configureStore();
 
     fetchData(req.url, store).then(() => {
@@ -100,5 +103,5 @@ app.use((req, res) => {
 
 app.listen(port, ip, () => {
 
-    console.log(`Server is running ${ip}:${port}`.blue)
+    console.log(`\nServer is running `.green + `${ip}:${port}\n`.blue)
 });

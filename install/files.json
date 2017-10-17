@@ -1,0 +1,38 @@
+[
+  {
+    "source": ":react::react_dir:/config.js"
+  },
+  {
+    "source": ":react::react_dir:/webpack.config.js"
+  },
+  {
+    "source": ":react::react_dir:/yarn.lock"
+  },
+  {
+    "source": ":react::react_dir:/package.json"
+  },
+  {
+    "source": ":react::react_dir:/.gitignore"
+  },
+  {
+    "source": ":react::react_dir:/server.js"
+  },
+  {
+    "source": ":react::react_dir:/webpack/logn.js"
+  },
+  {
+    "source": ":react::react_dir:/webpack/logw.js"
+  },
+  {
+    "source": ":react::react_dir:/webpack/rootrequire.js"
+  },
+  {
+    "source": ":react::react_dir:/webpack/utils.js"
+  },
+  {
+    "source": "__check.js"
+  }
+]
+
+
+

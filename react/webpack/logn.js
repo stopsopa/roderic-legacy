@@ -383,11 +383,14 @@ log.stack = function (n /* def: 0 */) {
                 ll(('  '.repeat(l)) + ((isOb) ? '}' :']') );
             }
             else {
+                var t = type(d);
+                var c = toString(d);
                 ll(
                     ('  '.repeat(l)) +
                     index +
-                    '[' + type(d) + ']: ' +
-                    '>' + toString(d) + '<'
+                    '[' + t + ']: ' +
+                    '>' + c + '<' +
+                    ( (t === 'String') ? ' len: ' + c.length : '')
                 );
             }
         }
