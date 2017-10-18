@@ -12,7 +12,7 @@ import express from 'express';
 
 import bodyParser from 'body-parser';
 
-import config from '../react/config';
+import config from '../:react::react_dir:/config';
 
 import RootServer from './components/RootServer';
 

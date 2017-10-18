@@ -1,12 +1,14 @@
 'use strict';
 
-const ver = 'v0.0.2';
+const ver = 'v0.1.0';
 
 const path      = require('path');
 const https     = require('https');
 const fs        = require('fs');
+const runSync   = require('child_process').spawnSync;
+const Stream    = require('stream').Transform;
 
-const log       = console.log;
+let args = {};
 
 const prompt = (() => {
 
@@ -14,7 +16,9 @@ const prompt = (() => {
 
     process.stdin.setEncoding('utf8');
 
-    return message => new Promise(resolve => {
+    const color = message => process.stdout.write(['\x1B[', 36, 'm', message + ' ', '\x1B[0m'].join(''));
+
+    const tool = message => new Promise(resolve => {
 
         // tutorial: https://docs.nodejitsu.com/articles/command-line/how-to-prompt-for-command-line-input/
 
@@ -24,7 +28,7 @@ const prompt = (() => {
         // can't use octal sequence sequences in strict mode so to convert:
         //      https://coderstoolbox.net/number/
 
-        process.stdout.write(['\x1B[', 36, 'm', message + ' ', '\x1B[0m'].join(''));
+        color(message);
 
         process.stdin.on('data', data => {
             resolve(trim(data));
@@ -32,10 +36,14 @@ const prompt = (() => {
 
         // next: .then(data => { log(data); process.exit(0); });
     });
+
+    tool.color = color;
+
+    return tool;
 })();
 
 const error = err => {
-    err = err.split("\n").map(p => `    ${p}`).join("\n");
+    err = (err + '').split("\n").map(p => `    ${p}`).join("\n");
     process.stderr.write(`\nerror: \n\n${err}\n\n`);
     process.exit(-1);
 };
@@ -68,7 +76,7 @@ const parallel = function (input, execute, slots) {
  */
 const fillIn = (function () {
 
-    const regexp = /:([^:]*)::([^:]+):/g;
+    const regexp = /:([a-z0-9\._-]*)::([a-z0-9\._-]+):/ig;
 
     // var test = `one :defval1::key: two :defval2::key2: three :defval3::key3: end`;
 
@@ -77,13 +85,37 @@ const fillIn = (function () {
     };
 
     const descriptions = {
-        react_dir: "Webpack directory: ",
-        web_dir: "Publicly available server directory: "
+        react_dir   : "Webpack directory: ",
+        web_dir     : "Publicly available server directory: ",
+        app_dir     : "Application directory (directory with your React components): ",
+        root        : "Root directory of project (main directory to resolve any paths)",
+        app_name    : "Name of this project"
     };
 
     const defined = { // collected from data, ready to ask
         // finalkey: finalvalue
+        // app_dir: 'app'
     };
+
+    process.argv
+        .filter(a => a.indexOf('--') === 0)
+        .map(a => a.substring(2))
+        .filter(a => /^[^=]+=.+$/i.test(a))
+        .map(a => {
+            a = a.match(/^([^=]+)=(.+)$/);
+            return {
+                key: a[1],
+                value: a[2]
+            }
+        })
+        .forEach(v => {
+            defined[v.key] = v.value;
+        })
+    ;
+
+    (process.argv.indexOf('--onlyFix') > -1) && (args.onlyFix = true);
+
+    args = Object.assign(args, defined);
 
     /**
      * Return array of found unique keys in text with its default values
@@ -112,7 +144,7 @@ const fillIn = (function () {
      */
     const collectToAsk = input => extract(input).map(x => ( (typeof defined[x.key] === 'undefined') && (defined[x.key] = asklist[x.key] = x.def) ));
 
-    const processOne = (key, copy) => prompt( `${descriptions[key] || key} ` + (copy[key] ? `(default:${copy[key]}) : ` : ': ') );
+    const processOne = (key, copy) => prompt( `${descriptions[key] || key} ` + (copy[key] ? `(default: ${copy[key]} ) : ` : ': ') );
 
     const tool = input => {
 
@@ -164,125 +196,95 @@ const fillIn = (function () {
 
     tool.replaceWithDefault     = replaceWithDefault;
 
+    tool.get = key => defined[key];
+
     return tool;
 }());
 
 const transport = (source, target) => {
 
+    const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
+
     return new Promise((resolve, reject) => {
 
         const url = `${source}?${new Date()*1}`;
 
-        target && (target !== '__check.js') && log(`downloading: ${target}`);
-
-        const request = https.get(url, response => {
+        https.get(url, function (response) {
 
             if (response.statusCode === 200) {
 
-                if ( ! target) {
+                if ( target ) {
 
-                    let body = '';
+                    dirEnsure(path.dirname(target), true);
 
-                    response.on('data', chunk => body += chunk);
+                    const file = fs.createWriteStream(target);
 
-                    return response.on('end', () => {
-
-                        const json = JSON.parse(body);
-
-                        if (json) {
-
-                            return resolve(json)
-                        }
-
-                        error(`Couldn't decode json: ${source}`);
-                    });
+                    return response
+                        .on('data', data => file.write(data))
+                        .on('end', () => {
+                            file.end();
+                            resolve();
+                        })
+                        .on('error', error);
                 }
+                else {
 
-                dirEnsure(path.dirname(target), true);
+                    const data = new Stream();
 
-                const file = fs.createWriteStream(target);
+                    return response
+                        .on('data', chunk => data.push(chunk))
+                        .on('end', () => {
 
-                response.pipe(file);
+                            const json = JSON.parse(data.read());
 
-                file.on('finish', () => file.close());
+                            if (json) {
 
-                return resolve();
+                                return resolve(json)
+                            }
+
+                            error(`Couldn't decode json: ${source}`);
+                        })
+                        .on('error', error);
+                }
             }
 
-            error(`Downloading ${url} failed,\nhttp status code: ${response.statusCode}`);
+            error(`Downloading '${url}' failed,\nhttp status code: ${response.statusCode}`);
         });
-
-        request.on('error', error);
     });
 };
 
-(function () {
+const fixFiles = (function () {
 
-    let list, def, fixed;
+    const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
+
+    return list => Promise.all(list.map(file => {
+
+        if (file.template && fs.existsSync(file.source)) {
+
+            let content = fs.readFileSync(file.source);
+
+            if (content) {
+
+                content = content.toString();
+
+                return fillIn(content).then(content => {
+
+                    content = content.replace(reg, '');
+
+                    fs.writeFileSync(file.source, content)
+                });
+            }
+        }
+
+        return Promise.resolve();
+    }));
+}());
+
+args.onlyFix || (function () {
+
+    let list, def, fixed, webpackDir, yarn;
 
     transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
-        .then(() => [
-            // {
-            //     "source": ":app::app_dir:/transport.js"
-            // },
-            // {
-            //     "source": ":app::app_dir:/routes.js"
-            // },
-            // {
-            //     "source": ":app::app_dir:/index.server.html"
-            // },
-            // {
-            //     "source": ":app::app_dir:/index.server.js"
-            // },
-            // {
-            //     "source": ":app::app_dir:/index.entry.js"
-            // },
-            // {
-            //     "source": ":app::app_dir:/config.js.dist"
-            // },
-            // {
-            //     "source": ":app::app_dir:/configureStore.js"
-            // },
-            // {
-            //     "source": ":docs::web_dir:/favicon.ico"
-            // },
-            {
-                "source": ":docs::web_dir:/.gitignore"
-            },
-            {
-                "source": ":react::react_dir:/config.js"
-            },
-            {
-                "source": ":react::react_dir:/webpack.config.js"
-            },
-            {
-                "source": ":react::react_dir:/yarn.lock"
-            },
-            {
-                "source": ":react::react_dir:/package.json"
-            },
-            {
-                "source": ":react::react_dir:/.gitignore"
-            },
-            {
-                "source": ":react::react_dir:/server.js"
-            },
-            {
-                "source": ":react::react_dir:/webpack/logn.js"
-            },
-            {
-                "source": ":react::react_dir:/webpack/logw.js"
-            },
-            {
-                "source": ":react::react_dir:/webpack/rootrequire.js"
-            },
-            {
-                "source": ":react::react_dir:/webpack/utils.js"
-            },
-            {
-                "source": "__check.js"
-            }
-        ])
         .then(data => {
 
             list    = data;
@@ -294,19 +296,29 @@ const transport = (source, target) => {
         })
         .then(() => {
 
-            list.forEach(one => fillIn.collectToAsk(one.source));
+            list
+                .forEach(one => fillIn.collectToAsk(one.source))
+            ;
 
             return fillIn();
         })
         .then(() => {
 
-            def.forEach( (one, key) => def[key].source = fillIn.replaceWithDefault(one.source) );
+            def.forEach( (one, key) => def[key].source = fillIn.replaceWithDefault(one.source));
 
-            return Promise.all(fixed.map( (one, key) => fillIn(one.source).then(text => fixed[key].source = text) ));
+            return Promise.all(
+                fixed.map(
+                    (one, key) => fillIn(one.source).then(text => fixed[key].source = text)
+                )
+            );
         })
         .then(() => {
 
-            const overridden = fixed.map(file => file.source).filter(file => file !== '__check.js').filter(file => fs.existsSync(path.resolve(__dirname, file)));
+            const overridden = fixed
+                .filter(file => !file.ignoreOnLists)
+                .map(file => file.source)
+                .filter(file => fs.existsSync(path.resolve(__dirname, file)))
+            ;
 
             if (overridden.length) {
 
@@ -350,39 +362,174 @@ const transport = (source, target) => {
                 process.exit(-1);
             }
         })
-        .then(() => Promise.all(def.map( (deffile, index) => transport(
-            `https://raw.githubusercontent.com/stopsopa/roderic/${ver}/${deffile.source}`,
-            fixed[index].source
-        ))))
+        .then(() => Promise.all(def.map( (deffile, index) => {
+
+            deffile.ignoreOnLists || log(`downloading: ${fixed[index].source}`);
+
+            return transport(
+                `https://raw.githubusercontent.com/stopsopa/roderic/${ver}/${deffile.source}`,
+                fixed[index].source
+            );
+        })))
         .then(() => {
 
-            const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
+            const checkFile = path.resolve(__dirname, '__check.js');
+
+            let content = fs.readFileSync(checkFile);
+
+            if (content) {
+
+                content = content.toString();
+
+                if (typeof content === 'string') {
+
+                    try {
+                        fs.unlinkSync(checkFile);
+                    }
+                    catch (e) {
+
+                    }
+
+                    return (content == '__check.js') || error("Content of file __check.js is invalid - download failed");
+                }
+            }
+
+            error("File __check.js doesn't exist - download failed");
+        })
+        .then(() => { // aggretaging interactions with user
+
+            fixed
+                .filter(file => file.template)
+                .forEach(file => {
+
+                    let content = fs.readFileSync(file.source);
+
+                    if (content) {
+
+                        content = content.toString();
+
+                        fillIn.collectToAsk(content); // collecting keys to ask for value
+                    }
+                })
+            ;
+
+            return fillIn(); // triggering aggregated interaction with user
+        })
+        .then(() => fixed)
+        .then(fixFiles)
+        .then(() => yarn = !runSync('yarn', ['-v']).status)
+        .then(() => {
+
+            const react_dir = fillIn.get('react_dir');
+
+            webpackDir = path.resolve(__dirname, react_dir);
+
+            process.chdir(webpackDir);
+
+            prompt.color("\nWait ...");
+
+            console.log(runSync('npm', ['install', 'yarn']).stdout.toString());
+
+            // console.log(runSync('pwd').stdout.toString());
+
+            const p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
+
+            // console.log('p: ', p);
+
+            // require(p);
+
+            return new Promise(resolve => {
+                const spawn = require('child_process').spawn;
+                const child = spawn('node', [p]);
+                child.stdout.on('data', function(data) {
+
+                    process.stdout.write(data.toString());
+                });
+                child.stderr.on('data', function(data) {
+
+                    process.stdout.write(data.toString());
+                });
+                child.on('close', function(code) {
+
+                    process.chdir(__dirname);
+
+                    resolve();
+                });
+            });
+        })
+        .then(() => {
 
             fixed.forEach(file => {
 
-                let content = fs.readFileSync(file.source);
+                file = path.resolve(file.source);
 
-                if (content) {
+                const ext = path.extname(file);
 
-                    content = content.toString();
+                if (ext === '.dist') {
 
-                    content = content.replace(reg, '');
+                    const newName = path.join(path.dirname(file), path.basename(file, ext));
 
-                    fs.writeFileSync(file.source, content);
+                    fs.renameSync(file, newName);
                 }
-            });
 
-            process.exit(0);
+            })
         })
         .then(() => {
 
+            const install = yarn ? 'yarn' : 'npm install';
 
+            const react = fillIn.get('react_dir');
+
+            log(`
+
+now run:
+    cd ${react}
+    setup manually config.js
+    
+and next run one of:
+    ${install} dev
+  or
+    ${install} prod
+  or
+    node node_modules/yarn/bin/yarn.js dev
+  or
+    node node_modules/yarn/bin/yarn.js prod
+
+`);
+
+            process.exit(0);
         })
-        .then(() => log('all done...'))
+        .catch(e => {
+
+            log('catch:')
+
+            console.log(e);
+
+            error(e + '')
+        })
     ;
 }());
 
+// node install.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+args.onlyFix && (function () {
 
+    transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
+        // .then(data => (list = data))
+        .then(
+            list => Promise.all(
+                list.map(
+                    (o, k) => (fillIn(o.source).then(link => (list[k].source = link)))
+                )
+            )
+            .then(() => list)
+        )
+        .then(fixFiles)
+        .then(list => {
+            console.log(list)
+        })
+    ;
+
+}());
 
 
 
@@ -509,3 +656,8 @@ function dirEnsure(dir, createIfNotExist) {
         }
     }
 };
+
+function log() {
+    Array.prototype.slice.call(arguments).map(i => i + "\n").forEach(i => process.stdout.write(i));
+};
+

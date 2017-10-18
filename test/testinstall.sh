@@ -8,8 +8,10 @@ cd ..
 mkdir installtest
 cd installtest
 
-$(wget -help &> /dev/null && echo "wget -qO-" || echo "curl -s") \
-https://raw.githubusercontent.com/stopsopa/roderic/v0.0.1/install/install.sh?$(date +%Y-%m-%d-%H-%M-%S) | bash
+curl -L https://raw.githubusercontent.com/\
+stopsopa/roderic/v0.1.0/install/install.js?$(date +%s) > install.js
+
+node install.js
 
 
 

@@ -5,7 +5,7 @@ import 'isomorphic-fetch';
 
 export const delay = config.delay;
 
-import delayPromise from '../react/webpack/delay';
+import delayPromise from '../:react::react_dir:/webpack/delay';
 
 import { fakeTest, fakeReturn } from './transport-fake';
 

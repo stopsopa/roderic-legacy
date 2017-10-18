@@ -1,6 +1,6 @@
 
 import { createStore, applyMiddleware } from 'redux';
-import log from '../react/webpack/logw';
+import log from '../:react::react_dir:/webpack/logw';
 import reducers from './reducers';
 import isArray from 'lodash/isArray';
 

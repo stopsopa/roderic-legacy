@@ -8,20 +8,20 @@
 
 const path              = require("path");
 
-const root              = path.resolve(__dirname, '..');
+const root              = path.resolve(__dirname, ':..::root:');
 
 // relative path to public server directory
-const web               = path.resolve(root, 'docs');
+const web               = path.resolve(root, ':docs::web_dir:');
 
 const asset             = path.resolve(web, 'asset');
 
 const node_modules      = path.join(__dirname, 'node_modules');
 
-const app               = path.resolve(root, 'app');
+const app               = path.resolve(root, ':app::app_dir:');
 
 module.exports = {
     // just name for this project, it's gonna show up in some places
-    name: 'webpack-demo',
+    name: ':::app_name:',
     root: root,
     web: web,
     resolve: [ // where to search by require and files to watch

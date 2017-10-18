@@ -1,21 +1,168 @@
 [
   {
-    "source": ":react::react_dir:/config.js"
+    "source": ":app::app_dir:/actions/index.js",
+    "template": true
   },
   {
-    "source": ":react::react_dir:/webpack.config.js"
+    "source": ":app::app_dir:/components/ContainerVisible.js",
+    "template": true
   },
   {
-    "source": ":react::react_dir:/yarn.lock"
+    "source": ":app::app_dir:/components/Edit.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/FacebookPlaceholder.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/FacebookPlaceholder.scss",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/GlobalLoader.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/GlobalLoader.scss",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/GlobalLoaderVisible.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/Home.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/List.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/MainList.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/MainListVisible.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/Navi.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/NaviVisible.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/Root.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/RootServer.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/RootWeb.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/RootWeb.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/config.js.dist",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/configureStore.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/index.entry.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/index.server.html",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/index.server.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/pages/index.scss",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/pages/indicator.scss",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/pages/variables.scss",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/reducers/form.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/reducers/index.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/reducers/list.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/reducers/loading.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/routes.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/routes.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/transport-fake.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/transport.js",
+    "template": true
+  },
+  {
+    "source": ":docs::web_dir:/.gitignore",
+    "template": true
+  },
+  {
+    "source": ":docs::web_dir:/favicon.ico"
+  },
+  {
+    "source": ":react::react_dir:/.gitignore",
+    "template": true
+  },
+  {
+    "source": ":react::react_dir:/config.js.dist",
+    "template": true
   },
   {
     "source": ":react::react_dir:/package.json"
   },
   {
-    "source": ":react::react_dir:/.gitignore"
+    "source": ":react::react_dir:/server.js",
+    "template": true
   },
   {
-    "source": ":react::react_dir:/server.js"
+    "source": ":react::react_dir:/webpack.config.js",
+    "template": true
+  },
+  {
+    "source": ":react::react_dir:/webpack/delay.js"
   },
   {
     "source": ":react::react_dir:/webpack/logn.js"
@@ -24,15 +171,14 @@
     "source": ":react::react_dir:/webpack/logw.js"
   },
   {
-    "source": ":react::react_dir:/webpack/rootrequire.js"
+    "source": ":react::react_dir:/webpack/utils.js",
+    "template": true
   },
   {
-    "source": ":react::react_dir:/webpack/utils.js"
+    "source": ":react::react_dir:/yarn.lock"
   },
   {
-    "source": "__check.js"
+    "source": "__check.js",
+    "ignoreOnLists": true
   }
 ]
-
-
-
