@@ -26,25 +26,13 @@ const prompt = (() => {
 
         process.stdout.write(['\x1B[', 36, 'm', message + ' ', '\x1B[0m'].join(''));
 
-        process.stdin.on('data', resolve);
+        process.stdin.on('data', data => {
+            resolve(trim(data));
+        });
 
         // next: .then(data => { log(data); process.exit(0); });
     });
 })();
-
-
-// prompt('test:').then(data => log('data', data));
-
-
-// process.exit(0);
-
-
-// var k = 'test:defval::keyname: something else :val2::key: ddd : again:::key:draka :1val:key koniec';
-//
-// log(p.split(k));
-//
-// log('end.....>');
-// process.exit(0);
 
 const error = err => {
     err = err.split("\n").map(p => `    ${p}`).join("\n");
@@ -88,8 +76,9 @@ const fillIn = (function () {
         // key : default value
     };
 
-    const comments = {
-        react_dir: "Directory for webpack and all project repositories: "
+    const descriptions = {
+        react_dir: "Webpack directory: ",
+        web_dir: "Publicly available server directory: "
     };
 
     const defined = { // collected from data, ready to ask
@@ -123,7 +112,7 @@ const fillIn = (function () {
      */
     const collectToAsk = input => extract(input).map(x => ( (typeof defined[x.key] === 'undefined') && (defined[x.key] = asklist[x.key] = x.def) ));
 
-    const processOne = (key, copy) => prompt( `${comments[key] || key} ` + (copy[key] ? `(default:${copy[key]}) : ` : ': ') );
+    const processOne = (key, copy) => prompt( `${descriptions[key] || key} ` + (copy[key] ? `(default:${copy[key]}) : ` : ': ') );
 
     const tool = input => {
 
@@ -148,7 +137,7 @@ const fillIn = (function () {
                     processOne(key, copy).then(
                         value => {
 
-                            value = trim(value) || trim(defined[key]);
+                            value = value || trim(defined[key]);
 
                             if (value) {
 
@@ -184,7 +173,7 @@ const transport = (source, target) => {
 
         const url = `${source}?${new Date()*1}`;
 
-        target && log(`transporting: ${target}`);
+        target && (target !== '__check.js') && log(`downloading: ${target}`);
 
         const request = https.get(url, response => {
 
@@ -226,7 +215,6 @@ const transport = (source, target) => {
         request.on('error', error);
     });
 };
-
 
 (function () {
 
@@ -299,9 +287,10 @@ const transport = (source, target) => {
 
             list    = data;
 
-            fixed   = JSON.parse(JSON.stringify(data));
+            fixed   = JSON.parse(JSON.stringify(data))
 
             def     = JSON.parse(JSON.stringify(data));
+
         })
         .then(() => {
 
@@ -309,11 +298,57 @@ const transport = (source, target) => {
 
             return fillIn();
         })
-        .then(data => {
+        .then(() => {
 
             def.forEach( (one, key) => def[key].source = fillIn.replaceWithDefault(one.source) );
 
             return Promise.all(fixed.map( (one, key) => fillIn(one.source).then(text => fixed[key].source = text) ));
+        })
+        .then(() => {
+
+            const overridden = fixed.map(file => file.source).filter(file => file !== '__check.js').filter(file => fs.existsSync(path.resolve(__dirname, file)));
+
+            if (overridden.length) {
+
+                return new Promise(resolve => {
+
+                    let listed = false;
+
+                    (function again() {
+
+                        if ( ! listed) {
+
+                            listed = true;
+                            process.stdout.write("\nFiles to override:\n\n");
+                            overridden.forEach(path => {
+                                process.stdout.write(`    ${path}\n`);
+                            });
+                            process.stdout.write("\n");
+                        }
+
+                        prompt("Do you agree to override these files ? (y|n)").then(answer => {
+
+                            if (answer === 'y' || answer === 'n') {
+
+                                return resolve(answer);
+                            }
+
+                            again();
+                        });
+                    }());
+                });
+            }
+
+            return Promise.resolve('y');
+        })
+        .then(answer => {
+
+            if (answer === 'n') {
+
+                console.log(`\n    No, then good bye...\n`);
+
+                process.exit(-1);
+            }
         })
         .then(() => Promise.all(def.map( (deffile, index) => transport(
             `https://raw.githubusercontent.com/stopsopa/roderic/${ver}/${deffile.source}`,
@@ -321,11 +356,31 @@ const transport = (source, target) => {
         ))))
         .then(() => {
 
+            const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
+
+            fixed.forEach(file => {
+
+                let content = fs.readFileSync(file.source);
+
+                if (content) {
+
+                    content = content.toString();
+
+                    content = content.replace(reg, '');
+
+                    fs.writeFileSync(file.source, content);
+                }
+            });
+
+            process.exit(0);
+        })
+        .then(() => {
+
+
         })
         .then(() => log('all done...'))
     ;
 }());
-
 
 
 
