@@ -51,10 +51,6 @@ process.on('uncaughtException', function (e) {
 
 const app = express();
 
-console.log('config.web', config.web);
-
-console.log('icopath', path.resolve(config.web, 'favicon.ico'));
-
 app.use(favicon(path.resolve(config.web, 'favicon.ico')))
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -80,7 +76,7 @@ app.use((req, res) => {
             context={context}
         />);
 
-        let htmlTemplate = path.resolve((__filename.replace(/^(.*)\.[^\.]+$/g, '$1')) + '.html');
+        let htmlTemplate = path.resolve(config.app, 'index.server.html');
 
         htmlTemplate = fs.readFileSync(htmlTemplate).toString();
 

@@ -81,9 +81,9 @@ const resolve = {
 
         return list;
     }()),
-    extensions: ['.js', '.jsx', '.json'],
-    symlinks: false // to properly resolve url() in css/scss through web symlink
-};
+        extensions: ['.js', '.jsx', '.json'],
+        symlinks: false // to properly resolve url() in css/scss through web symlink
+    };
 
 /**
  * web
@@ -204,7 +204,11 @@ if (Object.keys(serverEndpoints).length) {
             __dirname: true,
             __filename: true
         },
-        externals: [ NodeExternals() ],
+        externals: [
+            NodeExternals({
+                modulesDir: node_modules // https://www.npmjs.com/package/webpack-node-externals#optionsmodulesdir-node_modules
+            })
+        ],
         output: {
             path: path.resolve(__dirname),
             filename: "[name].server.js",

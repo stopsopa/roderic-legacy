@@ -279,7 +279,7 @@ const fixFiles = (function () {
 
 args.onlyFix || (function () {
 
-    let list, def, fixed, webpackDir, yarn;
+    let list, def, fixed, webpackDir, yarn = !runSync('yarn', ['-v']).status;
 
     transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
         .then(data => {
@@ -290,12 +290,7 @@ args.onlyFix || (function () {
 
             def     = JSON.parse(JSON.stringify(data));
 
-        })
-        .then(() => {
-
-            list
-                .forEach(one => fillIn.collectToAsk(one.source))
-            ;
+            list.forEach(one => fillIn.collectToAsk(one.source));
 
             return fillIn();
         })
@@ -414,7 +409,6 @@ args.onlyFix || (function () {
         })
         .then(() => fixed)
         .then(fixFiles)
-        .then(() => yarn = !runSync('yarn', ['-v']).status)
         .then(() => {
 
             const react_dir = fillIn.get('react_dir');
@@ -497,6 +491,8 @@ and next run one of:
             console.log(e);
 
             error(e + '')
+
+            process.exit(0);
         })
     ;
 }());
