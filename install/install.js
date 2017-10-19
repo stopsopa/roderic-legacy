@@ -72,7 +72,7 @@ const parallel = function (input, execute, slots) {
     });
 };
 /**
- * :defval::key: - where defval can be empty
+ * :defval::key: - where in place of defval can be empty string
  */
 const fillIn = (function () {
 
@@ -81,7 +81,6 @@ const fillIn = (function () {
     // var test = `one :defval1::key: two :defval2::key2: three :defval3::key3: end`;
 
     let asklist = { // found in data
-        // key : default value
     };
 
     const descriptions = {
@@ -203,8 +202,6 @@ const fillIn = (function () {
 
 const transport = (source, target) => {
 
-    const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
-
     return new Promise((resolve, reject) => {
 
         const url = `${source}?${new Date()*1}`;
@@ -255,7 +252,7 @@ const transport = (source, target) => {
 
 const fixFiles = (function () {
 
-    const reg = /\/\/ remove by installator[\s\S]*?\/\/ remove by installator/g;
+    const reg = /\/\/this will be removed by installator[\s\S]*?\/\/this will be removed by installator/g;
 
     return list => Promise.all(list.map(file => {
 
@@ -272,11 +269,11 @@ const fixFiles = (function () {
                     content = content.replace(reg, '');
 
                     fs.writeFileSync(file.source, content)
-                });
+                }).then(() => `changed: ${file.source}`);
             }
         }
 
-        return Promise.resolve();
+        return Promise.resolve(`NOT changed: ${file.source}`);
     }));
 }());
 
@@ -441,15 +438,9 @@ args.onlyFix || (function () {
             return new Promise(resolve => {
                 const spawn = require('child_process').spawn;
                 const child = spawn('node', [p]);
-                child.stdout.on('data', function(data) {
-
-                    process.stdout.write(data.toString());
-                });
-                child.stderr.on('data', function(data) {
-
-                    process.stdout.write(data.toString());
-                });
-                child.on('close', function(code) {
+                child.stdout.on('data', data => process.stdout.write(data.toString()));
+                child.stderr.on('data', data => process.stdout.write(data.toString()));
+                child.on('close', code => {
 
                     process.chdir(__dirname);
 
@@ -514,7 +505,6 @@ and next run one of:
 args.onlyFix && (function () {
 
     transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
-        // .then(data => (list = data))
         .then(
             list => Promise.all(
                 list.map(

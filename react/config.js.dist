@@ -35,7 +35,7 @@ module.exports = {
         }
     ],
     asset: [ // just create links, this links are not direct paths for resolver
-        // remove by installator
+        //this will be removed by installator
         {
             path: path.resolve(root, 'app', 'other', 'react', 'assets'),
             link: path.resolve(asset, 'rassets')
@@ -48,7 +48,7 @@ module.exports = {
             path: path.resolve(root, 'app'),
             link: path.resolve(asset, 'app')
         }
-        // remove by installator
+        //this will be removed by installator
     ],
     aliasForWeb: {
         log         : path.resolve(__dirname, 'webpack', 'logw'),
