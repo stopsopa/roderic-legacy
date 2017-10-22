@@ -231,7 +231,7 @@ var utils = {
 
         return tmp;
     },
-    symlink : function (list, colors) {
+    symlink : function (list, colors, justList) {
 
         var fsdir, dir, link, nlist = [];
 
@@ -239,7 +239,7 @@ var utils = {
 
             if (typeof p === 'string') {
 
-                console.log("\n        path: ".yellow, p);
+                justList || console.log("\n        path: ".yellow, p);
 
                 nlist.push(p);
             }
@@ -255,20 +255,23 @@ var utils = {
                     throw "'path' is not defined in resolve path object: \n" + json(p);
                 }
 
-                dir = path.dirname(p.link);
+                if ( ! justList) {
 
-                try {
+                    dir = path.dirname(p.link);
 
-                    dirEnsure(dir, true);
+                    try {
 
-                    dirEnsure(p.path);
+                        dirEnsure(dir, true);
+
+                        dirEnsure(p.path);
+                    }
+                    catch (e) {
+
+                        throw "dirEnsure() error on resolve object: \n" + json(p) + "\n    error:\n        " + e;
+                    }
+
+                    symlinkEnsure(p.link, p.path, colors);
                 }
-                catch (e) {
-
-                    throw "dirEnsure() error on resolve object: \n" + json(p) + "\n    error:\n        " + e;
-                }
-
-                symlinkEnsure(p.link, p.path, colors);
 
                 nlist.push(p.link);
             }

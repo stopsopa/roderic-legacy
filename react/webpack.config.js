@@ -65,25 +65,10 @@ const commonRules = [
 ];
 
 const resolve = {
-    modules: (function () {
-
-        console.log('Mounting symlinks:');
-
-        console.log("\n    assets:");
-
-        utils.symlink(utils.config.asset, true);
-
-        console.log("\n    resolver:");
-
-        const list = utils.symlink(utils.config.resolve);
-
-        console.log("\n");
-
-        return list;
-    }()),
-        extensions: ['.js', '.jsx', '.json'],
-        symlinks: false // to properly resolve url() in css/scss through web symlink
-    };
+    modules: utils.symlink(utils.config.resolve, false, true),
+    extensions: ['.js', '.jsx', '.json'],
+    symlinks: false // to properly resolve url() in css/scss through web symlink
+};
 
 /**
  * web
@@ -262,3 +247,18 @@ else {
 }
 
 module.exports = webpackConfigsList;
+
+// // https://nodejs.org/docs/latest/api/all.html#modules_accessing_the_main_module
+if (require.main === module) {
+    // direct
+
+    console.log('Mounting symlinks:');
+
+    console.log("\n    assets:");
+
+    utils.symlink(utils.config.asset, true);
+
+    console.log("\n    resolver:");
+
+    utils.symlink(utils.config.resolve);
+}

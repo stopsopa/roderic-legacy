@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "cross-env WEBPACK_MODE=prod node_modules/.bin/webpack --config webpack.config.js",
-    "dev": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
-    "devnowatch": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress",
+    "prod": "cross-env WEBPACK_MODE=prod node webpack.config.js && node node_modules/.bin/webpack --config webpack.config.js",
+    "dev": "cross-env WEBPACK_MODE=dev node webpack.config.js && node_modules/.bin/webpack --config webpack.config.js --progress --watch",
+    "devnowatch": "cross-env WEBPACK_MODE=dev node webpack.config.js && node_modules/.bin/webpack --config webpack.config.js --progress",
     "server": "node server.js"
   },
   "keywords": [],

@@ -6,7 +6,7 @@
 Roderic
 ======
 
-[![Build Status](https://travis-ci.org/stopsopa/roderic.svg?branch=redux)](https://travis-ci.org/stopsopa/roderic)
+[![Build Status](https://travis-ci.org/stopsopa/roderic.svg?branch=master)](https://travis-ci.org/stopsopa/roderic)
 
 Another Webpack boilderplate. Main goals: 
 
