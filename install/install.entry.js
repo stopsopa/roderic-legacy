@@ -4,7 +4,7 @@ const ver = 'v0.1.0';
 
 const path      = require('path');
 const fs        = require('fs');
-const runSync   = require('child_process').spawnSync;
+const execSync  = require('child_process').execSync;
 const color     = require('./libs/color');
 const prompt    = require('./libs/prompt');
 const error     = require('./libs/error');
@@ -39,9 +39,29 @@ const args = (function () {
 
 const ask    = require('./libs/ask')(args);
 
+const yarn = (function () {
+    function yarnCheck() {
+        try {
+            child_process.execSync('yarn -v');
+            return true;
+        }
+        catch (error) {
+            return false;
+            // return 'npm install'
+            // return error;
+            // log('error', error)
+            // error.status;  // Might be 127 in your example.
+            // error.message; // Holds the message you typically want.
+            // error.stderr;  // Holds the stderr output. Use `.toString()`.
+            // error.stdout;  // Holds the stdout output. Use `.toString()`.
+        }
+    };
+    return yarnCheck();
+}());
+
 args.onlyFix || (function () {
 
-    let list, def, fixed, webpackDir, yarn = !runSync('yarn', ['-v']).status;
+    let list, def, fixed, webpackDir;
 
     transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
         .then(data => {
@@ -195,9 +215,9 @@ args.onlyFix || (function () {
 
             color("\nWait ...");
 
-            console.log(runSync('npm', ['install', 'yarn']).stdout.toString());
+            console.log(execSync('npm install yarn').toString());
 
-            // console.log(runSync('pwd').stdout.toString());
+            // console.log(spawnSync('pwd').stdout.toString());
 
             const p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
 

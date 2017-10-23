@@ -25,7 +25,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: path.resolve(node_modules, 'babel-loader')
+                    loader: path.resolve(node_modules, 'babel-loader'),
+                    options: {
+                        babelrc: false
+                    }
                 }
             },
             {  // https://github.com/Reactive-Extensions/RxJS/issues/1117#issuecomment-308210947
