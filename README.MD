@@ -31,12 +31,6 @@ or
     yarn dev
     yarn prod
     
-    
-Syntax templates
--
-- [es6](https://github.com/stopsopa/roderic/blob/master/template.es6.js)
-- [redux](https://github.com/stopsopa/roderic/blob/redux/app/redux/004-counters/redux-counters.entry.js)
-    
 Features
 -
 - npm run dev
