@@ -20882,6 +20882,7 @@ args.onlyFix || function () {
 
         console.log(execSync('npm install yarn').toString());
 
+<<<<<<< Updated upstream
         // console.log(spawnSync('pwd').stdout.toString());
 
         const p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
@@ -20896,6 +20897,20 @@ args.onlyFix || function () {
             child.stdout.on('data', data => process.stdout.write(data.toString()));
             child.stderr.on('data', data => process.stdout.write(data.toString()));
             child.on('close', code => {
+=======
+        var p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
+
+        return new Promise(function (resolve) {
+            var spawn = __webpack_require__(9).spawn;
+            var child = spawn('node', [p]);
+            child.stdout.on('data', function (data) {
+                return process.stdout.write(data.toString());
+            });
+            child.stderr.on('data', function (data) {
+                return process.stdout.write(data.toString());
+            });
+            child.on('close', function (code) {
+>>>>>>> Stashed changes
 
                 process.chdir(path.resolve(__dirname));
 
