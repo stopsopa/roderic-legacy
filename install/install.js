@@ -20931,10 +20931,6 @@ and next run one of:
     ${install} dev
   or
     ${install} prod
-  or
-    node node_modules/yarn/bin/yarn.js dev
-  or
-    node node_modules/yarn/bin/yarn.js prod
 
 `);
 
