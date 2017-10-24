@@ -20688,7 +20688,15 @@ module.exports = function (args) {
 
     ask.replaceWithDefault = replaceWithDefault;
 
-    ask.get = key => defined[key];
+    ask.get = key => {
+
+        if (key) {
+
+            return defined[key];
+        }
+
+        return defined;
+    };
 
     return ask;
 };
@@ -20705,6 +20713,7 @@ const ver = 'v0.1.0';
 const path = __webpack_require__(9);
 const fs = __webpack_require__(7);
 const execSync = __webpack_require__(10).execSync;
+const spawn = __webpack_require__(10).spawn;
 const color = __webpack_require__(32);
 const prompt = __webpack_require__(18);
 const error = __webpack_require__(29);
@@ -20723,10 +20732,12 @@ const args = function () {
             value: a[2]
         };
     }).forEach(v => {
-        defined[v.key] = v.value;
+        obj[v.key] = v.value;
     });
 
     process.argv.indexOf('--onlyFix') > -1 && (obj.onlyFix = true);
+
+    process.argv.indexOf('--travis') > -1 && (obj.travis = true);
 
     return obj;
 }();
@@ -20736,7 +20747,7 @@ const ask = __webpack_require__(30)(args);
 const yarn = function () {
     function yarnCheck() {
         try {
-            child_process.execSync('yarn -v');
+            execSync('yarn -v');
             return true;
         } catch (error) {
             return false;
@@ -20756,7 +20767,9 @@ args.onlyFix || function () {
 
     let list, def, fixed, webpackDir;
 
-    transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`).then(data => {
+    transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`) // fetching list of files to download
+    .then(data => {
+        // preparing lists
 
         list = data;
 
@@ -20768,11 +20781,13 @@ args.onlyFix || function () {
 
         return ask();
     }).then(() => {
+        // generating files list with default paths for downloading
 
         def.forEach((one, key) => def[key].source = ask.replaceWithDefault(one.source));
 
         return Promise.all(fixed.map((one, key) => ask(one.source).then(text => fixed[key].source = text)));
     }).then(() => {
+        // asking if should override ?
 
         const overridden = fixed.filter(file => !file.ignoreOnLists).map(file => file.source).filter(file => fs.existsSync(path.resolve(__dirname, file)));
 
@@ -20809,6 +20824,7 @@ args.onlyFix || function () {
 
         return Promise.resolve('y');
     }).then(answer => {
+        // conditional exit if user don't want to override
 
         if (answer === 'n') {
 
@@ -20817,11 +20833,13 @@ args.onlyFix || function () {
             process.exit(-1);
         }
     }).then(() => Promise.all(def.map((deffile, index) => {
+        // downloading files
 
         deffile.ignoreOnLists || log(`downloading: ${fixed[index].source}`);
 
         return transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/${deffile.source}`, fixed[index].source);
     }))).then(() => {
+        // testing __check.js
 
         const checkFile = path.resolve(__dirname, '__check.js');
 
@@ -20858,7 +20876,9 @@ args.onlyFix || function () {
         });
 
         return ask(); // triggering aggregated interaction with user
-    }).then(() => fixed).then(fixFiles).then(() => fixed.forEach(file => {
+    }).then(() => fixed).then(fixFiles) // remove comments "this will be removed by installator"
+    .then(() => fixed.forEach(file => {
+        // copy config.js.dist to config.js
 
         file = path.resolve(file.source);
 
@@ -20882,35 +20902,13 @@ args.onlyFix || function () {
 
         console.log(execSync('npm install yarn').toString());
 
-<<<<<<< Updated upstream
-        // console.log(spawnSync('pwd').stdout.toString());
-
         const p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
 
-        // console.log('p: ', p);
-
-        // require(p);
-
         return new Promise(resolve => {
-            const spawn = __webpack_require__(10).spawn;
             const child = spawn('node', [p]);
             child.stdout.on('data', data => process.stdout.write(data.toString()));
             child.stderr.on('data', data => process.stdout.write(data.toString()));
             child.on('close', code => {
-=======
-        var p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
-
-        return new Promise(function (resolve) {
-            var spawn = __webpack_require__(9).spawn;
-            var child = spawn('node', [p]);
-            child.stdout.on('data', function (data) {
-                return process.stdout.write(data.toString());
-            });
-            child.stderr.on('data', function (data) {
-                return process.stdout.write(data.toString());
-            });
-            child.on('close', function (code) {
->>>>>>> Stashed changes
 
                 process.chdir(path.resolve(__dirname));
 
@@ -20919,7 +20917,7 @@ args.onlyFix || function () {
         });
     }).then(() => {
 
-        const install = yarn ? 'yarn' : 'npm install';
+        const install = yarn ? 'yarn' : 'npm run';
 
         const react = ask.get('react_dir');
 
@@ -20949,11 +20947,15 @@ and next run one of:
 
         error(e + '');
 
-        process.exit(0);
+        process.exit(-1);
     });
 }();
 
+// If you want to change files for development copy this file one directory up and run:
+
 // node install.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+// node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+// node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
 args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`).then(list => Promise.all(list.map((o, k) => ask(o.source).then(link => list[k].source = link))).then(() => list)).then(fixFiles).then(list => {
     console.log(list);
 });
@@ -43614,7 +43616,10 @@ module.exports = function () {
 
                 return ask(content).then(content => {
 
-                    content = content.replace(reg, '');
+                    if (!ask.get('travis')) {
+
+                        content = content.replace(reg, '');
+                    }
 
                     fs.writeFileSync(file.source, content);
                 }).then(() => `changed: ${file.source}`);

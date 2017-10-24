@@ -161,7 +161,8 @@ if (utils.prod) {
     web.devtool = "source-map";
 
     web.plugins.push(new UglifyJSPlugin({
-        sourceMap: true
+        sourceMap: true,
+        parallel: true
     }));
 }
 

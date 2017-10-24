@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
-    "buildnowatch": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress"
+    "buildwatch": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress --watch",
+    "build": "cross-env WEBPACK_MODE=dev node_modules/.bin/webpack --config webpack.config.js --progress"
   },
   "keywords": [],
   "author": "",

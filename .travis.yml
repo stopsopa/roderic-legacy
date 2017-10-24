@@ -29,7 +29,7 @@ before_script:
   - pwd
   - ls -la
   - cp install/install.js .
-  - node install.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+  - node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
   - cp app/config.js.dist app/config.js
   - cp react/config.js.dist react/config.js
   - cd react
@@ -53,7 +53,9 @@ script:
   - rm -rf docs/dist/*
   - cd react
   - yarn prod
-  - sudo kill -SIGTERM $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}')
+  - sudo kill -9 $(ps aux | grep "yarn.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
+  - sudo kill -9 $(ps aux | grep "yarn.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
+  - sudo kill -9 $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
   - node index.server.js 1>> log2.log 2>>log2.log & disown
   - sleep 3
   - cat log2.log
@@ -61,6 +63,7 @@ script:
   - echo 'after prod' && ls -la docs/dist/
   - export WEBPACK_MODE=prod
   - echo $WEBPACK_MODE
+  - node index.server.js 1>> log.log 2>>log.log & disown
   - yarn test
   - /bin/bash test/testinstall.sh
 

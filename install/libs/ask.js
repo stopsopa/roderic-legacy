@@ -113,7 +113,15 @@ module.exports = function (args) {
 
     ask.replaceWithDefault     = replaceWithDefault;
 
-    ask.get = key => defined[key];
+    ask.get = key => {
+
+        if (key) {
+
+            return defined[key];
+        }
+
+        return defined;
+    }
 
     return ask;
 };

@@ -1,7 +1,7 @@
 
 import 'isomorphic-fetch';
 
-import config from '../:react::react_dir:/config';
+import config from '../react/config';
 
 const ip    = config.server.host;
 

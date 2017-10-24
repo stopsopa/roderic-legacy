@@ -19,7 +19,10 @@ module.exports = (function () {
 
                 return ask(content).then(content => {
 
-                    content = content.replace(reg, '');
+                    if ( ! ask.get('travis') ) {
+
+                        content = content.replace(reg, '');
+                    }
 
                     fs.writeFileSync(file.source, content)
                 }).then(() => `changed: ${file.source}`);
