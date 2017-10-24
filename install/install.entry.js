@@ -217,13 +217,7 @@ args.onlyFix || (function () {
 
             console.log(execSync('npm install yarn').toString());
 
-            // console.log(spawnSync('pwd').stdout.toString());
-
             const p = path.resolve(webpackDir, 'node_modules/yarn/bin/yarn.js');
-
-            // console.log('p: ', p);
-
-            // require(p);
 
             return new Promise(resolve => {
                 const spawn = require('child_process').spawn;
@@ -240,7 +234,7 @@ args.onlyFix || (function () {
         })
         .then(() => {
 
-            const install = yarn ? 'yarn' : 'npm install';
+            const install = yarn ? 'yarn' : 'npm run';
 
             const react = ask.get('react_dir');
 
