@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        function log(l) {try {console.log(l)}catch (e) {}}
+        $(function () {
+            window.lorem = $('[data-tmp-lorem]').html();
+
+            window.ctrl = false;
+            $(document).keydown(function(event) {
+                if(event.which=="17") {
+                    window.ctrl = true;
+                    log('ctrl +');
+                }
+            }).keyup(function (event) {
+                window.ctrl = false;
+                log('ctrl -');
+            });
+        })
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Cambria,"Lucida Bright",Lucidabright,"Lucida Serif",Lucida,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
+        }
+        .p {
+            background-color: #4F8AC6;
+            border: 3px solid #366EA6;
+            margin: 2px;
+        }
+        .c {
+            background-color: #EB618B;
+            border: 3px solid #E52E65;
+            margin: 2px;
+            padding: 2px;
+            color: #474747;
+        }
+        .todo {
+            color: #DB3D42;
+        }
+        .info {
+            background-color: #DFF0D8;
+            border-left: 3px #82B96A solid;
+            padding: 5px;
+        }
+        button.default {
+            color: blue;
+        }
+        button.active {
+            background-color: black;
+            color: white;
+            border: 2px solid #333;
+        }
+        pre {
+            border: 1px dashed #333;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<a href="http://the-echoplex.net/flexyboxes/" target="_blank">g(Flexy boxes)</a> <br />
+<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">From guide g(css tricks A Complete Guide to Flexbox)</a> <br />
+<a href="http://www.w3schools.com/cssref/css3_pr_flex-wrap.asp" target="_blank">g(w3cschool CSS flex-wrap Property)</a> <br />
+<a href="http://www.sketchingwithcss.com/samplechapter/cheatsheet.html" target="_blank">g(The Ultimate Flexbox Cheat Sheet)</a>
+
+<script type="text/tmp" data-tmp-lorem><p>Lorem ipsum dolor sit amet, no vim disputando deterruisset. Mea ancillae apeirian ei. Ius brute dicta cotidieque in, erant libris ea mel, magna fierent pericula eum ne. Eos et aeterno philosophia, nobis viderer id has. Quod errem corpora sed ex, vis ut habemus apeirian. Diceret perpetua disputando et mei, clita corpora eam no, id eam sumo solum dicam. Saperet recteque comprehensam in quo, eos ut aperiri lucilius.</p></script>
+
+<hr />
+
+<div class="flex-flow">
+    <style type="text/css">
+        .flex-flow .demo {
+            display: flex; /* or inline-flex */
+            /*justify-content: space-around;*/
+            /*                flex-flow: row wrap;
+                            align-items: stretch;*/
+            width: 100%;
+        }
+        .flex-flow .demo > div {
+            width: 200px;
+        }
+        .flex-flow .flow {
+            width: 300px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+
+            (function (x) {
+
+                var flow = (function () {
+                    var input = x.find('.flow');
+                    var demo = x.find('.demo');
+                    input.on('click', function () {
+                        input.select();
+                    });
+
+                    return function () {
+                        input.val( ['flex-flow:', demo.css('flexDirection'), demo.css('flexWrap')].join(' ') );
+                    }
+                })();
+
+                flow();
+
+                // flex-direction
+                (function () {
+                    var box = x.find('.dir');
+                    var demo = x.find('.demo');
+
+                    box.find('button').click(function (e) {
+                        log('.dir')
+                        var t = $(this);
+                        t.parent().find('button').removeClass('active');
+                        t.addClass('active');
+
+                        demo.css({
+                            flexDirection: t.html()
+                        });
+
+                        flow();
+                    });
+                })();
+
+                // flex-wrap
+                (function () {
+                    var box = x.find('.wrap');
+                    var demo = x.find('.demo');
+
+                    box.find('button').click(function (e) {
+                        log('.wrap')
+                        var t = $(this);
+                        t.parent().find('button').removeClass('active');
+                        t.addClass('active');
+
+                        demo.css({
+                            flexWrap: t.html()
+                        });
+
+                        flow();
+                    });
+                })();
+
+            })($('.flex-flow'));
+        })
+    </script>
+    <div class="control">
+        <div class="dir">
+            flex-direction: <button class="default">row</button><button>none</button><button>row-reverse</button><button>column</button><button>column-reverse</button><button>initial</button><button>inherit</button>
+        </div>
+        <div class="wrap">
+            flex-wrap: <button class="default">nowrap</button><button>wrap</button><button>wrap-reverse</button><button>initial</button><button>inherit</button>
+        </div>
+        <input type="text" class="flow" /> (default: row nowrap)
+    </div>
+    <div class="info">flex-flow - is a shorthand flex-direction and flex-wrap properties, which together define the flex container's main and cross axes.</div>
+    <div class="demo p">
+        <div class="c">[1] order: undefined;</div>
+        <div class="c" style="order: 4;">[2] order: 4;</div>
+        <div class="c" style="order: 3;">[3] order: 3;</div>
+        <div class="c" style="order: 1;">[4] order: 1;</div>
+        <div class="c" style="order: 2; width: 300px;">[5] order: 2; <br /> width: 300px;</div>
+        <div class="c" style="order: 5;">[6] order: 5;</div>
+        <div class="c" style="order: 6;">[7] order: 6;</div>
+        <div class="c" style="order: 7;">[8] order: 7;</div>
+        <div class="c">[9] order: undefined;</div>
+    </div>
+</div>
+
+<hr />
+
+<div class="flex-grow">
+    <style type="text/css">
+        .flex-grow .demo {
+            display: flex; /* or inline-flex */
+            /*justify-content: space-around;*/
+            /*                flex-flow: row wrap;
+                            align-items: stretch;*/
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            (function (x) {
+
+                // kopiowanie templatki
+                var demo = x.find('.demo');
+
+                var divs = demo.find('> div');
+
+                demo.on('click', 'p',function (e) {
+                    $(this).remove();
+                    return false;
+                });
+
+                demo.on('click', '.c',function (e) {
+                    var t = $(this);
+                    t.css({
+                        flexGrow : parseInt(t.css('flexGrow')) + 1
+                    })
+                });
+
+
+                function contextmenu(e, l) {
+                    var t = $(this);
+                    var v = parseInt(t.css('flexGrow')) - (l || 1);
+                    t.css({
+                        flexGrow : v > 0 ? v : 0
+                    });
+                    return false;
+                }
+
+                divs.on("contextmenu", contextmenu);
+
+                divs.on("dblclick", function(e) {
+                    var t = $(this);
+                    contextmenu.call(t, {}, 2);
+                    $('<div></div>').html(lorem).find('> *').appendTo(t);
+                });
+
+            })($('.flex-grow'));
+        })
+    </script>
+    <div class="control">
+        flex-grow: /* default 0 */ <span class="todo">click to increse, rightclick to decrese</span> <br />
+        <span class="todo">dbclick to add &lt;p&gt;lorem&lt;p&gt; , click on &lt;p&gt;lorem&lt;p&gt; to remove this element</span>
+    </div>
+    <div class="info">
+        trzeba zwrócić uwagę że użycie samego flex-grow jest dosyć elastyczne, bo jesli contentu jest więcej w elemencie to zajmie więcej miejsca mimo ustawienia flex-grow tak jak w pozostałych elementach <br />
+        dodatkowo działanie flex-grow jest ściśle związane z wartością flex-basis (domyślnie auto) <a href="#svg-flex-basis">patrz rysunek</a>
+    </div>
+    <div class="demo p">
+        <div class="c">[1]</div>
+        <div class="c">[2]</div>
+        <div class="c">[3]</div>
+        <div class="c">[4]</div>
+        <div class="c">[5]</div>
+        <div class="c">[6]</div>
+    </div>
+</div>
+
+<hr />
+
+<div class="flex-shrink">
+    <style type="text/css">
+        .flex-shrink .demo {
+            display: flex;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            (function (x) {
+
+                // kopiowanie templatki
+                var demo = x.find('.demo');
+
+                var divs = demo.find('> div');
+
+                demo.on('click', 'p',function (e) {
+                    $(this).remove();
+                    return false;
+                });
+
+                demo.on('click', '.c',function (e) {
+                    var t = $(this);
+                    t.css({
+                        flexShrink : parseInt(t.css('flexShrink')) + 1
+                    })
+                });
+
+                function contextmenu(e, l) {
+                    var t = $(this);
+                    var v = parseInt(t.css('flexShrink')) - (l || 1);
+                    t.css({
+                        flexShrink : v > 0 ? v : 0
+                    });
+                    return false;
+                }
+
+                divs.on("contextmenu", contextmenu);
+
+                divs.on("dblclick", function(e) {
+                    var t = $(this);
+                    contextmenu.call(t, {}, 2);
+                    $('<div></div>').html(lorem).find('> *').appendTo(t);
+                });
+
+            })($('.flex-shrink'));
+        })
+    </script>
+    <div class="control">
+        flex-shrink: /* default 1 */ <span class="todo">click to increse, rightclick to decrese</span> <br />
+        <span class="todo">dbclick to add &lt;p&gt;lorem&lt;p&gt; , click on &lt;p&gt;lorem&lt;p&gt; to remove this element</span>
+    </div>
+    <div class="info">
+        trzeba zwrócić uwagę że flex-shrink jako takie działa dopiero jak flex-basis jest ustawione na domyślną wartość czyli 'auto'
+    </div>
+    <div class="demo p">
+        <div class="c">[1]</div>
+        <div class="c">[2]</div>
+        <div class="c">[3]</div>
+        <div class="c">[4]</div>
+        <div class="c">[5]</div>
+        <div class="c">[6]</div>
+    </div>
+</div>
+
+<hr />
+
+<div class="flex-shrink-and-grow">
+    <style type="text/css">
+        .flex-shrink-and-grow .demo {
+            display: flex;
+            width: 100%;
+        }
+        .flex-shrink-and-grow .demo > div {
+            flex-basis: 0px;
+        }
+        .flex-shrink-and-grow .demo .c {
+            position: relative;
+            padding-top: 14px;
+        }
+        .flex-shrink-and-grow .demo .c .child {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 1px solid blue;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .flex-shrink-and-grow .demo .c [data-basis-p],
+        .flex-shrink-and-grow .demo .c [data-basis-m] {
+            font-family: monospace;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+
+            (function (x) {
+
+                // kopiowanie templatki
+                var demo = x.find('.demo');
+
+                var divs = demo.find('> div');
+
+                function getAutoBasis(b) {
+                    var t, v = b.css('flexBasis');
+                    if (v === 'auto') {
+                        log('jest auto')
+                        t = b.find('p');
+                        if (t.length) {
+                            return t.width()+'px';
+                        }
+                        log('wchodzę w blok')
+                        t = b.find('[data-basis-m]');
+                        t = (t.position().left + t.outerWidth()) + 'px';
+                        log('t')
+                        log(t)
+                        return t
+                    }
+                    return v;
+                }
+
+                demo.on('click', '[data-basis-m], [data-basis-p], p', function (e) {
+                    var t = $(this),
+                        b = t.closest('.c'),
+                        v = b.css('flexBasis'),
+                        c = b.find('.child'),
+                        k
+                    ;
+
+                    if (t.is('p')) {
+                        k = v;
+                        t.remove();
+                    }
+                    else if (t.is('[data-basis-p]')) {
+                        k = (v === 'auto') ? '0px' : (parseInt(v) + 20) + 'px';
+                    }
+                    else {
+                        k = (v === 'auto') ? 'auto' : ( (v === '0px') ? 'auto' : (parseInt(v) - 20) + 'px' );
+                    }
+
+                    b.css({flexBasis: k})
+                    c.css({width:getAutoBasis(b)});
+                    return false;
+                })
+
+                demo.on('click', 'p', function (e) {
+
+                })
+
+                demo.on('click', '.c', function (e) {
+                    var t = $(this);
+                    if (ctrl) {
+                        var tt = /(shrink|flex:)/i.test(t.attr('style'))
+                        return t.css({
+                            flexShrink : tt ? parseInt(t.css('flexShrink')) + 1 : 1
+                        })
+                    }
+                    return t.css({
+                        flexGrow : parseInt(t.css('flexGrow')) + 1
+                    })
+                });
+
+                function contextmenu(e, l) {
+                    var t = $(this), v;
+                    if (window.ctrl) {
+                        v = parseInt(t.css('flexShrink')) - (l || 1);
+                        t.css({
+                            flexShrink : v > 0 ? v : 0
+                        });
+                        return false;
+                    }
+                    v = parseInt(t.css('flexGrow')) - (l || 1);
+                    t.css({
+                        flexGrow : v > 0 ? v : 0
+                    });
+                    return false;
+                }
+
+                divs.on("contextmenu", contextmenu);
+
+                divs.on("dblclick", function(e) {
+                    var t = $(this);
+                    contextmenu.call(t, {}, 2);
+                    $('<div></div>').html(lorem).find('> *').appendTo(t);
+                });
+
+            })($('.flex-shrink-and-grow'));
+        })
+    </script>
+    <div class="control">
+        flex-grow: /* default 0 */ <span class="todo">click to increse, rightclick to decrese</span> <br />
+        flex-shrink: /* default 1 */ <span class="todo">ctrl + click to increse, ctrl + rightclick to decrese</span> <br />
+        flex-basis: /* default auto */ <span class="todo">button "+" to increse, button "-" to decrese and finally below 0 set 'auto'</span> <br />
+        <span class="todo">dbclick to add &lt;p&gt;lorem&lt;p&gt; , click on &lt;p&gt;lorem&lt;p&gt; to remove this element</span>
+    </div>
+
+    <div class="info">
+        test flex-grow, flex-shring i flex-basis <span class="todo">razem</span> <br /><br />
+        flex-basis: This defines the default size of an element before the remaining space is distributed. The main-size value makes it match the width or height, depending on which is relevant based on the flex-direction. <br />
+        <br />
+        <div>
+            <div>zachowanie flex-basis:</div>
+            <div id="svg-flex-basis">
+                <!-- źródło svg link od sekcją flex-basis na stronie https://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="504" height="240" viewbox="-2 -2 504 238"><style>text { font-family: sans-serif; font-size: 16px; text-anchor: middle; }tspan.css { font-family: monospace; }.bracket &gt; path { stroke-width: 2; fill: transparent; }.bracket &gt; text { font-weight: bold; }.red &gt; path { stroke: hsl(0,80%,40%); }.red &gt; text { fill:   hsl(0,80%,40%); }.green &gt; path { stroke: hsl(120,80%,30%); }.green &gt; text { fill:   hsl(120,80%,30%); }.blue &gt; path { stroke: hsl(240,80%,50%); }.blue &gt; text { fill:   hsl(240,80%,50%); }.flexbox &gt; rect { fill: #ddd; }.flexbox &gt; rect:first-of-type { fill: #888; }</style><g transform="translate(50,35)"><text x="200" y="-5" font-weight="bold">All Space Distributed</text><text x="200" y="10">(<tspan class="css">flex-basis:0</tspan>)</text><g transform="translate(1,40)"><g class="red bracket"><path d="M 1 8 v 10 h 97 v -10"/><text x="50" y="33">1</text></g><g class="green bracket"><path d="M 103 8 v 10 h 97 v -10"/><text x="152.5" y="33">1</text></g><g class="blue bracket"><path d="M 205 8 v 10 h 197 v -10"/><text x="304.5" y="33">2</text></g></g><g transform="translate(0,20)" class="flexbox"><rect x="-2" y="-2" width="409" height="27" rx="6" ry="6"/><rect x="1" y="1" width="99" height="21" rx="3" ry="3"/><text x="50" y="17">short</text><rect x="103" y="1" width="99" height="21" rx="3" ry="3"/><text x="152.5" y="17">looooooong</text><rect x="205" y="1" width="199" height="21" rx="3" ry="3"/><text x="304.5" y="17">short</text></g></g><g transform="translate(50,130)"><text x="200" y="10" font-weight="bold">Extra Space Distributed</text><text x="200" y="25">(<tspan class="css">flex-basis:auto</tspan>)</text><g transform="translate(0,35)" class="flexbox"><rect x="-2" y="-2" width="409" height="27" rx="6" ry="6"/><rect x="1" y="1" width="96" height="21" rx="3" ry="3"/><text x="49" y="17">short</text><rect x="100" y="1" width="146" height="21" rx="3" ry="3"/><text x="173" y="17">looooooong</text><rect x="249" y="1" width="155" height="21" rx="3" ry="3"/><text x="326.5" y="17">short</text></g><g transform="translate(0,78)"><g class="red bracket"><path d="M 2 -15 v 10 h 29 v -10"/><text x="16.5" y="10">1</text><path d="M 68 -15 v 10 h 28 v -10"/><text x="82.5" y="10">1</text></g><g class="green bracket"><path d="M 101 -15 v 10 h 29 v -10"/><text x="115.5" y="10">1</text><path d="M 216 -15 v 10 h 29 v -10"/><text x="230.5" y="10">1</text></g><g class="blue bracket"><path d="M 250 -15 v 10 h 58 v -10"/><text x="279" y="10">2</text><path d="M 346 -15 v 10 h 57 v -10"/><text x="374.5" y="10">2</text></g></g></g></svg>
+            </div>
+        </div>
+
+        Dodatkowa informacja: jeśli chcemy wymuszać konkretne proporcje dla boxów to trzeba stosować zapisy flex: 1 1 0px; (opis argumentów: flex: 1 [flex-grow] 1 [flex-shrink] 0px [flex-basis];) <br />
+        warto też zwrócić uwagę że sytarczy ustawianie flex-grow: 1; razem z flex-basis: 0px; bo fles-shring domyślnie ma wartość 1;
+    </div>
+    <div class="demo p">
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [1]
+        </div>
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [2]
+        </div>
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [3]
+        </div>
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [4]
+        </div>
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [5]
+        </div>
+        <div class="c"><div class="child"></div>
+            <div>
+                <button data-basis-p>+</button><button data-basis-m>-</button>
+            </div>
+            [6]
+        </div>
+    </div>
+</div>
+
+<hr />
+
+
+
+</body>
+</html>
