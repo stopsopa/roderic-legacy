@@ -7,6 +7,7 @@
 'use strict';
 
 const path                  = require('path');
+const fs                    = require('fs');
 const webpack               = require('webpack');
 const utils                 = require(path.resolve('webpack', "utils"));
 const ExtractTextPlugin     = require("extract-text-webpack-plugin");
@@ -28,7 +29,28 @@ const commonRules = [
     {
         // https://babeljs.io/docs/plugins/transform-object-rest-spread/
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        // exclude: /(node_modules|bower_components)/,
+        exclude: (list => {
+            const len = list.length;
+            let i;
+            return p => {
+
+                p = fs.realpathSync(p);
+
+                for ( i = 1 ; i < len ; i += 1 ) {
+
+                    if (p.indexOf(list[i]) > -1) {
+
+                        return true;
+                    }
+                }
+
+                return false
+            };
+        })([
+            path.sep + 'node_modules' + path.sep,
+            path.sep + 'bower_components' + path.sep
+        ]),
         use: {
             loader: path.resolve(node_modules, 'babel-loader'),
             options: {
