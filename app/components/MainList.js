@@ -7,6 +7,8 @@ import range from 'lodash/range';
 
 import Fp from './FacebookPlaceholder';
 
+import { Motion, TransitionMotion, spring, presets } from 'react-motion';
+
 import {
     Button,
     Container,
@@ -58,100 +60,112 @@ const MainList = ({ on, list, del, showDelete, cancelDelete, deleteElementFromLi
     }
 
     return (
-        <div>
-            <Header as="h1">List of endpoints</Header>
-            <div className="table">
-                {
-                    list.map((item) => (
-                        <div className="cell" key={item._id}>
-                            <div className="ico">
-                                <Icon name='feed' />
-                            </div>
-                            <div>
-                                <div className="tico">
-                                    <Label
-                                        className="right"
-                                        size="mini"
-                                        color={(item.laststatus == 200) ? 'teal' : 'red' }
-                                    >{item.laststatus}</Label>
-                                </div>
-                                <div className="ttop">
-                                    <b>Modified:</b> {date(item._modified)}, <b>Created:</b> {date(item._created)}
-                                </div>
-                                <div className="tbottom">
-                                    <a href={item.url} target="_blank">{item.url}</a>
-                                </div>
-                            </div>
-                            <div className="actions">
-                                <Button.Group size="mini">
-                                    <Link to={`/gui/edit/${item._id}`}>
-                                        <Popup
-                                            trigger={
-                                                <Button
-                                                    icon='edit'
-                                                    size="mini"
-                                                    disabled={on === 'on'}
-                                                />
-                                            }
-                                            content='Edit'
-                                            inverted
-                                            size="mini"
-                                            position="top center"
-                                        />
-                                    </Link>
-                                    <Popup
-                                        trigger={
-                                            <Button
-                                                color="red"
-                                                icon='trash outline'
+        <Motion
+            defaultStyle={{x: 25}}
+            style={{x: spring(0)}}
+            willEnter={() => ({w: 0, h: 0})} // when dynamically render new element
+        >
+            {({x}) => (
+                <div
+                    style={{
+                        marginLeft: `${x}px`
+                    }}
+                >
+                    <Header as="h1">List of endpoints</Header>
+                    <div className="table">
+                        {
+                            list.map((item) => (
+                                <div className="cell" key={item._id}>
+                                    <div className="ico">
+                                        <Icon name='feed' />
+                                    </div>
+                                    <div>
+                                        <div className="tico">
+                                            <Label
+                                                className="right"
                                                 size="mini"
-                                                onClick={() => showDelete(item._id)}
-                                                disabled={on === 'on'}
+                                                color={(item.laststatus == 200) ? 'teal' : 'red' }
+                                            >{item.laststatus}</Label>
+                                        </div>
+                                        <div className="ttop">
+                                            <b>Modified:</b> {date(item._modified)}, <b>Created:</b> {date(item._created)}
+                                        </div>
+                                        <div className="tbottom">
+                                            <a href={item.url} target="_blank">{item.url}</a>
+                                        </div>
+                                    </div>
+                                    <div className="actions">
+                                        <Button.Group size="mini">
+                                            <Link to={`/gui/edit/${item._id}`}>
+                                                <Popup
+                                                    trigger={
+                                                        <Button
+                                                            icon='edit'
+                                                            size="mini"
+                                                            disabled={on === 'on'}
+                                                        />
+                                                    }
+                                                    content='Edit'
+                                                    inverted
+                                                    size="mini"
+                                                    position="top center"
+                                                />
+                                            </Link>
+                                            <Popup
+                                                trigger={
+                                                    <Button
+                                                        color="red"
+                                                        icon='trash outline'
+                                                        size="mini"
+                                                        onClick={() => showDelete(item._id)}
+                                                        disabled={on === 'on'}
+                                                    />
+                                                }
+                                                content='Delete'
+                                                inverted
+                                                size="mini"
+                                                position="top center"
                                             />
-                                        }
-                                        content='Delete'
-                                        inverted
-                                        size="mini"
-                                        position="top center"
-                                    />
-                                </Button.Group>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
+                                        </Button.Group>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
 
-            <Modal
-                basic
-                size='small'
-                dimmer="blurring"
-                open={!!del}
-                onClose={cancelDelete}
-            >
-                <Header icon='trash outline' content='Delete endpoint' />
-                <Modal.Content>
-                    <p>Do you really want to delete checking endpoint</p>
-                    <pre>{del ? del.url : ''}</pre>
-                    <p>?</p>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button
-                        color="red"
-                        onClick={() => deleteElementFromList(del._id)}
-                    >
-                        <Icon name='trash outline' /> Yes
-                    </Button>
-                    <Button
+                    <Modal
                         basic
-                        color='green'
-                        inverted
-                        onClick={cancelDelete}
+                        size='small'
+                        dimmer="blurring"
+                        open={!!del}
+                        onClose={cancelDelete}
                     >
-                        <Icon name='remove' /> No
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-        </div>
+                        <Header icon='trash outline' content='Delete endpoint' />
+                        <Modal.Content>
+                            <p>Do you really want to delete checking endpoint</p>
+                            <pre>{del ? del.url : ''}</pre>
+                            <p>?</p>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button
+                                color="red"
+                                onClick={() => deleteElementFromList(del._id)}
+                            >
+                                <Icon name='trash outline' /> Yes
+                            </Button>
+                            <Button
+                                basic
+                                color='green'
+                                inverted
+                                onClick={cancelDelete}
+                            >
+                                <Icon name='remove' /> No
+                            </Button>
+                        </Modal.Actions>
+                    </Modal>
+                </div>
+            )}
+        </Motion>
     );
 };
 MainList.propTypes = {

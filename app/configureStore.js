@@ -64,13 +64,13 @@ export const fetchData = (url, store) => {
     let promise;
 
     try {
-        promise = route.component.fetchData(store);
+        promise = route.component.fetchData(store, matchPath(url, route));
     }
     catch (e) {
         /**
          * Find how to find name/namespace of component
          */
-        log('fetchData not found');
+        log('fetchData not found', e);
     }
 
     return Promise.resolve(promise);

@@ -1,10 +1,14 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 
-const Edit = ({ list }) => (
-    <form>
-        <div>form...</div>
-    </form>
-);
+export default class Edit extends Component {
+    static fetchData = (store, routerParams) => {
 
-export default Edit;
+        return Promise.resolve();
+    }
+    render = () => (
+        <form>
+            <div>form...</div>
+        </form>
+    );
+};

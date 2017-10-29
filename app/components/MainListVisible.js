@@ -22,7 +22,7 @@ class MainListVisible extends Component {
         list: PropTypes.array.isRequired,
         del: PropTypes.any
     }
-    static fetchData(store) {
+    static fetchData = (store, routerParams) => {
 
         // log('MainListVisible::fetchData()');
 
@@ -43,8 +43,7 @@ class MainListVisible extends Component {
     componentWillUnmount() {
         log('componentWillUnmount');
     }
-    @autobind
-    getData() {
+    getData = () => {
 
         const { fetchList } = this.props;
 

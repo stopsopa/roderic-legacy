@@ -101,7 +101,7 @@ export default class MotionContainer extends Component {
                                         width: `${style.w}px`,
                                         height: `${style.h}px`,
                                         border: '1px solid',
-                                        textAlign: 'center',
+                                        textlign: 'center',
                                         fontSize: `${Math.ceil(style.h / 4) * 3}px`
                                     }}
                                 >{key}</div>
