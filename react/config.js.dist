@@ -65,8 +65,9 @@ module.exports = {
         entries: [ // looks for *.entry.{js|jsx} - watch only on files *.entry.{js|jsx}
             app,
             // ...
-        ],
-        outputForWeb: path.resolve(web, 'dist'),
+        ],        
+        outputForWeb    : path.resolve(web, 'dist'),
+        outputForServer : path.resolve(webpack, 'servers')
     },
     externalsForServer: [
         path.resolve(app, 'server.config.js'),
