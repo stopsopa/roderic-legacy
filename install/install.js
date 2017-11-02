@@ -20608,7 +20608,8 @@ module.exports = function (args) {
         web_dir: "Publicly available server directory: ",
         app_dir: "Application directory (directory with your React components): ",
         root: "Root directory of project (main directory to resolve any paths)",
-        app_name: "Name of this project"
+        app_name: "Name of this project",
+        jwtsecret: "JWT secret"
     };
 
     Object.assign(defined, args);
@@ -20878,7 +20879,7 @@ args.onlyFix || function () {
         return ask(); // triggering aggregated interaction with user
     }).then(() => fixed).then(fixFiles) // remove comments "this will be removed by installator"
     .then(() => fixed.forEach(file => {
-        // copy config.public.js.dist to config.public.js
+        // copy public.config.js.dist to public.config.js
 
         file = path.resolve(file.source);
 
@@ -20887,6 +20888,8 @@ args.onlyFix || function () {
         if (ext === '.dist') {
 
             const newName = path.join(path.dirname(file), path.basename(file, ext));
+
+            log(`copying: ${file} to ${name}\n`);
 
             fs.renameSync(file, newName);
         }

@@ -16,7 +16,7 @@ import compression from 'compression';
 
 import bodyParser from 'body-parser';
 
-import config from '../:react::react_dir:/config';
+import configWebpack from '../:react::react_dir:/config';
 
 import configPublic from './public.config';
 

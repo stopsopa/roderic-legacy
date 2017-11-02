@@ -204,6 +204,8 @@ args.onlyFix || (function () {
 
                 const newName = path.join(path.dirname(file), path.basename(file, ext));
 
+                log(`copying: ${file} to ${name}\n`);
+
                 fs.renameSync(file, newName);
             }
 

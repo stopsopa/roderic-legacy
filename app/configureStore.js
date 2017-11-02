@@ -1,5 +1,5 @@
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import log from '../:react::react_dir:/webpack/logw';
 import reducers from './reducers';
 import isArray from 'lodash/isArray';
@@ -51,14 +51,14 @@ const configureStore = preloadedState => {
             reducers,
             preloadedState,
             composeEnhancers(
-            applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
+                applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
             )
         );
     }
     return createStore(
         reducers,
         composeEnhancers(
-        applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
+            applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
         )
     );
 

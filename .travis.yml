@@ -29,9 +29,7 @@ before_script:
   - pwd
   - ls -la
   - cp install/install.js .
-  - node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-  - cp app/config.js.dist app/config.js
-  - cp react/config.js.dist react/config.js
+  - node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
   - cd react
   - yarn
   - export WEBPACK_MODE=dev
