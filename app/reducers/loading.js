@@ -1,7 +1,14 @@
 
 import { combineReducers } from 'redux';
 
-import { LOADER_ON, LOADER_OFF, LOADER_ERROR, LOADER_MESSAGE } from '../actions';
+import {
+    LOADER_ON,
+    LOADER_OFF,
+    LOADER_ERROR,
+    LOADER_MESSAGE,
+    LOADER_BUTTONS_SHOW,
+    LOADER_BUTTONS_HIDE
+} from '../actions';
 
 const status = (state = 'off', action) => {
     switch (action.type) {
@@ -28,13 +35,29 @@ const msg = (state = '', action) => {
     }
 }
 
+const show = (state = false, action) => {
+    switch (action.type) {
+        case LOADER_BUTTONS_SHOW:
+            return true;
+        case LOADER_BUTTONS_HIDE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     status,
-    msg
+    msg,
+    show
 });
 
 // selectors
 export const getLoaderStatus    = state => state.status;
 
 export const getLoaderMsg       = state => state.msg;
+
+export const getLoading         = state => getLoaderStatus(state) === 'on';
+
+export const getLoaderButtonVisible = state => state.show;
 

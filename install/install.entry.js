@@ -194,7 +194,7 @@ args.onlyFix || (function () {
         })
         .then(() => fixed)
         .then(fixFiles) // remove comments "this will be removed by installator"
-        .then(() => fixed.forEach(file => { // copy config.js.dist to config.js
+        .then(() => fixed.forEach(file => { // copy public.config.js.dist to public.config.js
 
             file = path.resolve(file.source);
 

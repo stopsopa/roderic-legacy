@@ -68,7 +68,11 @@
     "template": true
   },
   {
-    "source": ":app::app_dir:/config.js.dist",
+    "source": ":app::app_dir:/config.public.js.dist",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/config.server.js.dist",
     "template": true
   },
   {

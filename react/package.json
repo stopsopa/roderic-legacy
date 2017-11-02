@@ -1,5 +1,5 @@
 {
-  "name": "webpack-demo",
+  "name": "roderic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -65,8 +65,12 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "detect-node": "^2.0.3",
+    "jsonwebtoken": "^8.1.0",
+    "jsrsasign": "^8.0.4",
     "react-motion": "^0.5.2",
     "reload-server-webpack-plugin": "^1.0.1",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "styled-components": "^2.2.2"
   }
 }

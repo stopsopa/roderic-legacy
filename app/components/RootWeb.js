@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 
 import Root from './Root';
 
+import '../pages/index.scss';
+
+import 'semantic-ui-css/semantic.min.css';
+
 const RootWeb = ({ store }) => (
     <Provider store={store}>
         <Router>

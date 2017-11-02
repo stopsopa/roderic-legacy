@@ -29,7 +29,8 @@ module.exports = function (args) {
         web_dir     : "Publicly available server directory: ",
         app_dir     : "Application directory (directory with your React components): ",
         root        : "Root directory of project (main directory to resolve any paths)",
-        app_name    : "Name of this project"
+        app_name    : "Name of this project",
+        jwtsecret   : "JWT secret"
     };
 
     Object.assign(defined, args);

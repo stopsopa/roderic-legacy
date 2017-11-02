@@ -3,7 +3,7 @@ npm-debug.log
 /.idea
 /react/public
 /app/example
-/app/config.js
+/app/*.config.js
 /web
 /public_html
 

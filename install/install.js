@@ -20878,7 +20878,7 @@ args.onlyFix || function () {
         return ask(); // triggering aggregated interaction with user
     }).then(() => fixed).then(fixFiles) // remove comments "this will be removed by installator"
     .then(() => fixed.forEach(file => {
-        // copy config.js.dist to config.js
+        // copy config.public.js.dist to config.public.js
 
         file = path.resolve(file.source);
 

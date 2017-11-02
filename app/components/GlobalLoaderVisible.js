@@ -6,7 +6,11 @@ import PropTypes from 'prop-types';
 
 import * as actions from '../actions';
 
-import { getLoaderStatus, getLoaderMsg } from '../reducers';
+import {
+    getLoaderStatus,
+    getLoaderMsg,
+    getLoaderButtonVisible
+} from '../reducers';
 
 class GlobalLoaderVisible extends Component {
     static propTypes = {
@@ -19,14 +23,15 @@ class GlobalLoaderVisible extends Component {
 
         const { status, msg } = this.props;
 
-        return <GlobalLoader msg={msg} status={status} />
+        return <GlobalLoader {...this.props} />
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         status: getLoaderStatus(state),
-        msg: getLoaderMsg(state)
+        msg: getLoaderMsg(state),
+        buttonsVisible: getLoaderButtonVisible(state)
     };
 };
 

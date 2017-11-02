@@ -1,7 +1,13 @@
 
-import { fetchJson, fetchData } from 'transport';
 
-import { getLoaderStatus, getFormData } from '../reducers';
+
+import { fetchJson, fetchData } from '../transport';
+
+import {
+    getLoaderStatus,
+    getLoading,
+    getFormData
+} from '../reducers';
 
 const errorHandler = (dispatch) => {
     return error => {
@@ -13,11 +19,16 @@ const errorHandler = (dispatch) => {
 }
 // ===========================
 
-// loader
+// loader vvv
 export const LOADER_ON      = 'LOADER_ON';
 export const LOADER_OFF     = 'LOADER_OFF';
 export const LOADER_ERROR   = 'LOADER_ERROR';
 export const LOADER_MESSAGE = 'LOADER_MESSAGE';
+export const LOADER_BUTTONS_SHOW = 'LOADER_BUTTONS_SHOW';
+export const LOADER_BUTTONS_HIDE = 'LOADER_BUTTONS_HIDE';
+
+export const loaderButtonsShow = () => ({type:LOADER_BUTTONS_SHOW});
+export const loaderButtonsHide = () => ({type:LOADER_BUTTONS_HIDE});
 
 export const loaderOn = () => {
     return {
@@ -53,6 +64,55 @@ const definition = function (type) {
 };
 export const loaderError    = definition(LOADER_ERROR);
 export const loaderMessage  = definition(LOADER_MESSAGE);
+// loader ^^^
+
+// jwt vvv
+// https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
+// https://github.com/auth0-blog/nodejs-jwt-authentication-sample
+// https://github.com/auth0-blog/redux-auth
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGIN_SIGNOUT  = 'LOGIN_SIGNOUT'
+
+export const loginRequest = (username, password) => (dispatch, getState) => {
+
+    const state = getState();
+
+    if (getLoading(state)) {
+
+        return Promise.resolve('canceled');
+    }
+
+    dispatch(loaderOn());
+
+    return new Promise(resolve => {
+        setTimeout(() => {
+
+            dispatch(loaderOff());
+            resolve('done');
+        }, 1000);
+    });
+}
+
+export const loginSuccess = __JWT_TOKEN__ => ({
+    type: LOGIN_SUCCESS,
+    payload: __JWT_TOKEN__
+});
+
+export const loginError = message => ({
+    type: LOGIN_FAILURE,
+    payload: {
+        message
+    }
+});
+
+export const loginSignOut = () => ({
+    type: LOGIN_SIGNOUT
+});
+
+// jwt ^^^
 
 // list
 export const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST';

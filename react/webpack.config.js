@@ -218,20 +218,15 @@ if (Object.keys(serverEndpoints).length) {
             })
         ],
         output: {
-            path: path.resolve(__dirname),
-            filename: "[name].server.js",
+            path: utils.config.js.outputForServer,
+            filename: "[name].js",
             libraryTarget: 'commonjs2'
         },
-        resolve : (() => {
-
-            const list = Object.assign({}, resolve, {
-                alias: utils.config.aliasForWeb || {}
-            });
-
-            list.alias.log = path.resolve(__dirname, 'webpack', 'logn');
-
-            return list;
-        })(),
+        resolve : {
+            alias: {
+                log: path.resolve(__dirname, 'webpack', 'logn')
+            }
+        },
         devtool: false,
         module: {
             rules: [
@@ -253,6 +248,22 @@ if (Object.keys(serverEndpoints).length) {
                 log: 'log'
             })
         ]
+    }
+
+    if (utils.config.externalsForServer && utils.config.externalsForServer.length) {
+
+        server.externals.push((context, request, callback, tmp) => {
+
+            //context /Users/sd/Workspace/projects/z_ping-webgui/runtime/public_html/app
+            //request ./server.config
+
+            if ( utils.config.externalsForServer.indexOf(tmp = path.resolve(context, request + '.js')) > -1 ) {
+
+                return callback(null, 'commonjs2 .' + path.sep + path.relative(utils.config.js.outputForServer, tmp));
+            }
+
+            callback();
+        });
     }
 
     if ( (process.argv.indexOf('--watch') > -1) && utils.config.server && utils.config.server.watchAndReload) {

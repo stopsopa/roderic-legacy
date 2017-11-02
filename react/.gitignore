@@ -1,3 +1,5 @@
 node_modules
 index.server.js
-config.js
+/config.js
+log.server.js
+/servers/

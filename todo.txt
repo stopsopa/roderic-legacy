@@ -8,7 +8,7 @@ backend prerendering
 - https://youtu.be/tsEHfL-Ul1Y?t=5m29s
     postcss-loader autoprefixer
 
-- check installator agains node versions:
+- check installator against node versions:
 - v7.4.9
 - 6.11.1
 - 8.0.0
@@ -18,4 +18,11 @@ https://github.com/tj/n
 replace prompting to:
 
     https://www.npmjs.com/package/inquirer
+
+
+- more tests for installator
+    - maybe on windows if it's possible on travis???
+
+- global version parameter
+
 

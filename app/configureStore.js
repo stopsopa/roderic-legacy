@@ -35,9 +35,14 @@ const configureStore = preloadedState => {
 
     const middlewares = [triggerMultiple, thunk, promisify];
 
+    // http://extension.remotedev.io/#usage
+    let composeEnhancers = compose;
+
     if (dom && process.env.NODE_ENV !== 'production') {
 
-        middlewares.push(createLogger())
+        middlewares.push(createLogger());
+
+        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     }
 
     if (preloadedState) {
@@ -45,12 +50,16 @@ const configureStore = preloadedState => {
         return createStore(
             reducers,
             preloadedState,
+            composeEnhancers(
             applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
+            )
         );
     }
     return createStore(
         reducers,
+        composeEnhancers(
         applyMiddleware(...middlewares) // applyMiddleware returns an redux enhancer
+        )
     );
 
 };
@@ -70,7 +79,7 @@ export const fetchData = (url, store) => {
         /**
          * Find how to find name/namespace of component
          */
-        log('fetchData not found', e);
+        // log('fetchData not found', route ? route.component : {});
     }
 
     return Promise.resolve(promise);

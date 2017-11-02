@@ -1,4 +1,9 @@
 
+
+import { fake as fakeFlag } from './public.config';
+
+import node from 'detect-node';
+
 const fake = [
     {
         path: /^\/pages$/,
@@ -44,20 +49,25 @@ const fake = [
 
 export const fakeTest = url => {
 
-    let tmp;
+    if (fakeFlag) {
 
-    try {
+        let tmp;
 
-        Object.keys(fake).forEach(k => {
-            if (fake[k].path.test(url)) {
-                tmp = k;
-                throw 'break';
-            }
-        });
+        try {
+
+            Object.keys(fake).forEach(k => {
+                if (fake[k].path.test(url)) {
+                    tmp = k;
+                    throw 'break';
+                }
+            });
+        }
+        catch (e) {}
+
+        return tmp;
     }
-    catch (e) {}
 
-    return tmp;
+    return false;
 };
 export const fakeReturn = (url, ...rest) => {
 
@@ -65,7 +75,7 @@ export const fakeReturn = (url, ...rest) => {
 
     if (key) {
 
-        log.dump('fakeReturn(), path: ' + fake[key].path + ' url: "' + url + '"');
+        node && log.dump('fakeReturn(), path: ' + fake[key].path + ' url: "' + url + '"');
 
         const ret = {};
 
