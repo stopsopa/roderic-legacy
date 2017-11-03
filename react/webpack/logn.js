@@ -75,6 +75,17 @@
  *
  */
 
+
+// web version
+
+const node = Object.prototype.toString.call(global.process) === '[object process]';
+
+if ( ! node ) {
+
+    module.exports = require('./logw');
+}
+
+
 // logic from https://github.com/gavinengel/magic-globals/blob/master/index.js
 (function () {
     Object.defineProperty(global, '__stack', {
@@ -422,4 +433,7 @@ log.stack = function (n /* def: 0 */) {
 
 }(native));
 
-module.exports = log;
+if (node) {
+
+    module.exports = log;
+}

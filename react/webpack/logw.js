@@ -6,11 +6,23 @@
 
 'use strict';
 
-module.exports = (function () {
+const log = (function (args) {
     try {
-        return console.log;
+        if (console.log) {
+            return function () {
+                console.log.apply(this, Array.prototype.slice.call(arguments));
+                return log;
+            }
+        }
     }
     catch (e) {
-        return function () {}
+        return function () {return log};
     }
 }());
+
+log.dump    = log;
+log.json    = log;
+log.log     = log;
+log.stack   = function () {return log};
+
+module.exports = log;
