@@ -30,6 +30,6 @@ module.exports = (function () {
         }
 
         return Promise.resolve(`NOT changed: ${file.source}`);
-    }));
+    })).then(() => list);
 }());
 

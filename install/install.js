@@ -17485,6 +17485,12 @@ module.exports = require("buffer");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -17629,7 +17635,7 @@ Prompt.prototype.getQuestion = function () {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17679,12 +17685,6 @@ module.exports = function (rl) {
   };
 };
 
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
 
 /***/ }),
 /* 8 */
@@ -20712,7 +20712,7 @@ module.exports = function (args) {
 const ver = 'v0.1.0';
 
 const path = __webpack_require__(9);
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 const execSync = __webpack_require__(10).execSync;
 const spawn = __webpack_require__(10).spawn;
 const color = __webpack_require__(32);
@@ -20721,6 +20721,7 @@ const error = __webpack_require__(29);
 const log = __webpack_require__(134);
 const transport = __webpack_require__(135);
 const fixFiles = __webpack_require__(139);
+const copyFiles = __webpack_require__(141);
 
 const args = function () {
 
@@ -20878,22 +20879,7 @@ args.onlyFix || function () {
 
         return ask(); // triggering aggregated interaction with user
     }).then(() => fixed).then(fixFiles) // remove comments "this will be removed by installator"
-    .then(() => fixed.forEach(file => {
-        // copy public.config.js.dist to public.config.js
-
-        file = path.resolve(file.source);
-
-        const ext = path.extname(file);
-
-        if (ext === '.dist') {
-
-            const newName = path.join(path.dirname(file), path.basename(file, ext));
-
-            log(`copying: ${file} to ${name}\n`);
-
-            fs.renameSync(file, newName);
-        }
-    })).then(() => {
+    .then(copyFiles).then(() => {
 
         const react_dir = ask.get('react_dir');
 
@@ -20952,10 +20938,12 @@ and next run one of:
 
 // If you want to change files for development copy this file one directory up and run:
 
-// node install.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-// node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-// node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`).then(list => Promise.all(list.map((o, k) => ask(o.source).then(link => list[k].source = link))).then(() => list)).then(fixFiles).then(list => {
+// node install.js       --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
+// node install.js       --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret --travis
+// node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
+
+args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`).then(list => Promise.all(list.map((o, k) => ask(o.source).then(link => list[k].source = link))).then(() => list)).then(fixFiles) // remove comments "this will be removed by installator"
+.then(copyFiles).then(list => {
     console.log(list);
 });
 /* WEBPACK VAR INJECTION */}.call(exports, ""))
@@ -29578,8 +29566,8 @@ var chalk = __webpack_require__(2);
 var figures = __webpack_require__(16);
 var cliCursor = __webpack_require__(23);
 var runAsync = __webpack_require__(14);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 var Paginator = __webpack_require__(15);
 
 /**
@@ -30546,8 +30534,8 @@ module.exports = x => {
 
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 
 /**
  * Module exports
@@ -30657,8 +30645,8 @@ Prompt.prototype.onKeypress = function () {
 var _ = __webpack_require__(1);
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 
 /**
  * Module exports
@@ -30769,9 +30757,9 @@ Prompt.prototype.onKeypress = function () {
 var _ = __webpack_require__(1);
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
-var Base = __webpack_require__(5);
+var Base = __webpack_require__(6);
 var Separator = __webpack_require__(11);
-var observe = __webpack_require__(6);
+var observe = __webpack_require__(7);
 var Paginator = __webpack_require__(15);
 
 /**
@@ -30954,9 +30942,9 @@ function renderChoices(choices, pointer) {
 var _ = __webpack_require__(1);
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
-var Base = __webpack_require__(5);
+var Base = __webpack_require__(6);
 var Separator = __webpack_require__(11);
-var observe = __webpack_require__(6);
+var observe = __webpack_require__(7);
 var Paginator = __webpack_require__(15);
 
 /**
@@ -31222,8 +31210,8 @@ var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
 var cliCursor = __webpack_require__(23);
 var figures = __webpack_require__(16);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 var Paginator = __webpack_require__(15);
 
 /**
@@ -31461,8 +31449,8 @@ function getCheckbox(checked) {
 
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 
 function mask(input, maskChar) {
   input = String(input);
@@ -31583,8 +31571,8 @@ Prompt.prototype.onKeypress = function () {
 var util = __webpack_require__(3);
 var chalk = __webpack_require__(2);
 var ExternalEditor = __webpack_require__(73);
-var Base = __webpack_require__(5);
-var observe = __webpack_require__(6);
+var Base = __webpack_require__(6);
+var observe = __webpack_require__(7);
 var rx = __webpack_require__(13);
 
 /**
@@ -31705,7 +31693,7 @@ Prompt.prototype.onError = function (state) {
   var CreateFileError, ExternalEditor, FS, IConvLite, JSCharDet, LaunchEditorError, ReadFileError, RemoveFileError, Spawn, SpawnSync, Temp,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  FS = __webpack_require__(7);
+  FS = __webpack_require__(5);
 
   Temp = __webpack_require__(74);
 
@@ -31931,7 +31919,7 @@ Prompt.prototype.onError = function (state) {
 /*
  * Module dependencies.
  */
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 const path = __webpack_require__(9);
 const crypto = __webpack_require__(75);
 const osTmpDir = __webpack_require__(76);
@@ -43432,7 +43420,7 @@ module.exports = function log() {
 
 const https = __webpack_require__(136);
 const path = __webpack_require__(9);
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 const Stream = __webpack_require__(8).Transform;
 const dirEnsure = __webpack_require__(137);
 const error = __webpack_require__(29);
@@ -43493,7 +43481,7 @@ module.exports = require("https");
 "use strict";
 
 
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 
 const sync = __webpack_require__(138);
 
@@ -43536,7 +43524,7 @@ module.exports = function dirEnsure(dir, createIfNotExist) {
 
 
 const path = __webpack_require__(9);
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 
 /**
  * Implementation from:
@@ -43596,7 +43584,7 @@ module.exports = function sync(p, opts, made) {
 "use strict";
 
 
-const fs = __webpack_require__(7);
+const fs = __webpack_require__(5);
 const ask = __webpack_require__(30)();
 
 module.exports = function () {
@@ -43626,7 +43614,7 @@ module.exports = function () {
         }
 
         return Promise.resolve(`NOT changed: ${file.source}`);
-    }));
+    })).then(() => list);
 }();
 
 /***/ }),
@@ -43660,6 +43648,49 @@ module.exports = function (input, execute, slots) {
         })();
     });
 };
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+const path = __webpack_require__(9);
+const fs = __webpack_require__(5);
+
+module.exports = fixed => {
+
+    fixed.forEach(file => {
+        // copy public.config.js.dist to public.config.js
+
+        file = path.resolve(file.source);
+
+        const ext = path.extname(file);
+
+        if (ext === '.dist') {
+
+            const newName = path.join(path.dirname(file), path.basename(file, ext));
+
+            const f = path.relative(__dirname, file);
+
+            const n = path.relative(__dirname, newName);
+
+            if (fs.existsSync(newName)) {
+
+                console.log(`CAN'T copy: ${f} to ${n}, file already exists`);
+            } else {
+
+                console.log(`copying: ${f} to ${n}`);
+
+                fs.renameSync(file, newName);
+            }
+        }
+    });
+
+    return fixed;
+};
+/* WEBPACK VAR INJECTION */}.call(exports, "libs"))
 
 /***/ })
 /******/ ]);

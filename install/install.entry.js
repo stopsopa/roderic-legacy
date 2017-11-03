@@ -12,6 +12,7 @@ const error         = require('./libs/error');
 const log           = require('./libs/log');
 const transport     = require('./libs/transport');
 const fixFiles      = require('./libs/fixFiles');
+const copyFiles     = require('./libs/copyFiles');
 
 const args = (function () {
 
@@ -194,22 +195,7 @@ args.onlyFix || (function () {
         })
         .then(() => fixed)
         .then(fixFiles) // remove comments "this will be removed by installator"
-        .then(() => fixed.forEach(file => { // copy public.config.js.dist to public.config.js
-
-            file = path.resolve(file.source);
-
-            const ext = path.extname(file);
-
-            if (ext === '.dist') {
-
-                const newName = path.join(path.dirname(file), path.basename(file, ext));
-
-                log(`copying: ${file} to ${name}\n`);
-
-                fs.renameSync(file, newName);
-            }
-
-        }))
+        .then(copyFiles)
         .then(() => {
 
             const react_dir = ask.get('react_dir');
@@ -272,9 +258,10 @@ and next run one of:
 
 // If you want to change files for development copy this file one directory up and run:
 
-// node install.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-// node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
-// node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+// node install.js       --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
+// node install.js       --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret --travis
+// node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
+
 args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
     .then(
         list => Promise.all(
@@ -284,7 +271,8 @@ args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${
         )
         .then(() => list)
     )
-    .then(fixFiles)
+    .then(fixFiles) // remove comments "this will be removed by installator"
+    .then(copyFiles)
     .then(list => {
         console.log(list)
     })

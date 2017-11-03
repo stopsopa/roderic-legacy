@@ -9,7 +9,7 @@ mkdir installtest
 cd installtest
 
 curl -L https://raw.githubusercontent.com/stopsopa/roderic/v0.1.0/install/install.js?$(date +%s) > install.js
-node install.js --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app
+node install.js --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
 
 rm install.js
 
