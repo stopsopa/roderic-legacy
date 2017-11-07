@@ -6,7 +6,7 @@
 
 'use strict';
 
-const log = (function (args) {
+const log = (function () {
     try {
         if (console.log) {
             return function () {
@@ -20,9 +20,6 @@ const log = (function (args) {
     }
 }());
 
-log.dump    = log;
-log.json    = log;
-log.log     = log;
-log.stack   = function () {return log};
+log.stack = function () {return log};
 
-module.exports = log;
+module.exports = log.dump = log.json = log.log = log;

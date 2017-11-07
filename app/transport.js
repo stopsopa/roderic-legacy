@@ -29,7 +29,14 @@ export const fetchData = (path, ...rest) => {
     }
     else {
 
-        ret = fetch(getUrl(path), ...rest);
+        const args = [getUrl(path), ...rest];
+
+        ret = fetch(...args)
+            .then(res => res.ok ? res : Promise.reject({
+                req: [...args],
+                res: res
+            }))
+        ;
     }
 
     return delayPromise(delay || 0)

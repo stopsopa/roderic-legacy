@@ -7,6 +7,8 @@
 
 // -- test --- vvv
 
+// const log = require('./logn');
+//
 // (function () {
 //
 //     (function () {
@@ -22,6 +24,14 @@
 //         console.log('------------ 3');
 //
 //         log.stack(2)('-test-')('+test+')('testddd')('next');
+//
+//         console.log('------------ 4');
+//
+//         log.stack(0).log('stack 0', 'two');
+//
+//         log.stack(1).log('stack 1', 'two');
+//
+//         log.stack(2).log('stack 2', 'two');
 //
 //         console.log('------------ stack default 2');
 //
@@ -119,42 +129,82 @@ if ( ! node ) {
 global.__line = (function () {
 
     function rpad(s, n) {
+
         (typeof n === 'undefined') && (n = 5);
 
-        if (s.length >= n) {
-            return s;
+        try {
+
+            if (s && s.length && s.length >= n) {
+
+                return s;
+            }
+        }
+        catch (e) {
+            console.log('exception', typeof s, s, e);
         }
 
         return String(s + " ".repeat(n)).slice(0, n);
     }
 
-    return function (n) {
+    var tool = function (n) {
 
         if (typeof n === 'undefined') {
+
             let tmp = [];
+
             for (let i in __stack) {
-                tmp.push('stack: ' + rpad(i) + ' file:' + __stack[i].getFileName() + ':' + rpad(__stack[i].getLineNumber()) + ' ');
+
+                if (__stack.hasOwnProperty(i)) {
+
+                    tmp.push('stack: ' + rpad(i) + ' file:' + __stack[i].getFileName() + ':' + rpad(__stack[i].getLineNumber()) + ' ');
+                }
             }
+
             return tmp;
         }
 
         (typeof n === 'undefined') && (n = 1);
 
-        if (!__stack[n]) {
-            throw "n key (" + n + ") doesn't exist in __stack";
+        if ( ! __stack[n] ) {
+
+            return `${n} not in stack: ` + tool(n - 1);
         }
 
-        return __stack[n].getFileName() + ':' + rpad(__stack[n].getLineNumber());
+        const file = __stack[n].getFileName();
+
+        if (file === null) {
+
+            return 'corrected:' + tool(n - 1);
+        }
+
+        return file + ':' + rpad(__stack[n].getLineNumber());
     };
+
+    return tool;
 }());
 
 var native = (function () {
 
     const nat = (function () {
+
         try {
-            return console.log.bind(console);
+            return function () {
+                Array.prototype.slice.call(arguments, 0).forEach(m => {
+                    if (typeof m === 'string') {
+
+                        process.stdout.write(`\n${m}`)
+
+                        return;
+                    }
+                    m = JSON.stringify(m, null, '    ');
+
+                    process.stdout.write(`\n${m}`);
+                })
+            };
+            // return console.log.bind(console);
         }
         catch (e) {
+
             return function () {};
         }
     }());
@@ -215,6 +265,7 @@ function log() {
     native(__line(s + 2));
 
     if (this !== true) {
+
         s += 1;
     }
 
@@ -223,8 +274,13 @@ function log() {
     native.apply(this, Array.prototype.slice.call(arguments, 0));
 
     return function () {
+
         return log.stack(s).apply(true, Array.prototype.slice.call(arguments, 0));
     };
+};
+
+log.log = function () {
+    return log(Array.prototype.slice.call(arguments, 0));
 };
 
 log.json = function () {
@@ -234,6 +290,7 @@ log.json = function () {
     native(__line(s + 2));
 
     if (this !== true) {
+
         s += 1;
     }
 
@@ -250,6 +307,7 @@ log.json = function () {
     native.flush();
 
     return function () {
+
         return log.stack(s).json.apply(true, Array.prototype.slice.call(arguments, 0));
     };
 };
@@ -257,13 +315,16 @@ log.json = function () {
 log.stack = function (n /* def: 0 */) {
 
     if (n === false) {
+
         stack = n;
+
         return log;
     }
 
     var nn = parseInt(n, 10);
 
     if (!Number.isInteger(n) || n < 0) {
+
         throw "Can't setup stack to '" + nn + "' ("+n+")";
     }
 
@@ -285,22 +346,31 @@ log.stack = function (n /* def: 0 */) {
 
     var type = (function (t) {
         return function (n) {
+
             if (n === undefined) {
+
                 return 'Undefined';
             }
+
             if (n === null) {
+
                 return 'Null';
             }
 
             t = typeof n;
 
             if (t === 'Function') {
+
                 return t;
             }
+
             if (Number.isNaN(n)) {
+
                 return "NaN";
             }
+
             if (t === 'number') {
+
                 return (Number(n) === n && n % 1 === 0) ? 'Integer' : 'Float';
             }
 
@@ -335,22 +405,31 @@ log.stack = function (n /* def: 0 */) {
     }
 
     function toString(o, k) {
+
         if (typeof o === 'function') {
+
             k = Object.keys(o).join(',');
+
             return k ? 'object keys:' + k : '';
         }
+
         return o
     }
 
     // only for function
     function count (o) {
+
         if (typeof o === 'function') {
+
             for (let i in o) {
+
                 if (o && o.hasOwnProperty && o.hasOwnProperty(i)) {
+
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -363,10 +442,13 @@ log.stack = function (n /* def: 0 */) {
         var limit = args[args.length - 1];
 
         if (args.length > 1 && Number.isInteger(limit) && limit > 0) {
+
             args.pop();
+
             limit -= 1;
         }
         else {
+
             limit = false;
         }
 
@@ -423,10 +505,14 @@ log.stack = function (n /* def: 0 */) {
         native.flush();
 
         return function () {
+
             var args = Array.prototype.slice.call(arguments, 0);
+
             if (limit !== false) {
+
                 args = args.concat(limit + 1);
             }
+
             return log.stack(s).dump.apply(true, args);
         };
     };
