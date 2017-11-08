@@ -1,7 +1,6 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import debounce from 'lodash/debounce';
-import log from '../../../../react/webpack/logw';
 import todoApp from './reducers';
 
 // middlewares

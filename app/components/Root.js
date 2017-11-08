@@ -7,6 +7,8 @@ import ContainerVisible from './ContainerVisible';
 
 import LoginFormVisible from './LoginFormVisible';
 
+import NestedGetDataVisible from './NestedGetDataVisible';
+
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 import configPublic from '../public.config';
@@ -34,6 +36,7 @@ const Root = () => (
             <Route path="/login" component={LoginForm} />
             <Route component={ContainerVisible} />
         </Switch>
+        <NestedGetDataVisible />
     </div>
 );
 

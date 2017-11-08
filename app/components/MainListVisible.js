@@ -28,7 +28,10 @@ class MainListVisible extends Component {
 
         // log('MainListVisible::fetchData()');
 
-        return store.dispatch(actions.fetchList());
+        return Promise.all([
+            store.dispatch(actions.fetchList()),
+            store.dispatch(actions.nestedLoad(`other then router component`))
+        ]);
     }
     componentDidMount() {
 

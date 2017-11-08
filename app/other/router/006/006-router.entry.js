@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { autobind } from 'core-decorators';
 import isNumber from 'lodash/isNumber';
-import log from '../../../../react/webpack/logw';
 import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, NavLink, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';

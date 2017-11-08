@@ -1,6 +1,5 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
-import log from '../:react::react_dir:/webpack/logw';
 import reducers from './reducers';
 import isArray from 'lodash/isArray';
 
@@ -87,7 +86,6 @@ export const fetchData = (url, store) => {
     ;
 
     if ( componentName ) {
-
         if (isFD) {
 
     try {

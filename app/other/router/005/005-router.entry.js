@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { autobind } from 'core-decorators';
-import log from '../../../../react/webpack/logw';
 import '../common/style.scss';
 
 import { BrowserRouter as Router, Route, Link, Switch, Redirect, withRouter, Prompt } from 'react-router-dom';

@@ -8,18 +8,18 @@
 
 const path              = require("path");
 
-const root              = path.resolve(__dirname, '..');
+const webpack           = __dirname;
+
+const root              = path.resolve(webpack, '..');
 
 // relative path to public server directory
 const web               = path.resolve(root, 'docs');
 
 const asset             = path.resolve(web, 'asset');
 
-const node_modules      = path.join(__dirname, 'node_modules');
+const node_modules      = path.join(webpack, 'node_modules');
 
 const app               = path.resolve(root, 'app');
-
-const webpack           = __dirname;
 
 module.exports = {
     // just name for this project, it's gonna show up in some places
@@ -53,7 +53,7 @@ module.exports = {
         }
     ],
     aliasForWeb: {
-        log         : path.resolve(__dirname, 'webpack', 'logw'),
+        log         : path.resolve(webpack, 'webpack', 'logw'),
         transport   : path.resolve(app, 'transport')
     },
     provideForWeb: { // see format: https://webpack.js.org/plugins/provide-plugin/
@@ -75,6 +75,6 @@ module.exports = {
     server: {
         host: '0.0.0.0',
         port: 1025,
-        watchAndReload: path.resolve(__dirname, 'servers', 'index.js')
+        watchAndReload: path.resolve(webpack, 'servers', 'index.js')
     }
 }

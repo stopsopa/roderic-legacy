@@ -75,7 +75,7 @@ export const fakeReturn = (url, ...rest) => {
 
     if (key) {
 
-        node && log.dump('fakeReturn(), path: ' + fake[key].path + ' url: "' + url + '"');
+        log.dump('fakeReturn(), path: ' + fake[key].path + ' url: "' + url + '"');
 
         const ret = {};
 

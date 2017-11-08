@@ -84,6 +84,14 @@
     "template": true
   },
   {
+    "source": ":app::app_dir:/components/NestedGetData.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/components/NestedGetDataVisible.js",
+    "template": true
+  },
+  {
     "source": ":app::app_dir:/public.config.js.dist",
     "template": true
   },

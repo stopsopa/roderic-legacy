@@ -354,7 +354,7 @@ export const formReset = () => (dispatch, getState) => {
             FORM_ITEM_STATUS_RESET
         ]
         // type: FORM_ITEM_URL_RESET
-    })
+    });
 }
 
 // nested vvv

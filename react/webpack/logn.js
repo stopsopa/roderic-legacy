@@ -97,7 +97,7 @@ if ( ! node ) {
 
 
 // logic from https://github.com/gavinengel/magic-globals/blob/master/index.js
-(function () {
+node && (function () {
     Object.defineProperty(global, '__stack', {
         get: function tmp() {
             var orig = Error.prepareStackTrace;
@@ -126,62 +126,65 @@ if ( ! node ) {
 //     }
 // });
 
-global.__line = (function () {
+if (node) {
 
-    function rpad(s, n) {
+    global.__line = (function () {
 
-        (typeof n === 'undefined') && (n = 5);
+        function rpad(s, n) {
 
-        try {
+            (typeof n === 'undefined') && (n = 5);
 
-            if (s && s.length && s.length >= n) {
+            try {
 
-                return s;
-            }
-        }
-        catch (e) {
-            console.log('exception', typeof s, s, e);
-        }
+                if (s && s.length && s.length >= n) {
 
-        return String(s + " ".repeat(n)).slice(0, n);
-    }
-
-    var tool = function (n) {
-
-        if (typeof n === 'undefined') {
-
-            let tmp = [];
-
-            for (let i in __stack) {
-
-                if (__stack.hasOwnProperty(i)) {
-
-                    tmp.push('stack: ' + rpad(i) + ' file:' + __stack[i].getFileName() + ':' + rpad(__stack[i].getLineNumber()) + ' ');
+                    return s;
                 }
             }
+            catch (e) {
+                console.log('exception', typeof s, s, e);
+            }
 
-            return tmp;
+            return String(s + " ".repeat(n)).slice(0, n);
         }
 
-        (typeof n === 'undefined') && (n = 1);
+        var tool = function (n) {
 
-        if ( ! __stack[n] ) {
+            if (typeof n === 'undefined') {
 
-            return `${n} not in stack: ` + tool(n - 1);
-        }
+                let tmp = [];
 
-        const file = __stack[n].getFileName();
+                for (let i in __stack) {
 
-        if (file === null) {
+                    if (__stack.hasOwnProperty(i)) {
 
-            return 'corrected:' + tool(n - 1);
-        }
+                        tmp.push('stack: ' + rpad(i) + ' file:' + __stack[i].getFileName() + ':' + rpad(__stack[i].getLineNumber()) + ' ');
+                    }
+                }
 
-        return file + ':' + rpad(__stack[n].getLineNumber());
-    };
+                return tmp;
+            }
 
-    return tool;
-}());
+            (typeof n === 'undefined') && (n = 1);
+
+            if ( ! __stack[n] ) {
+
+                return `${n} not in stack: ` + tool(n - 1);
+            }
+
+            const file = __stack[n].getFileName();
+
+            if (file === null) {
+
+                return 'corrected:' + tool(n - 1);
+            }
+
+            return file + ':' + rpad(__stack[n].getLineNumber());
+        };
+
+        return tool;
+    }());
+}
 
 var native = (function () {
 

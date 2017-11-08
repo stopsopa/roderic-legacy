@@ -3,8 +3,6 @@
 // not used because of: https://egghead.io/lessons/javascript-redux-adding-a-fake-backend-to-the-project
 // not used because of: https://egghead.io/lessons/javascript-redux-adding-a-fake-backend-to-the-project
 
-import log from '../../../../react/webpack/logw';
-
 const key = 'store';
 
 export const loadState = () => {

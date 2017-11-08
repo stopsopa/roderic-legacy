@@ -11,11 +11,13 @@ import {
 
 import NestedGetData from './NestedGetData';
 
-
 class NestedGetDataVisible extends Component {
 
     static fetchData = (store, routerParams) => {
-        return store.dispatch(actions.nestedLoad());
+
+        log(`this fetchData should't be loaded - never`);
+
+        return store.dispatch(actions.nestedLoad(`shouldn't be loaded`));
     }
     render() {
 
