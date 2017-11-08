@@ -280,7 +280,7 @@ function log() {
 };
 
 log.log = function () {
-    return log(Array.prototype.slice.call(arguments, 0));
+    return log.apply(this, Array.prototype.slice.call(arguments, 0));
 };
 
 log.json = function () {
