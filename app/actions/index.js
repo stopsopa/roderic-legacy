@@ -357,3 +357,19 @@ export const formReset = () => (dispatch, getState) => {
     })
 }
 
+// nested vvv
+
+export const NESTED_LOAD = 'NESTED_LOAD';
+
+export const nestedLoad = value => (dispatch, getState) => new Promise(resolve => {
+    setTimeout(() => {
+        dispatch({
+            type: NESTED_LOAD,
+            payload: value
+        });
+        resolve('done');
+    }, 500);
+});
+
+// nested ^^^
+

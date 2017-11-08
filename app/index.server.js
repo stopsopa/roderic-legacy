@@ -211,6 +211,15 @@ app.use((req, res) => {
         });
 
         res.send(htmlTemplate);
+    })
+    .catch(reason => {
+
+        // restrict to show full error by ip or other, oj just log error
+        // loggin error would be best idea
+        res.status(500).send({
+            message: 'SSR error: ',
+            reason
+        })
     });
 });
 

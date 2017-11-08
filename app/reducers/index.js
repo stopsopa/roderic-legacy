@@ -13,13 +13,16 @@ import list, * as fromList from './list';
 
 import form, * as fromForm from './form';
 
+import nested, * as fromNested from './nested';
+
 import authenticated, * as fromAuthenticated from './authenticated';
 
 const reducers = combineReducers({
     form,
     loader,
     list,
-    authenticated
+    authenticated,
+    nested
 })
 
 export default reducers;
@@ -59,5 +62,10 @@ export const getFormData = state => ({
     laststatus  : getFormValue(state, 'laststatus'),
     interval    : getFormValue(state, 'interval'),
     url         : getFormValue(state, 'url'),
-})
+});
+
+// nested vvv
+export const getNested = state =>
+    fromNested.getNested(state.nested);
+// nested ^^^
 
