@@ -19,7 +19,7 @@ class GlobalLoader extends Component {
 
         this.event = e => {
             if (e.keyCode === 192) {
-                console.log('visible', visible);
+                log('visible', visible);
                 visible ? loaderButtonsHide() : loaderButtonsShow();
             }
         };

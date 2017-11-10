@@ -2,6 +2,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
 import isArray from 'lodash/isArray';
+import getDisplayName from 'react-display-name';
 
 // middlewares
 import { createLogger } from 'redux-logger';
@@ -65,42 +66,33 @@ const configureStore = preloadedState => {
 
 export default configureStore;
 
-export const getComponentName = component => {
-    try {
-        // https://reactjs.org/docs/react-component.html#displayname
-        return component.displayName;
-    }
-    catch(e) {
-        return "component name can't be extracted";
-    }
-};
-
 export const fetchData = (url, store) => {
 
     const route = routes.find(route => matchPath(url, route));
 
     let
         promise,
-        componentName   = (route && route.component) ? getComponentName(route.component) : false,
-        isFD            = (componentName && typeof route.component.fetchData === 'function')
+        foundComponent  = (route && route.component),
+        componentName   = foundComponent ? getDisplayName(route.component) : '<displayName>',
+        isFetchData     = (foundComponent && typeof route.component.fetchData === 'function')
     ;
 
-    if ( componentName ) {
-        if (isFD) {
+    if ( foundComponent ) {
+        if ( isFetchData ) {
 
-    try {
+            try {
 
-        promise = route.component.fetchData(store, matchPath(url, route));
-    }
-    catch (e) {
+                promise = route.component.fetchData(store, matchPath(url, route));
+            }
+            catch (e) {
 
                 const reason = {
                     message: `executing fetchData crashed in component: ${componentName}, route: ${url}, reason: `,
                     exception: e
                 }
-        /**
-         * Find how to find name/namespace of component
-         */
+                /**
+                 * Find how to find name/namespace of component
+                 */
                 log(reason.message, reason.exception);
 
                 return Promise.reject(reason);
@@ -116,11 +108,11 @@ export const fetchData = (url, store) => {
         log('component behind router not found, url: ', url);
     }
 
-    log(` in component: ${componentName}, route: ${url}`, promise)
+    log(`in component: ${componentName}, route: ${url}`, promise)
 
-    if (isFD && ( ! promise || typeof promise.then !== 'function') ) {
+    if (isFetchData && ( ! promise || typeof promise.then !== 'function') ) {
 
-        log(`fetchData should return promise in component: ${componentName}, route: ${url}`, 'returned: ', promise);
+        log(`fetchData should return promise in component: ${componentName}, route: ${url}`, ' returned: ', promise);
     }
 
     return Promise.resolve(promise);

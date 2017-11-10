@@ -64,7 +64,11 @@ const commonRules = [
                 plugins: [
                     path.resolve(node_modules, 'babel-plugin-transform-decorators-legacy'),
                 ],
-                sourceMap: utils.prod
+                sourceMap: utils.prod,
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
+                cacheDirectory: true,
             }
         }
     },
@@ -76,13 +80,12 @@ const commonRules = [
             options: { // https://github.com/webpack-contrib/file-loader/tree/docs
                 emitFile: false,
                 name: '[path][name].[ext]',
-                publicPath: '/',
+                publicPath: utils.config.js.assetPrefix,
                 context: utils.config.web,
                 useRelativePath: false,
                 sourceMap: utils.prod
             }
         }
-
     }
 ];
 
@@ -236,6 +239,21 @@ if (Object.keys(serverEndpoints).length) {
                     test: /\.s?css$/,
                     loader: path.resolve(node_modules, 'css-loader/locals')
                 }
+
+
+    //             test: /\.(jpe?g|gif|png|eot|woff2?|ttf|svg)$/,
+    //     // loader: 'file-loader?emitFile=false&name=[path][name].[ext]',
+    //     use: {
+    //     loader: path.resolve(node_modules, 'file-loader'),
+    //         options: { // https://github.com/webpack-contrib/file-loader/tree/docs
+    //         emitFile: false,
+    //             name: '[path][name].[ext]',
+    //             publicPath: '/',
+    //             context: utils.config.web,
+    //             useRelativePath: false,
+    //             sourceMap: utils.prod
+    //     }
+    // }
             ]
         },
         plugins: [
@@ -278,6 +296,14 @@ if (Object.keys(serverEndpoints).length) {
 else {
 
     console.log("Server side webpack config ignored - *.server.js not found\n".red);
+}
+
+if (utils.dev) {
+
+    // Turn off performance hints during development because we don't do any
+    // splitting or minification in interest of speed. These warnings become
+    // cumbersome.
+    webpackConfigsList.forEach(config => config.performance = {hints: false});
 }
 
 module.exports = webpackConfigsList;

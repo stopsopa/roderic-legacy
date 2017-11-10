@@ -138,7 +138,7 @@ app.use((req, res, next) => {
     }
     catch (e) {
 
-        console.log('JWT login error', e);
+        log('JWT login error', e);
     }
 
     // res.set('X-test', 'testvaluse');

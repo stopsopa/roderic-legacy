@@ -44,6 +44,10 @@ module.exports = {
             link: path.resolve(asset, 'rassets')
         },
         {
+            path: path.resolve(root, 'app', 'other'),
+            link: path.resolve(asset, 'other')
+        },
+        {
             path: path.resolve(root, 'dir-to-link'),
             link: path.resolve(asset, 'example')
         },
@@ -65,7 +69,8 @@ module.exports = {
             // ...
         ],
         outputForWeb    : path.resolve(web, 'dist'),
-        outputForServer : path.resolve(webpack, 'servers')
+        outputForServer : path.resolve(webpack, 'servers'),
+        assetPrefix: '/'
     },
     externalsForServer: [
         path.resolve(app, 'server.config.js'),

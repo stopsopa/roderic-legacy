@@ -67,7 +67,8 @@ module.exports = {
             // ...
         ],        
         outputForWeb    : path.resolve(web, 'dist'),
-        outputForServer : path.resolve(webpack, 'servers')
+        outputForServer : path.resolve(webpack, 'servers'),
+        assetPrefix: '/'
     },
     externalsForServer: [
         path.resolve(app, 'server.config.js'),

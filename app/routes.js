@@ -7,9 +7,7 @@ import Edit from './components/Edit';
 
 import MainListVisible from './components/MainListVisible';
 
-let routes;
-
-export default routes = [
+const routes = [
     {
         path: "/gui",
         component: MainListVisible,
@@ -31,3 +29,5 @@ export default routes = [
         exact: true
     }
 ];
+
+export default routes;
