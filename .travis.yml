@@ -25,43 +25,7 @@ matrix:
 #    - os: osx
 #      node_js: "4.3"
 
-before_script:
-  - pwd
-  - ls -la
-  - cp install/install.js .
-  - node install.js --onlyFix --travis --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
-  - cd react
-  - yarn
-  - export WEBPACK_MODE=dev
-  - echo $WEBPACK_MODE
-  - yarn devnowatch
-  - pwd
-  - node servers/index.js 1>> log.log 2>>log.log & disown
-  - sleep 3
-  - cat log.log
-  - cd ..
-  - echo 'after devnowatch in before' && ls -la docs/dist/
-
 script:
-  - pwd
-  - echo 'after devnowatch in script' && ls -la docs/dist/
-  - export WEBPACK_MODE=dev
-  - echo $WEBPACK_MODE
-  - yarn test
-  - rm -rf docs/dist/*
-  - cd react
-  - yarn prod
-  - sudo kill -9 $(ps aux | grep "yarn.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
-  - sudo kill -9 $(ps aux | grep "yarn.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
-  - sudo kill -9 $(ps aux | grep "index.server.js" | grep -v grep | head -1 | awk '{print $2}') || echo 'not 0'
-  - node servers/index.js 1>> log2.log 2>>log2.log & disown
-  - sleep 3
-  - cat log2.log
-  - cd ..
-  - echo 'after prod' && ls -la docs/dist/
-  - export WEBPACK_MODE=prod
-  - echo $WEBPACK_MODE
-  - node servers/index.js 1>> log.log 2>>log.log & disown
-  - yarn test
-  - /bin/bash test/testinstall.sh
+  - /bin/bash test/testinstall.sh ___testdir1 v0.1.0 react docs app "--root=.. --app_name=test-app --jwtsecret=secret --travis"
+  - /bin/bash test/testinstall.sh ___testdir2 v0.1.0 react-notdefault docs-notdefault app-notdefault "--root=.. --app_name=test-app2 --jwtsecret=secret --travis"
 

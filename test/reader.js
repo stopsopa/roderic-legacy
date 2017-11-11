@@ -4,7 +4,7 @@ const path  = require('path');
 
 const fs    = require('fs');
 
-const dist  = path.resolve(__dirname, '..', 'docs', 'dist');
+const dist  = path.resolve(__dirname, '..', process.env.WEBPACK_WEBDIR || 'docs', 'dist');
 
 module.exports = function (core) {
 

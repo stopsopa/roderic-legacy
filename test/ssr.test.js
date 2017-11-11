@@ -1,7 +1,9 @@
 
 import 'isomorphic-fetch';
 
-import config from '../react/config';
+import path from 'path';
+
+const config = require(path.resolve(__dirname, '..', process.env.WEBPACK_REACTDIR || 'react', 'config'));
 
 const ip    = config.server.host;
 
