@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { StaticRouter as Router, Route } from 'react-router'
 import PropTypes from 'prop-types';
 
-import Root from './Root';
+import Root, { RootRenderArray } from './Root';
 
 const RootServer = ({ store, location, context }) => (
     <Provider store={store}>

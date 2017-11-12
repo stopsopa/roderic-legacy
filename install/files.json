@@ -171,6 +171,9 @@
     "source": ":docs::web_dir:/favicon.ico"
   },
   {
+    "source": ":app::app_dir:/other/scss/inc/jpg/all.jpg"
+  },
+  {
     "source": ":react::react_dir:/.gitignore",
     "template": true
   },

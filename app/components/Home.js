@@ -1,8 +1,7 @@
 
 import React from 'react';
 
-const Home = ({ list }) => (
-    <div>Home...</div>
-);
+// react 16 test
+const Home = ({ list }) => 'Home...';
 
 export default Home;

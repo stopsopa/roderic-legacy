@@ -26,6 +26,11 @@ matrix:
 #      node_js: "4.3"
 
 script:
-  - /bin/bash test/testinstall.sh ___testdir1 v0.1.0 react docs app "--root=.. --app_name=test-app --jwtsecret=secret --travis"
-  - /bin/bash test/testinstall.sh ___testdir2 v0.1.0 react-notdefault docs-notdefault app-notdefault "--root=.. --app_name=test-app2 --jwtsecret=secret --travis"
+  - cd install
+  - yarn
+  - cd ..
+  - export VER="$(node install/install.entry.js --getver)"
+  - echo "-$VER-"
+  - /bin/bash test/testinstall.sh ___testdir1 $VER react docs app "--root=.. --app_name=test-app --jwtsecret=secret --travis"
+  - /bin/bash test/testinstall.sh ___testdir2 $VER react-notdefault docs-notdefault app-notdefault "--root=.. --app_name=test-app2 --jwtsecret=secret --travis"
 

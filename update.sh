@@ -1,6 +1,8 @@
 #!/bin/bash
 
-TAG='v0.1.0';
+set -e
+
+TAG="$(node install/install.entry.js --getver)";
 
 function color {
    printf "\e[94m$1\e[0m\n"
@@ -11,6 +13,12 @@ if [ "$#" == 1 ] && [ "$1" == "force" ] ; then
 
     git push origin --force
 fi
+
+cd install
+yarn build
+cd ..
+git add install/install.js
+git commit --amend --no-edit
 
 echo '';
 color "tag: $TAG";

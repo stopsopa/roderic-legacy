@@ -39,8 +39,12 @@ module.exports = {
         }
     ],
     asset: [ // just create links, this links are not direct paths for resolver
-        //this will be removed by installator
         {
+            path: path.resolve(root, ':app::app_dir:', 'other'),
+            link: path.resolve(asset, 'other')
+        }
+        // this will be removed by installator
+        ,{
             path: path.resolve(root, ':app::app_dir:', 'other', 'react', 'assets'),
             link: path.resolve(asset, 'rassets')
         },

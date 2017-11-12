@@ -7,6 +7,8 @@ import NestedGetDataVisible from './NestedGetDataVisible';
 
 const imgTest = '/asset/other/scss/inc/jpg/all.jpg';
 
+const JustString = () => "just string...";
+
 export default class Edit extends Component {
     static displayName = 'EditComponent'; // https://reactjs.org/docs/react-component.html#displayname
     static fetchData = (store, routerParams) => {
@@ -27,6 +29,8 @@ export default class Edit extends Component {
                         alt="imgTest"
                     />
                 </a>
+                <br />
+                <JustString />
             </div>
         </form>
     );

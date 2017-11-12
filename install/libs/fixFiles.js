@@ -5,7 +5,7 @@ const ask       = require('./ask')();
 
 module.exports = (function () {
 
-    const reg = /\/\/this will be removed by installator[\s\S]*?\/\/this will be removed by installator/g;
+    const reg = /\/\/ this will be removed by installator[\s\S]*?\/\/ this will be removed by installator/g;
 
     return list => Promise.all(list.map(file => {
 

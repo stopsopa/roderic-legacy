@@ -34,7 +34,7 @@ curl -L https://raw.githubusercontent.com/stopsopa/roderic/$VER/install/install.
 echo "-$?-"
 
 # node install.js --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
-node install.js --react_dir=$REACTDIR --web_dir=$WEBDIR --app_dir=$APPDIR $RESTARGS
+node install.js --react_dir=$REACTDIR --web_dir=$WEBDIR --app_dir=$APPDIR --version=$VER $RESTARGS
 echo "-$?-"
 
 rm install.js

@@ -20709,8 +20709,6 @@ module.exports = function (args) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-const ver = 'v0.1.0';
-
 const path = __webpack_require__(9);
 const fs = __webpack_require__(5);
 const execSync = __webpack_require__(10).execSync;
@@ -20741,8 +20739,28 @@ const args = function () {
 
     process.argv.indexOf('--travis') > -1 && (obj.travis = true);
 
+    process.argv.indexOf('--getver') > -1 && (obj.getver = true);
+
     return obj;
 }();
+
+if (args.getver) {
+
+    const packageJson = eval('require')(path.resolve(__dirname, '..', 'react', 'package.json'));
+
+    console.log(packageJson.version);
+
+    process.exit(0);
+}
+
+if (!args.version) {
+
+    console.log(`Specify version --version=vx.x.x`);
+
+    process.exit(1);
+}
+
+const ver = args.version;
 
 const ask = __webpack_require__(30)(args);
 
@@ -43589,7 +43607,7 @@ const ask = __webpack_require__(30)();
 
 module.exports = function () {
 
-    const reg = /\/\/this will be removed by installator[\s\S]*?\/\/this will be removed by installator/g;
+    const reg = /\/\/ this will be removed by installator[\s\S]*?\/\/ this will be removed by installator/g;
 
     return list => Promise.all(list.map(file => {
 

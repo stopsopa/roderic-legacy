@@ -1,7 +1,5 @@
 'use strict';
 
-const ver = 'v0.1.0';
-
 const path          = require('path');
 const fs            = require('fs');
 const execSync      = require('child_process').execSync;
@@ -38,8 +36,28 @@ const args = (function () {
 
     (process.argv.indexOf('--travis') > -1)  && (obj.travis = true);
 
+    (process.argv.indexOf('--getver') > -1)  && (obj.getver = true);
+
     return obj;
 }());
+
+if ( args.getver ) {
+
+    const packageJson = eval('require')(path.resolve(__dirname, '..', 'react', 'package.json'));
+
+    console.log(packageJson.version);
+
+    process.exit(0);
+}
+
+if ( ! args.version ) {
+
+    console.log(`Specify version --version=vx.x.x`);
+
+    process.exit(1);
+}
+
+const ver = args.version;
 
 const ask    = require('./libs/ask')(args);
 
