@@ -108,7 +108,7 @@ export const fetchData = (url, store) => {
         log('component behind router not found, url: ', url);
     }
 
-    log(`in component: ${componentName}, route: ${url}`, promise)
+    log(`in component: ${componentName}, route: ${url}, promise: `, promise)
 
     if (isFetchData && ( ! promise || typeof promise.then !== 'function') ) {
 

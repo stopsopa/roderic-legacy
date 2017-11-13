@@ -25,9 +25,6 @@ class MainListVisible extends Component {
         del: PropTypes.any
     }
     static fetchData = (store, routerParams) => {
-
-        // log('MainListVisible::fetchData()');
-
         return Promise.all([
             store.dispatch(actions.fetchList()),
             store.dispatch(actions.nestedLoad(`other then router component`))

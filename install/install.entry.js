@@ -50,14 +50,14 @@ if ( args.getver ) {
     process.exit(0);
 }
 
-if ( ! args.version ) {
+if ( ! args.version && ! args.onlyFix ) {
 
     console.log(`Specify version --version=vx.x.x`);
 
     process.exit(1);
 }
 
-const ver = args.version;
+let ver = args.version;
 
 const ask    = require('./libs/ask')(args);
 
@@ -280,19 +280,27 @@ and next run one of:
 // node install.js       --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret --travis
 // node install.entry.js --onlyFix --app_dir=app --react_dir=react --web_dir=docs --root=".." --app_name=test-app --jwtsecret=secret
 
-args.onlyFix && transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
-    .then(
-        list => Promise.all(
-            list.map(
-                (o, k) => (ask(o.source).then(link => (list[k].source = link)))
-            )
-        )
-        .then(() => list)
-    )
-    .then(fixFiles) // remove comments "this will be removed by installator"
-    .then(copyFiles)
-    .then(list => {
-        console.log(list)
-    })
-;
+if (args.onlyFix) {
 
+    const packageJson = require('../react/package.json');
+
+    ver = ver || packageJson.version;
+
+    transport(`https://raw.githubusercontent.com/stopsopa/roderic/${ver}/install/files.json`)
+        .then(
+            list => Promise.all(
+                list.map(
+                    (o, k) => (ask(o.source).then(link => (list[k].source = link)))
+                )
+            )
+                .then(() => list)
+        )
+        .then(fixFiles) // remove comments "this will be removed by installator"
+        .then(copyFiles)
+        .then(list => {
+            console.log(list)
+        })
+    ;
+
+
+}
