@@ -56,7 +56,7 @@ module.exports = {
             path: path.resolve(root, ':app::app_dir:'),
             link: path.resolve(asset, 'app')
         }
-        //this will be removed by installator
+        // this will be removed by installator
     ],
     aliasForWeb: {
         log         : path.resolve(__dirname, 'webpack', 'logw'),
