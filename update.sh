@@ -26,11 +26,11 @@ echo '';
 
 color "remove REMOTE tag";
 
-git push --delete origin $TAG
+git push --delete origin $TAG || true
 
 color "remove LOCAL tag";
 
-git tag --delete $TAG
+git tag --delete $TAG || true
 
 color "creating LOCAL";
 

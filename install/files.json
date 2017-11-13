@@ -4,6 +4,22 @@
     "template": true
   },
   {
+    "source": ":app::app_dir:/actions/jwt.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/actions/list.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/actions/loader.js",
+    "template": true
+  },
+  {
+    "source": ":app::app_dir:/actions/types.js",
+    "template": true
+  },
+  {
     "source": ":app::app_dir:/components/ContainerVisible.js",
     "template": true
   },

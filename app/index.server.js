@@ -171,6 +171,8 @@ app.use((req, res) => {
 
     fetchData(req.url, store).then(() => {
 
+        try {
+
         const context = {};
 
         const sheet = new ServerStyleSheet();
@@ -211,6 +213,13 @@ app.use((req, res) => {
         });
 
         res.send(htmlTemplate);
+        }
+        catch (e) {
+
+            console.log("\n", 'SSR error try catch: ', e);
+
+            return Promise.reject('check log...');
+        }
     })
     .catch(reason => {
 

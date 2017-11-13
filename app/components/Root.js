@@ -21,24 +21,24 @@ import {
     Icon
 } from 'semantic-ui-react'
 
-const LoginForm = () => ([
+const LoginForm = () => (
     <LoginFormVisible>
         <Redirect to={configPublic.jwt.redirectAfterAuthenticated} />
     </LoginFormVisible>
-]);
+);
 
 export const RootRenderArray = () => ([
-    <div className="one" />,
-    <div className="two" />
+    <div className="one" key='one'/>,
+    <div className="two" key='two'/>
 ]);
 
 const Root = () => ([
-    <GlobalLoaderVisible/>,
-    <Switch>
+    <GlobalLoaderVisible key="globalloader"/>,
+    <Switch key="globalswitch">
         <Route path="/login" component={LoginForm} />
         <Route component={ContainerVisible} />
     </Switch>,
-    <RootRenderArray />
+    <RootRenderArray key="rootrender" />
 ]);
 
 export default Root;

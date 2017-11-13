@@ -6,7 +6,7 @@ import {
     LIST_DELETE_SHOW,
     LIST_DELETE_DELETE,
     LIST_DELETE_CANCEL
-} from '../actions';
+} from '../actions/types';
 
 const byId = (state = {}, action) => {
 

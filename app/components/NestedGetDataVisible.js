@@ -15,7 +15,7 @@ class NestedGetDataVisible extends Component {
 
     static fetchData = (store, routerParams) => {
 
-        log(`this fetchData should't be loaded - never`);
+        log(`this fetchData should't be loaded - because it's not component that represent url`);
 
         return store.dispatch(actions.nestedLoad(`shouldn't be loaded`));
     }
@@ -34,7 +34,7 @@ class NestedGetDataVisible extends Component {
 
 const mapStateToProps = state => ({
     nested: getNested(state)
-})
+});
 
 export default connect(
     mapStateToProps,

@@ -3,7 +3,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     LOGIN_SIGNOUT
-} from '../actions';
+} from '../actions/types';
 
 import configPublic from '../public.config';
 

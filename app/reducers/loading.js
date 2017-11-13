@@ -8,7 +8,7 @@ import {
     LOADER_MESSAGE,
     LOADER_BUTTONS_SHOW,
     LOADER_BUTTONS_HIDE
-} from '../actions';
+} from '../actions/types';
 
 const status = (state = 'off', action) => {
     switch (action.type) {

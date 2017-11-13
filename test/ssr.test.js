@@ -25,6 +25,6 @@ it('ssr router', () => request('/gui')
         expect(html).toContain(`":"http:\\u002F\\u002Fdomain-d.com","`);
     }))
 
-it('ssr nested component', () => request('/gui')
+it('ssr nested component', () => request('/gui/edit/58f762a2cbb458229c0974f8')
     .then(res => res.text())
     .then(html => expect(html).toContain('other then router component')))

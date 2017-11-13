@@ -12,7 +12,10 @@ import configureStore from './configureStore';
 
 import configPublic from './public.config';
 
-import { loginError, loginSuccess } from './actions';
+import {
+    loginError,
+    loginSuccess
+} from './actions';
 
 const preloadedState = window.__PRELOADED_STATE__;
 

@@ -9,7 +9,7 @@ import {
     FORM_ITEM_URL_CHANGE,
     FORM_ITEM_URL_RESET,
     FORM_ITEM_FETCH_SUCCESS
-} from '../actions';
+} from '../actions/types';
 
 const laststatus = ((def) => (state = def, action) => {
     switch (action.type) {

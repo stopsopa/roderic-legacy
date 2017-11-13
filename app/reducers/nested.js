@@ -1,7 +1,7 @@
 
 import {
     NESTED_LOAD
-} from '../actions';
+} from '../actions/types';
 
 const nested = (state = '', action) => {
     switch (action.type) {
