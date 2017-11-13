@@ -47,14 +47,9 @@ rm -rf ./test/jest
 echo "-$?-"
 pwd
 echo "-$?-"
-cp -Rv ../app/other ./$APPDIR/other
+rm -rf ./$APPDIR/other
 echo "-$?-"
-ls -la ../app/other/
-ls -la ../app/other/react/
-ls -la ./$APPDIR/
-ls -la ./$APPDIR/other/
-ls -la ./$APPDIR/other/react/
-ls -la ./$APPDIR/other/react/assets/
+cp -Rv ../app/other ./$APPDIR/other
 echo "-$?-"
 cp -Rv ../dir-to-link ./dir-to-link
 echo "-$?-"
