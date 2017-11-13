@@ -41,15 +41,22 @@ rm install.js
 echo "-$?-"
 
 # preparing tests scripts
-cp -R ../test ./test
+cp -Rv ../test ./test
 echo "-$?-"
 rm -rf ./test/jest
 echo "-$?-"
 pwd
 echo "-$?-"
-cp -R ../app/other ./$APPDIR/other
+cp -Rv ../app/other ./$APPDIR/other
 echo "-$?-"
-cp -R ../dir-to-link ./dir-to-link
+ls -la ../app/other/
+ls -la ../app/other/react/
+ls -la ./$APPDIR/
+ls -la ./$APPDIR/other/
+ls -la ./$APPDIR/other/react/
+ls -la ./$APPDIR/other/react/assets/
+echo "-$?-"
+cp -Rv ../dir-to-link ./dir-to-link
 echo "-$?-"
 cp ../package.json .
 echo "-$?-"
