@@ -215,20 +215,30 @@ app.use((req, res) => {
         res.send(htmlTemplate);
         }
         catch (e) {
-
-            console.log("\n", 'SSR error try catch: ', e);
-
-            return Promise.reject('check log...');
+            return Promise.reject({
+                source: 'SSR error try catch: ',
+                e
+            });
         }
     })
     .catch(reason => {
 
-        // restrict to show full error by ip or other, oj just log error
-        // loggin error would be best idea
-        res.status(500).send({
-            message: 'SSR error: ',
-            reason
-        })
+            log.start();
+
+        log.dump(reason);
+
+            let error = log.get(true).split("\n");
+
+            // restrict to show full error by ip or other, or just log error
+        // logging error would be best idea
+            res
+                .status(500)
+                .set('Content-type', 'application/json; charset=utf-8')
+                .send(JSON.stringify({
+                    message: 'SSR error: ',
+                    error
+                }, null, '    '))
+            ;
     });
 });
 
