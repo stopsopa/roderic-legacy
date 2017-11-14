@@ -22,4 +22,4 @@ const log = (function () {
 
 log.stack = function () {return log};
 
-module.exports = log.dump = log.json = log.log = log;
+module.exports = log.dump = log.start = log.get = log.json = log.log = log;

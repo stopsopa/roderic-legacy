@@ -83,6 +83,17 @@
  * /opt/spark_dev/crawler.js:47
  * test2
  *
+ * buffering (returning output as a string)
+ *
+
+ log.start();
+
+ log.dump('test1');
+
+ log('test2');
+
+ // true or false to additionally flush data to screen after return (def false)
+ const tmp = log.get(true);
  */
 
 
@@ -186,6 +197,8 @@ if (node) {
     }());
 }
 
+var manualMode = false;
+
 var native = (function () {
 
     const nat = (function () {
@@ -233,6 +246,11 @@ var native = (function () {
 
     tool.start = function () {
 
+        if (manualMode) {
+
+            return tool;
+        }
+
         emmit = true;
 
         tool.flush();
@@ -242,7 +260,30 @@ var native = (function () {
         return tool;
     };
 
+    tool.get = function (flush) {
+
+        (flush === undefined) && (flush = false);
+
+        manualMode = false;
+
+        var data = cache.join("\n");
+
+        if ( ! flush ) {
+
+            cache = [];
+        }
+
+        tool.flush();
+
+        return data;
+    };
+
     tool.flush = function () {
+
+        if (manualMode) {
+
+            return tool;
+        }
 
         emmit = true;
 
@@ -282,9 +323,27 @@ function log() {
     };
 };
 
+log.native = native;
+
 log.log = function () {
     return log.apply(this, Array.prototype.slice.call(arguments, 0));
 };
+
+log.start = function () {
+
+    native.start();
+
+    manualMode = true;
+
+    return function () {
+
+        return log.stack(s).apply(true, Array.prototype.slice.call(arguments, 0));
+    };
+}
+
+log.get = function (flush) {
+    return native.get(flush);
+}
 
 log.json = function () {
 

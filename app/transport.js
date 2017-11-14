@@ -44,15 +44,24 @@ export const fetchData = (path, ...rest) => {
     ;
 };
 
+
 export const fetchJson = (path, opt = {}, ...rest) => {
 
     opt.headers = {
         ...opt.headers,
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'Content-type' : 'application/json; charset=utf-8'
     };
+
+    if (opt.body && typeof opt.body !== 'string') {
+
+        opt.body = JSON.stringify(opt.body);
+    }
 
     return fetchData(path, opt, ...rest)
         .then(res => res.json())
     ;
-}
+};
+
+
 
