@@ -72,12 +72,13 @@ export const fetchData = (url, store) => {
 
     let
         promise,
-        foundComponent  = (route && route.component),
+        foundComponent  = !!(route && route.component),
         componentName   = foundComponent ? getDisplayName(route.component) : '<displayName>',
         isFetchData     = (foundComponent && typeof route.component.fetchData === 'function')
     ;
 
     if ( foundComponent ) {
+
         if ( isFetchData ) {
 
             try {
@@ -90,31 +91,31 @@ export const fetchData = (url, store) => {
                     message: `executing fetchData crashed in component: ${componentName}, route: ${url}, reason: `,
                     exception: e
                 }
-                /**
-                 * Find how to find name/namespace of component
-                 */
-                log(reason.message, reason.exception);
+
+                log.dump(reason.message, reason.exception);
 
                 return Promise.reject(reason);
             }
         }
         else {
 
-            log(`fetchData not found in component: ${componentName}, route: ${url}`);
+            log.dump(`fetchData not found in component: ${componentName}, route: ${url}`);
         }
     }
     else {
 
-        log('component behind router not found, url: ', url);
+        log.dump('component behind router not found, url: ', url);
     }
 
-    log(`in component: ${componentName}, route: ${url}, promise: `, promise)
+    log.dump(`in component: ${componentName}, route: ${url}, promise: `, promise)
 
     if (isFetchData && ( ! promise || typeof promise.then !== 'function') ) {
 
-        log(`fetchData should return promise in component: ${componentName}, route: ${url}`, ' returned: ', promise);
+        log.dump(`fetchData should return promise in component: ${componentName}, route: ${url}`, ' returned: ', promise);
     }
 
     return Promise.resolve(promise);
 }
+
+
 
