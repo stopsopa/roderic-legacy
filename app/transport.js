@@ -39,11 +39,6 @@ export const fetchData = (path, ...rest) => {
         ;
     }
 
-    ret.catch(e => {
-        log('fetchData() unhandled promise rejection:');
-        log.dump(e)
-    });
-
     return delayPromise(delay || 0)
         .then(() => ret)
     ;
@@ -63,16 +58,9 @@ export const fetchJson = (path, opt = {}, ...rest) => {
         opt.body = JSON.stringify(opt.body);
     }
 
-    const response = fetchData(path, opt, ...rest)
+    return fetchData(path, opt, ...rest)
         .then(res => res.json())
     ;
-
-    response.catch(e => {
-        log('fetchJson() unhandled promise rejection:');
-        log.dump(e)
-    });
-
-    return response;
 };
 
 if (typeof window !== 'undefined') {
