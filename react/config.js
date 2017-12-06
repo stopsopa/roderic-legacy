@@ -60,6 +60,7 @@ module.exports = {
         log         : path.resolve(webpack, 'webpack', 'logw'),
         transport   : path.resolve(app, 'transport')
     },
+    aliasForServer: {},
     provideForWeb: { // see format: https://webpack.js.org/plugins/provide-plugin/
         log: 'log'
     },

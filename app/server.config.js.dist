@@ -23,5 +23,6 @@ module.exports = {
                 password: 'defpass'
             }
         ]
-    }
+    },
+    checkAcceptHeader: true
 }

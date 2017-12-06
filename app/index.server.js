@@ -26,8 +26,6 @@ import RootServer from './components/RootServer';
 
 import configureStore, { fetchData } from './configureStore';
 
-import { StaticRouter } from 'react-router';
-
 import 'colors';
 
 import { renderToString } from 'react-dom/server';
@@ -81,6 +79,11 @@ app.use(bodyParser.json());
 
 app.use(express.static(configWebpack.web));
 
+
+if (configServer.checkAcceptHeader) {
+
+    app.use(require('./libs/checkAcceptHeaderMiddleware'));
+}
 // login & check token
 
 const headerName = `Authorization`;
@@ -182,6 +185,16 @@ app.use((req, res) => {
             location={req.url}
             context={context}
         />));
+
+        if (context.status) {
+
+            res.status(context.status);
+
+            if ( (context.status === 301 || context.status === 302) && context.url ) {
+
+                return res.redirect(context.status, context.url);
+            }
+        }
 
         // https://www.styled-components.com/docs/advanced#server-side-rendering
         const styleTags = sheet.getStyleTags();

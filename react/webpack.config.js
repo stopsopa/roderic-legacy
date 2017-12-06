@@ -291,6 +291,11 @@ if (Object.keys(serverEndpoints).length) {
         }));
     }
 
+    if (utils.config.aliasForServer && Object.keys(utils.config.aliasForServer).length) {
+
+        server.resolve.alias = utils.config.aliasForServer;
+    }
+
     webpackConfigsList.push(server);
 }
 else {

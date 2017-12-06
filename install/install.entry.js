@@ -12,34 +12,28 @@ const transport     = require('./libs/transport');
 const fixFiles      = require('./libs/fixFiles');
 const copyFiles     = require('./libs/copyFiles');
 
-const args = (function () {
-
-    const obj = {};
-
+const args = (function (obj, tmp) {
     process.argv
-        .filter(a => a.indexOf('--') === 0)
-        .map(a => a.substring(2))
-        .filter(a => /^[^=]+=.+$/i.test(a))
+        .slice(2)
         .map(a => {
-            a = a.match(/^([^=]+)=(.+)$/);
-            return {
-                key: a[1],
-                value: a[2]
+
+            if (a.indexOf('--') === 0)
+                return obj[tmp = a.substring(2)] = obj[tmp] || true;
+
+            if (tmp !== null) {
+
+                if (obj[tmp] === true)
+                    return obj[tmp] = [a];
+
+                obj[tmp].push(a);
             }
-        })
-        .forEach(v => {
-            obj[v.key] = v.value;
         })
     ;
 
-    (process.argv.indexOf('--onlyFix') > -1) && (obj.onlyFix = true);
-
-    (process.argv.indexOf('--travis') > -1)  && (obj.travis = true);
-
-    (process.argv.indexOf('--getver') > -1)  && (obj.getver = true);
+    Object.keys(obj).map(k => (obj[k] !== true && obj[k].length === 1) && (obj[k] = obj[k][0]));
 
     return obj;
-}());
+}({}));
 
 if ( args.getver ) {
 
