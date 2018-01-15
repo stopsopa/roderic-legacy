@@ -34,9 +34,13 @@ import sourceMapSupport from "source-map-support";
 
 import favicon          from 'serve-favicon';
 
+import template from 'lodash/template';
+
 import { ServerStyleSheet } from 'styled-components'
 
-import { loginSuccess } from './actions';
+const isObject = a => (!!a) && (a.constructor === Object);
+
+// import { loginSuccess } from './_redux/actions';
 
 if (process.env.NODE_ENV === 'development') {
 
@@ -77,8 +81,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
-app.use(express.static(configWebpack.web));
-
+app.use(express.static(configWebpack.web, { // http://expressjs.com/en/resources/middleware/serve-static.html
+    // maxAge: 60 * 60 * 24 * 1000 // in milliseconds
+    maxAge: '356 days' // in milliseconds
+}));
 
 if (configServer.checkAcceptHeader) {
 
@@ -153,6 +159,28 @@ app.use((req, res, next) => {
     next();
 });
 
+const htmlLazyLoaderTemplate = require('./libs/fileLazyLoader')(path.resolve(configWebpack.app, 'index.server.html'), 30, (content, file) => {
+
+    let tmp;
+
+    try {
+        tmp = template(content);
+    }
+    catch (e) {
+
+        throw `binding template '${file}' error, probably syntax error`;
+    }
+
+    return params => {
+        try {
+            return tmp(params);
+        }
+        catch (e) {
+            log(`parsing template '${file}' error: `, e);
+        }
+    }
+});
+
 app.use((req, res) => {
 
     // read later: TTFB https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67#ee91
@@ -176,58 +204,56 @@ app.use((req, res) => {
 
         try {
 
-        const context = {};
+            const context = {};
 
-        const sheet = new ServerStyleSheet();
+            const sheet = new ServerStyleSheet();
 
-        let html = renderToString(sheet.collectStyles(<RootServer
-            store={store}
-            location={req.url}
-            context={context}
-        />));
+            let html = renderToString(sheet.collectStyles(<RootServer
+                store={store}
+                location={req.url}
+                context={context}
+            />));
 
-        if (context.status) {
+            res.status(context.status || (context.status = 200));
 
-            res.status(context.status);
+            if (context.status === 301 || context.status === 302) {
 
-            if ( (context.status === 301 || context.status === 302) && context.url ) {
+                if (context.url) {
 
-                return res.redirect(context.status, context.url);
+                    return res.redirect(context.status, context.url);
+                }
+
+                log('context.url not specified');
             }
-        }
 
-        // https://www.styled-components.com/docs/advanced#server-side-rendering
-        const styleTags = sheet.getStyleTags();
+            // https://www.styled-components.com/docs/advanced#server-side-rendering
+            const styleTags = sheet.getStyleTags();
 
-        let htmlTemplate = path.resolve(configWebpack.app, 'index.server.html');
+            let scriptWithPayload = '';
 
-        htmlTemplate = fs.readFileSync(htmlTemplate).toString();
+            if (data !== undefined) {
 
-        // window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\\\\u003c')};
+                // it's gonna show only on response after post valid request to login
+                scriptWithPayload = `<script>window.__JWT_TOKEN__ = ${serialize(data)};</script>`;
+            }
 
-        let scriptWithPayload = '';
+            // window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\\\\u003c')};
 
-        if (data !== undefined) {
+            const replace = {
+                html,
+                styleTags,
+                // WARNING: See the following for security issues around embedding JSON in HTML:
+                // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+                data: `<script>window.__PRELOADED_STATE__ = ${serialize(store.getState())};window.responsestatuscode = ${context.status || 200};</script>${scriptWithPayload}`
+            };
 
-            // it's gonna show only on response after post valid request to login
-            scriptWithPayload = `<script>window.__JWT_TOKEN__ = ${serialize(data)};</script>`;
-        }
-
-        const replace = {
-            html,
-            styleTags,
-            // WARNING: See the following for security issues around embedding JSON in HTML:
-            // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-            data: `<script>window.__PRELOADED_STATE__ = ${serialize(store.getState())};</script>${scriptWithPayload}`
-        };
-
-        Object.keys(replace).forEach(i => {
-            htmlTemplate = htmlTemplate.replace(`{{${i}}}`, replace[i]);
-        });
-
-        res.send(htmlTemplate);
+            res.send(htmlLazyLoaderTemplate()({
+                ...replace,
+                ...configServer.htmlParams
+            }));
         }
         catch (e) {
+
             return Promise.reject({
                 source: 'SSR error try catch: ',
                 e
@@ -238,12 +264,12 @@ app.use((req, res) => {
 
             log.start();
 
-        log.dump(reason);
+            log.dump(reason);
 
             let error = log.get(true).split("\n");
 
             // restrict to show full error by ip or other, or just log error
-        // logging error would be best idea
+            // logging error would be best idea
             res
                 .status(500)
                 .set('Content-type', 'application/json; charset=utf-8')

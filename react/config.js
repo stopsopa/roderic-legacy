@@ -17,9 +17,11 @@ const web               = path.resolve(root, 'docs');
 
 const asset             = path.resolve(web, 'asset');
 
-const node_modules      = path.join(webpack, 'node_modules');
+const node_modules      = path.join(__dirname, 'node_modules');
 
 const app               = path.resolve(root, 'app');
+
+const host              = require('./hosts');
 
 module.exports = {
     // just name for this project, it's gonna show up in some places
@@ -79,8 +81,11 @@ module.exports = {
         path.resolve(webpack, 'config.js')
     ],
     server: {
-        host: '0.0.0.0',
-        port: 1025,
-        watchAndReload: path.resolve(webpack, 'servers', 'index.js')
-    }
+        host: host.server.host,
+        port: host.server.port,
+        watchAndReload: path.resolve(__dirname, 'servers', 'index.js')
+    },
+    changeCacheGetTimestamp: [
+        path.resolve(app, 'index.server.html')
+    ]
 }

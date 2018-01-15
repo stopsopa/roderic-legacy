@@ -1,6 +1,63 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+<% if (gaid) {
+    /*
+        https://developers.google.com/analytics/devguides/collection/gtagjs/migration
+        https://developers.google.com/analytics/devguides/collection/gtagjs/pages
+        https://developers.google.com/analytics/devguides/collection/gtagjs/events
+        !!! https://developers.google.com/analytics/devguides/collection/gtagjs/single-page-applications
+    */
+%>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<%= gaid %>', { 'send_page_view': false });
+
+        window.gtagpageview = (function (log) { // window && window.gtagpageview && gtagpageview();
+
+            function getUrl() {
+                return location.href.substring(location.origin.length).split('#')[0];
+            }
+            function trigger(path) {
+                gtag('config', '<%= gaid %>', {page_path: path});
+
+                log("GA: triggered for : '" + path + "'");
+            }
+            return function (path) {
+
+                if (window.responsestatuscode !== 200) {
+
+                    return log(["GA: Can't trigger for url '", getUrl(), "' because status code of last request is not 200, it is: ", window.responsestatuscode].join(' '));
+                }
+
+                if (path) {
+
+                    return trigger(path);
+                }
+
+                path = getUrl();
+
+                setTimeout(function (t) {
+
+                    t = getUrl();
+
+                    if (t === path) {
+
+                        return trigger(path);
+                    }
+
+                    log("GA: Can't trigger, url previously was '" + path + "' and now is '" + t + "'");
+
+                }, 400);
+            };
+        }(function(){try{return console.log}catch(e){return function(){}}}()));
+    </script>
+<% } %>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -8,10 +65,16 @@
     <title>Ping</title>
     <link rel="stylesheet" href="/dist/index.bundle.css">
     <link rel="icon" href="/favicon.ico" />
-    {{styleTags}}
+    <%= styleTags %>
 </head>
 <body>
-    <div id="app">{{html}}</div>{{data}}
+<div id="app"><%= html %></div><%= data %>
+
     <script src="/dist/index.bundle.js"></script>
+
+    <% if (gaid) { %>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaid %>"></script>
+    <% } %>
 </body>
 </html>

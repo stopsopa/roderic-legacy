@@ -7,7 +7,7 @@
  * WARNING ... only in server scripts
  * WARNING
  * WARNING
- * WARNING: ... and don't remove this message, please...
+ * WARNING: ... and don't remove this comment message, please...
  */
 
 module.exports = {
@@ -24,5 +24,8 @@ module.exports = {
             }
         ]
     },
-    checkAcceptHeader: true
+    checkAcceptHeader: true,
+    htmlParams: {
+        // gaid: 'UA-xxxxx-xx'
+    }
 }

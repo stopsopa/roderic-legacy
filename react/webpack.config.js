@@ -173,6 +173,14 @@ const web = {
         })
     ]
 };
+
+if (utils.config.changeCacheGetTimestamp) {
+
+    (function (HtmlCachePlugin) {
+        web.plugins.push(new HtmlCachePlugin(utils.config.changeCacheGetTimestamp));
+    }(require('./webpack/HtmlCachePlugin')));
+}
+
 if (utils.config.provideForWeb && Object.keys(utils.config.provideForWeb).length) { // https://webpack.js.org/plugins/provide-plugin/
 
     web.plugins.push(new webpack.ProvidePlugin(utils.config.provideForWeb));
@@ -315,6 +323,28 @@ module.exports = webpackConfigsList;
 
 // // https://nodejs.org/docs/latest/api/all.html#modules_accessing_the_main_module
 if (require.main === module) {
+
+    if (process.argv.indexOf('--htmlcache') > -1) {
+
+        if (utils.config.changeCacheGetTimestamp) {
+
+            const htmlcache = require('./webpack/htmlcache');
+
+            const time = htmlcache.now();
+
+            utils.config.changeCacheGetTimestamp.forEach(file => {
+
+                console.log(`htmlcache(${file})`);
+
+                htmlcache.inFile(file, time);
+            })
+        }
+        else {
+            console.log(`no utils.config.changeCacheGetTimestamp specified in config.js`);
+        }
+
+        process.exit(0);
+    }
     // direct
 
     console.log('Mounting symlinks:');

@@ -190,7 +190,7 @@ if (node) {
                 return 'corrected:' + tool(n - 1);
             }
 
-            return file + ':' + rpad(__stack[n].getLineNumber());
+            return (new Date()).toISOString().substring(0, 19).replace('T', ' ') + ' ' + file + ':' + rpad(__stack[n].getLineNumber());
         };
 
         return tool;
