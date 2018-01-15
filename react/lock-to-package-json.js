@@ -1,4 +1,5 @@
 
+// see also: npm install --save yeoman-generator - it updated automatically package.json to latest version
 // yarn upgrade --latest -C
 // if [ -e package.json ] ; then echo -e "$(node lock-to-package-json.js)" 1> package.json && echo 'done...'; fi
 
