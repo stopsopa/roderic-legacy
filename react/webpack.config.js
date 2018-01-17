@@ -113,7 +113,7 @@ const web = {
             ...commonRules,
             {
                 // https://webpack.js.org/loaders/style-loader/
-                test: /\.scss/,
+                test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: {
                         loader: path.resolve(node_modules, 'style-loader'),

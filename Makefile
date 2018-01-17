@@ -13,8 +13,7 @@ deploy:
 stop:
 	/bin/bash kill.sh ${FLAG}
 
-start:
-	make stop
+start: stop
 	/bin/bash start.sh ${FLAG} ${LOGFILE}
 	
 
