@@ -17,7 +17,8 @@
     "regenerator-runtime": "^0.10.5"
   },
   "scripts": {
-    "test": "node node_modules/jest/bin/jest.js"
+    "test": "node node_modules/jest/bin/jest.js",
+    "testwatch": "node node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
     "testEnvironment": "node"
