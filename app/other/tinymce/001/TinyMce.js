@@ -1,6 +1,77 @@
+/**
+ * @author Szymon Działowski 2018-01-18
+ * 
+ * call somewhere in main code
+ *      import TinyMce, { TinyMceExtendTest, setSource } from './TinyMce';
+ *      setSource('/asset/public/tinymce/tinymce.js');
+ */
 
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
+
+const log       = (function(){try{return console.log}catch(e){return function(){}}}());
+const error     = (function(){try{return console.error}catch(e){return function(){}}}());
+
+// let source = '/asset/public/tinymce/tinymce.js';
+let source = null;
+
+let load = false;
+
+// lazy load of TinyMce
+const tiny = (function () {
+
+    let resolve;
+
+    let promise = new Promise(res => resolve = res);
+
+    function trigger() {
+
+        load = false;
+
+        const xjs = document.createElement('script');
+        xjs.src = source;
+        (document.getElementsByTagName('head')[0]||document.body).appendChild (xjs);
+
+        (function test () {
+            if (window.tinymce) {
+
+                resolve(window.tinymce);
+            }
+            else {
+                log("Can't load still waiting...");
+
+                setTimeout(test, 100);
+            }
+        })();
+    }
+
+    const tool = flag => {
+
+        if ( ! window.tinymce ) {
+
+            load = true;
+        }
+
+        if (load) {
+
+            if ( ! source) {
+
+                error("Can't load TinyMce because source was not specified, please call first require('TinyMce').setSource(url) and provide url to main /tinymce/tinymce.js'");
+
+                return promise;
+            }
+
+            trigger();
+        }
+
+        return promise;
+    };
+
+    tool.trigger = trigger;
+
+    return tool;
+})();
 
 /**
  * Inspired by : https://go.tinymce.com/blog/how-to-integrate-react-with-tinymce/
@@ -39,7 +110,7 @@ class TinyMce extends Component {
 
                 if (this.props.onEditorChange) {
 
-                    editor.on('keyup change Redo Undo', () => {
+                    editor.on('keyup change Redo Undo init', () => {
                         this.props.onEditorChange(editor.getContent(), editor);
                     });
                 }
@@ -51,10 +122,24 @@ class TinyMce extends Component {
             this.props.extendInit(init);
         }
 
-        tinymce.init(init);
+        try {
+            this.element.style.opacity = '0';
+        }
+        catch (e) {};
+
+        tiny().then(t => {
+            try {
+                this.element.style.opacity = '1';
+            }
+            catch (e) {};
+
+            t.init(init);
+        });
     }
     componentWillUnmount() {
-        tinymce.remove(this.state.editor);
+        if (this.state.editor) {
+            tiny().then(t => t.remove(this.state.editor));
+        }
     }
     render() {
         return (
@@ -68,6 +153,16 @@ class TinyMce extends Component {
 }
 
 export default TinyMce;
+
+export const setSource = url => {
+
+    source = url;
+
+    if (load) {
+
+        tiny.trigger();
+    }
+};
 
 export class TinyMceExtendTest extends Component {
     extendEditor = editor => { // https://www.tinymce.com/docs/plugins/insertdatetime/
@@ -99,7 +194,6 @@ export class TinyMceExtendTest extends Component {
 
 
         editor.on('init', e => {
-
             try {
                 const iframe = editor.getElement().previousSibling.querySelector('iframe'); // https://stackoverflow.com/a/7649405/5560682
 
@@ -118,7 +212,6 @@ export class TinyMceExtendTest extends Component {
         return <TinyMce
             {...this.props}
             extendInit={init => {
-
                 return Object.assign(init, {
                     // plugins: 'wordcount table',
                     plugins: [ //https://www.tinymce.com/docs/get-started/basic-setup/#breakdownoftheaboveexample
@@ -144,7 +237,8 @@ export class TinyMceExtendTest extends Component {
                     body_class: 'tinymce',
 
                     // https://www.tinymce.com/docs/configure/content-filtering/#valid_elements
-                    // valid_elements : 'a[href|target|id],strong/b,pre,hr,div[align],blockquote,code,table[style|border|cellspacing|cellpadding|width|frame|rules|height|align|summary|bgcolor|background|bordercolor],tbody,catption,tr,td,th,br,h1[style],br,h2[style],h3[style],h4[style],h5[style],h6[style],ul,ol,li,sup,sub,p[style],span[style],em,img[id|src|border=0|alt|title|hspace|vspace|width|height|align]',
+                    // #p in order to be able to accept <p>&nbsp;</p> when you hit enter
+                    valid_elements : 'a[href|target|id],strong/b,pre,hr,div[align],blockquote,code,table[style|border|cellspacing|cellpadding|width|frame|rules|height|align|summary|bgcolor|background|bordercolor],tbody,catption,tr,td,th,br,h1[style],br,h2[style],h3[style],h4[style],h5[style],h6[style],ul,ol,li,sup,sub,#p[style],span[style],em,img[id|src|border=0|alt|title|hspace|vspace|width|height|align]',
                     forced_root_blocks: false,
                     remove_trailing_brs: false,
                     keep_styles: false // https://www.tinymce.com/docs/configure/content-filtering/#keep_styles
@@ -157,8 +251,7 @@ export class TinyMceExtendTest extends Component {
     }
 }
 
-/**
- * Example content:
+export const defaultData = `
  <p>Test <strong>bolddd</strong></p>
  <p><sup><strong>fdsafdsa</strong></sup></p>
  <p>test</p>
@@ -202,4 +295,4 @@ export class TinyMceExtendTest extends Component {
  <div>div</div>
  <pre>pre</pre>
  <p>&nbsp;</p>
- */
+`;

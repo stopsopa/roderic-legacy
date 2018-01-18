@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 
 import ReactDom from 'react-dom';
 
-import TinyMce, { TinyMceExtendTest } from './TinyMce';
+import TinyMce, { TinyMceExtendTest, setSource, defaultData } from './TinyMce';
+
+setSource('/asset/public/tinymce/tinymce.js');
 
 import 'normalize-css';
 
@@ -14,7 +16,7 @@ class Parent extends Component {
         super();
         this.state = {
             on: false,
-            content: "Test <strong>bolddd</strong>"
+            content: defaultData
         };
     }
     render() {
