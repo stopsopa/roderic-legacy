@@ -1,0 +1,12 @@
+
+.tinymce strong {
+    color: lightslategray;
+}
+
+.mce-i-customimg.mce-i-customimg {
+    background-image: url("/asset/other/tinymce/001/images.svg");
+    background-repeat: no-repeat;
+}
+.tinymce p {
+    min-height: 18px;
+}
