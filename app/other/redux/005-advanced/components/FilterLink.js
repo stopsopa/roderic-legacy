@@ -6,12 +6,10 @@ import classnames from 'classnames';
 
 import { Link, NavLink } from 'react-router-dom';
 
-const path = '/redux/005-advanced/';
-
 const FilterLink = function ({ filter, children, match }) {
     return (
         <NavLink
-            to={ path + ((filter === 'all') ? '' : filter) }
+            to={ window.path + ((filter === 'all') ? '' : filter) }
             exact
             activeClassName="active-link"
         >
