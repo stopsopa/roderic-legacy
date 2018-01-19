@@ -11,6 +11,7 @@ const Root = ({ store }) => (
         <Router>
             <Switch>
                 <Route path="/redux/005-advanced/:filter" component={App} />
+                {/*<Route path={window.path + ':filter'} component={App} />*/}
                 <Route component={App} />
             </Switch>
         </Router>

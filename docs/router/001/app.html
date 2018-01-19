@@ -19,5 +19,13 @@
     <hr>
     <div id="app"></div>
     <script src="../../dist/001-router.bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const path = location.pathname.replace(/^(.*?)\/[^\/]+\/[^\/]+$/, '$1');
+            document.querySelectorAll('a[href^="../"]').forEach(function (node) {
+                node.setAttribute('href', node.getAttribute('href').replace('..', path));
+            });
+        });
+    </script>
 </body>
 </html>

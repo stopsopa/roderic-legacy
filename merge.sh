@@ -1,8 +1,10 @@
 #!/bin/bash
 
-main="develop"
+main="master"
 
-branches=(master)
+
+#branches=(one two three)
+branches=(tinymce form-validation)
 
 remote=origin
 
