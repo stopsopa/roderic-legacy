@@ -63,13 +63,6 @@ export default class Edit extends Component {
                                     <li><a target="_blank" href="../../router/006/app.html">/router/006/app.html</a></li>
                                 </ul>
                                 <li><a target="_blank" href="../../tinymce/001/index.html">/tinymce/001/index.html</a></li>
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
-                                {/*<li><a target="_blank" href="../.."></a></li>*/}
                             </ul>
                         </td>
                     </tr>
