@@ -119,5 +119,5 @@ else
 fi
 
 
-git checkout develop
+git checkout $main
 git branch --all
