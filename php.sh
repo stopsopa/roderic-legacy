@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# further research: https://github.com/maxpou/docker-symfony
+
 PWD=$(pwd);
 NAME="7.2.1-cli-intl"
 

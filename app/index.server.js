@@ -93,7 +93,10 @@ if (configServer.php_proxy) {
                     [c.schema,'://',c.host,':',c.port].join(''),
                     {
                         changeOrigin: true,
-                        pathRewrite: (path, req) => path.substring(prefix.length)
+                        pathRewrite: (path, req) => {
+                            console.log('/web' + path.substring(prefix.length));
+                            return '/web' + path.substring(prefix.length);
+                        }
                     }
                 )
             );

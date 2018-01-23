@@ -31,7 +31,9 @@ services:
             context: fpm
             dockerfile: Dockerfile
         volumes:
-            - ../php/web:/code
+            - ../php:/code
+#            - ../php/web:/code # i'm unable to do this this way yet, check docker/fpm/Readme.txt
+
 #            - ./fpm/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
 
 #        extra_hosts:
@@ -48,26 +50,26 @@ services:
 ##            - ./log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
 #        command: php -a
 
-#    mysql:
-#        image: mysql:latest
-#        ports:
-#            - "3308:3306"
-#        environment:
-#            - MYSQL_ROOT_PASSWORD=password
-#        #networks:
-#        #    - code-network
-##
-#    phpmyadmin: # https://store.docker.com/community/images/phpmyadmin/phpmyadmin#environment-variables-summary
-#        image: phpmyadmin/phpmyadmin:4.7
-#        ports:
-#            - "8082:80"
-#        environment:
-#            - PMA_USER=root
-#            - PMA_PASSWORD=password
-#            - PMA_HOST=mysql
-#            - PHP_UPLOAD_MAX_FILESIZE=100MB
-#        #networks:
-#        #    - code-network
+    mysql:
+        image: mysql:latest
+        ports:
+            - "3308:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+        #networks:
+        #    - code-network
+#
+    phpmyadmin: # https://store.docker.com/community/images/phpmyadmin/phpmyadmin#environment-variables-summary
+        image: phpmyadmin/phpmyadmin:4.7
+        ports:
+            - "8082:80"
+        environment:
+            - PMA_USER=root
+            - PMA_PASSWORD=password
+            - PMA_HOST=mysql
+            - PHP_UPLOAD_MAX_FILESIZE=100MB
+        #networks:
+        #    - code-network
 
 networks:
     #code-network:
