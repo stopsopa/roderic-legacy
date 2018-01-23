@@ -13,6 +13,9 @@ deploy:
 
 
 
+docker-upw:
+	cd docker && docker-compose up
+
 docker-up:
 	cd docker && docker-compose up -d
 
@@ -24,8 +27,11 @@ docker-logs: docker-log
 docker-stop:
 	cd docker && docker-compose stop
 
-docker-destroy:
-	cd docker && docker-compose rm
+docker-destroy: docker-stop
+	cd docker && docker-compose rm -f
+
+docker-rebuild: docker-destroy
+	cd docker && docker-compose up --force-recreate
 
 
 
@@ -38,7 +44,10 @@ roderic-stop:
 
 roderic-start: roderic-stop
 	/bin/bash start.sh ${FLAG} ${LOGFILE}
-	
+
+console:
+	echo "check php.sh"
+
 
 
 
