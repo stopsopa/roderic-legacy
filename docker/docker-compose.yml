@@ -10,7 +10,7 @@ services:
     web:
         image: nginx:latest
         ports:
-            - "8080:80"
+            - "8280:80"
         volumes:
             - ../php/web:/code
             - ./web/nginx.conf:/etc/nginx/conf.d/default.conf
@@ -21,8 +21,9 @@ services:
 #   - NGINX_PORT=9000
 #        command: /bin/bash -c "envsubst < /etc/nginx/conf.d/site.conf '$HOSTNAME'> /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
-        extra_hosts:
-            - "hostmachine:192.168.180.69"
+        # not needed anymore
+#        extra_hosts:
+#            - "hostmachine:192.168.180.69"
 
     php_fpm:
 #        build: ./php-web

@@ -27,5 +27,11 @@ module.exports = {
     checkAcceptHeader: true,
     htmlParams: {
         // gaid: 'UA-xxxxx-xx'
+    },
+    php_proxy: {
+        prefix: '/endpoint',
+        schema: 'http',
+        host: 'localhost',
+        port: 8280
     }
 }

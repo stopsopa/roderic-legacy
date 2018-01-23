@@ -38,6 +38,10 @@ import template from 'lodash/template';
 
 import { ServerStyleSheet } from 'styled-components'
 
+import proxy from 'http-proxy-middleware';
+
+import trimEnd from 'lodash/trimEnd';
+
 const isObject = a => (!!a) && (a.constructor === Object);
 
 // import { loginSuccess } from './_redux/actions';
@@ -47,8 +51,8 @@ if (process.env.NODE_ENV === 'development') {
     sourceMapSupport.install();
 }
 
-const host    = configWebpack.server.host;
-const port  = configWebpack.server.port;
+const host      = configWebpack.server.host;
+const port      = configWebpack.server.port;
 
 process.on('uncaughtException', function (e) {
     switch (true) {
@@ -75,6 +79,32 @@ app.use(compression({filter: (req, res) => {
     return compression.filter(req, res)
 }}));
 
+if (configServer.php_proxy) {
+
+    (function (c) {
+
+        const prefix = trimEnd(c.prefix, '/');
+
+        if (prefix && c.schema && c.host && c.port) {
+
+            app.use(
+                c.prefix,
+                proxy(
+                    [c.schema,'://',c.host,':',c.port].join(''),
+                    {
+                        changeOrigin: true,
+                        pathRewrite: (path, req) => path.substring(prefix.length)
+                    }
+                )
+            );
+
+        }
+        else {
+            throw "configServer schema, prefix, host or port is wrong/missing";
+        }
+
+    }(configServer.php_proxy));
+}
 app.use(favicon(path.resolve(configWebpack.web, 'favicon.ico')))
 
 app.use(bodyParser.urlencoded({extended: false}));
