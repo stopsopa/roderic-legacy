@@ -1,7 +1,8 @@
 
 import * as config from './public.config';
 
-import 'isomorphic-fetch';
+import './libs/ajax-fetch';
+// import 'isomorphic-fetch';
 
 export const delay = config.delay;
 
