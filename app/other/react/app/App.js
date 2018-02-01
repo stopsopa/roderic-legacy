@@ -11,6 +11,7 @@ export default class App extends React.Component {
 
         this.state = {
             input: '',
+            email: '',
             description: 'default',
             radio: 'female',
             checkbox: false,
@@ -22,57 +23,44 @@ export default class App extends React.Component {
         }
     }
     componentDidMount() {
-        fetch(this.props.url, this.props.github ? {} : {
-            method: "POST",
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({})
-        }).then((r) => r.json()).then((json) => {
-            setTimeout(() => {
-                log('json', json)
-                this.setState(Object.assign(this.state, json, {save: false}));
-            }, 1000);
+        fetch(this.props.url).then((r) => r.json()).then((json) => {
+            // setTimeout(() => {
+                this.setState(Object.assign(this.state, json.data, {save: false}));
+            // }, 1000);
         });
     }
-    @autobind
-    onChangeInput(e) {
+    onChangeInput = (e) => {
         this.setState({input: e.target.value});
     }
-    @autobind
-    onChangeDescription(e) {
+    onChangeEmail = (e) => {
+        this.setState({email: e.target.value});
+    }
+    onChangeDescription = (e) => {
         this.setState({description: e.target.value});
     }
-    @autobind
-    onChangeCheckbox(e) {
-        log('onChangeCheckbox')
+    onChangeCheckbox = (e) => {
+        // log('onChangeCheckbox')
         this.setState({checkbox: e.target.checked});
     }
-    @autobind
-    onChangeWithoutCheckbox(e) {
-        log('onChangeWithoutCheckbox')
+    onChangeWithoutCheckbox = (e) => {
+        // log('onChangeWithoutCheckbox')
         this.setState((prevState, props) => ({
             withoutcheckbox: !prevState.withoutcheckbox
         }));
     }
-    // @autobind
     onChangeComponent(e) {
-        log('onChangeComponent not bound')
+        // log('onChangeComponent not bound')
         this.setState({checkboxcomponent: e.target.checked});
     }
-    @autobind
-    onChangeRadio(e) {
+    onChangeRadio = (e) => {
         this.setState({radio: e.target.value});
     }
-    @autobind
-    onChangeSingle(e) {
+    onChangeSingle = (e) => {
         this.setState({
             single: e.target.value || null
         });
     }
-    @autobind
-    onChangeMultiple(e) {
+    onChangeMultiple = (e) => {
         var options = e.target.options;
         var value = [];
         for (var i = 0, l = options.length; i < l; i++) {
@@ -84,8 +72,7 @@ export default class App extends React.Component {
             multiple: value
         });
     }
-    @autobind
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         var that = this;
 
@@ -103,41 +90,38 @@ export default class App extends React.Component {
             },
             body: JSON.stringify(this.state)
         }).then((r) => r.json()).then((json) => {
-            setTimeout(() => {
+            // setTimeout(() => {
                 log('json', json)
                 this.setState(json)
-            }, 1000);
+            // }, 1000);
         });
     }
-    // shouldComponentUpdate() {
-        // https://github.com/seansfkelley/pure-render-decorator/commit/137f8a3c6999aba4688f81ad6c9f4b9f0a180de1
-    // }
-    // @autobind
     render() {
-
-        log('render', this.state);
-
         return (
             <form onSubmit={this.onSubmit}>
                 <h3>Simple form</h3>
-                <div id="test">
-                    <div id="global"></div>
-                    <div id="react"></div>
+                <div>
+                    <label>
+                        e-mail: <br/>
+                        <input type="text" value={this.state.email} onChange={this.onChangeEmail} />
+                    </label>
                 </div>
                 <div>
-                    <label htmlFor="input">
-                        <input type="text" name="input" value={this.state.input} onChange={this.onChangeInput} />
+                    <label>
+                        title: <br/>
+                        <input type="text" value={this.state.input} onChange={this.onChangeInput} />
                     </label>
                 </div>
                 <div>
                     <label htmlFor="description">
+                        description: <br/>
                         <textarea name="description" value={this.state.description} onChange={this.onChangeDescription}></textarea>
                     </label>
                 </div>
                 <div className="grid">
                     <div className="inputs">
-                        <label htmlFor="male">
-                            <input type="radio" name="radio" id="male" value="male"
+                        <label>
+                            <input type="radio" id="male" value="male"
                                    checked={this.state.radio === 'male'} onChange={this.onChangeRadio}
                             /> male
                         </label>

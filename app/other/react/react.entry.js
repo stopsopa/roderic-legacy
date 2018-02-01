@@ -14,7 +14,8 @@ let github = /github/.test(location.href);
 
 // github = true; // for test
 
-const url = github ? 'asset/rassets/db.json' : 'asset/rassets/db.php' ;
+// const url = github ? 'asset/rassets/db.json' : 'asset/rassets/db.php' ;
+const url = '/endpoint/json' ;
 
 render(<App url={url} github={github}/>, document.getElementById('app'));
 

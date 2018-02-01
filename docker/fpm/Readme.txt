@@ -45,6 +45,18 @@ php:
         $_SERVER['REQUEST_URI']         = substr($_SERVER['REQUEST_URI'], 4);
         $_SERVER['SCRIPT_NAME']         = substr($_SERVER['SCRIPT_NAME'], 4);
 
+
+    // and then the same endpoint from different servers will be:
+
+    // /**
+    //  * @Route("/json")
+    //  */
+    // public function indexAction()
+    // { ...
+    //
+    //   php    : http://localhost:8280/web/json
+    //   node   : http://localhost:1025/endpoint/json
+
 nginx:
     docker/web/nginx.conf
         change:

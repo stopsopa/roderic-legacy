@@ -33,5 +33,8 @@ module.exports = {
         schema: 'http',
         host: 'localhost',
         port: 8280
+        // the same endpoint:
+        //   php    : http://localhost:8280/web/json
+        //   node   : http://localhost:1025/endpoint/json
     }
 }
