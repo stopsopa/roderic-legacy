@@ -7,6 +7,9 @@ import { autobind } from 'core-decorators';
 
 import './App.scss';
 
+/**
+ * https://youtu.be/El2h2scKvOM
+ */
 export default class App extends React.Component {
     constructor(...args) {
         super(...args);
@@ -14,7 +17,7 @@ export default class App extends React.Component {
         this.state = {
             _loading: true,
             _error: false
-            // _errors: {} // should be empty now
+            // _errors: {} // shouldn't exist initially
         }
     }
     componentDidMount() {
@@ -35,6 +38,7 @@ export default class App extends React.Component {
                 .then(json => this.setState({
                     ...this.state,
                     ...json.data,
+                    ...{_errors: json._errors},
                     ...{_loading: false}
                 }), () => this.setState({
                     _loading: false,
@@ -45,11 +49,9 @@ export default class App extends React.Component {
 
         this.repeat();
     }
-    onChangeWithoutCheckbox = (e) => {
-        this.setState((prevState, props) => ({
-            withoutcheckbox: !prevState.withoutcheckbox
-        }));
-    }
+    onChangeWithoutCheckbox = (e) => this.setState((prevState, props) => ({
+        withoutcheckbox: !prevState.withoutcheckbox
+    }))
     onChangeMultiple = (e) => {
         let options = e.target.options;
         let value = [];
@@ -66,33 +68,31 @@ export default class App extends React.Component {
 
         e.preventDefault();
 
+        const { _error, _loading, _errors, ...rest } = this.state;
+
         this.transport({
             method: "POST",
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(rest)
         });
     }
-    removeFromList = (i) => {
-        return () => {
-            let tmp = [...this.state.list];
-            tmp.splice(i, 1);
-            this.setState({list: tmp});
-        }
+    removeFromList = (i) => () => {
+        let tmp = [...this.state.list];
+        tmp.splice(i, 1);
+        this.setState({list: tmp});
     }
-    setToIndex = (i, key, integer) => {
-        return e => {
-            let list = [...this.state.list];
-            let item = {...list[i]};
-            item[key] = e.target.value;
-            if (integer) {
-                item[key] = parseInt(item[key], 10);
-            }
-            list[i] = item;
-            this.setState({ list });
+    setToIndex = (i, key, integer) => e => {
+        let list = [...this.state.list];
+        let item = {...list[i]};
+        item[key] = e.target.value;
+        if (integer) {
+            item[key] = parseInt(item[key], 10);
         }
+        list[i] = item;
+        this.setState({ list });
     }
     render() {
 

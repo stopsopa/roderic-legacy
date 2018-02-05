@@ -96,11 +96,9 @@ class DefaultController extends Controller
             }
         }
 
-        // add always error field, even if empty
-        $state['_errors'] = $this->normalizeErrors($errors);
-
         die(json_encode(array(
-            'data'  => $state
+            'data'      => $state,
+            '_errors'   => $this->normalizeErrors($errors)
         )));
     }
 
