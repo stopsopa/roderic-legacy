@@ -5,7 +5,7 @@ import node from 'detect-node';
  * @date 2018-02-01
  *
  * I introduced main transport tool (server) based on old fasion ajax on purpose, that's not mistake.
- * The reason is lack in chrome "Replay XHR" in chrome.
+ * The reason is lack in chrome "Replay XHR" feature.
  * But it is though provided through fetch polyfill so it will be easy to revert it back
  * when they finally implement "Replay XHR"
  */

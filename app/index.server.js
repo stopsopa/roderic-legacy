@@ -69,6 +69,8 @@ process.on('uncaughtException', function (e) {
 
 const app = express();
 
+app.all('/infinity', () => {});
+
 app.use(compression({filter: (req, res) => {
     if (req.headers['x-no-compression']) {
         // don't compress responses with this request header

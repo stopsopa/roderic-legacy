@@ -21,124 +21,86 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         error_reporting(E_ALL);
+
         ini_set('display_errors',1);
 
-        $state = json_decode(file_get_contents("php://input"), true) ?: array();
-
-        $state = array_merge($_POST, $state);
-
-        $state['deep'] = array(
-            array(
-                'sorted' => 1,
-                'name' => 'e',
-                'title' => 'f'
-            ),
-            array(
-                'sorted' => 2,
-                'name' => 'h',
-                'title' => 'f'
-            )
+        $state = array(
+            "input" => '',
+            "email" => '',
+            "description" => 'default',
+            "radio" => 'female',
+            "checkbox" => false,
+            "checkboxcomponent" => false,
+            "withoutcheckbox" => false,
+            "single" => '',
+            "multiple" => [],
+            "list" => [],
         );
 
+        $postState = json_decode(file_get_contents("php://input"), true) ?: array();
+
+        if ($postState) {
+
+            $state = array_merge($state, $postState);
+        }
+
+        // commented because i'm sending data in first level (of course i can change it explicitly)
+        // $state = $state['data'] ?? array();
+
+        $errors = array();
+
         header('Content-Type: application/json');
+
         header('Cache-Control: no-cache');
-//        sleep(1);
 
         /* @var $validator ConstraintViolationList */
         /**
          * list of http://api.symfony.com/master/Symfony/Component/Validator/ConstraintViolation.html
-         *
          */
+
+        $file = 'db.json';
 
         if ($request->isMethod('POST')) {
 
             $validator = $this->validation($state);
 
-//            $validator->
+//                        $validator = array(); // just for test
 
-            if ($validator->count()) {
-
-                $state = array();
+            if ($validator && $validator->count()) { // invalid
 
                 foreach ($validator as $key => $valida) {
 
-                    $state[$valida->getPropertyPath()] = $valida->getMessage();
+                    $errors[$valida->getPropertyPath()] = $valida->getMessage();
                 }
-
-
-                die(print_r($state));
-
-//                try {
-//
-//                    $errors = ValidatorDumper01::getInstance()->dump($validator);
-//                }
-//                catch(\Exception $e) {
-//
-//                    die(var_dump($e->getMessage()));
-//                }
-////
-//                die(print_r($errors));
-
-
-//                $errors = array();
-//
-//                foreach ($validator as $valida) {
-//
-//                    var_dump($valida);
-//                    die(print_r($valida));
-//
-//                    $errors[] = array(
-////                        '__toString()' => $validator.'',
-////                        'getMessageTemplate' => $validator->getMessageTemplate(),
-////                        'getParameters' => $validator->getParameters(),
-//                        'getPlural' => $valida->getPlural(),
-//                        'getMessage' => $valida->getMessage(),
-//                        'getRoot' => $valida->getRoot(),
-//                        'getPropertyPath' => $valida->getPropertyPath(),
-////                        'getInvalidValue' => $validator->getInvalidValue(),
-//                        'getConstraint' => $valida->getConstraint(),
-////                        'getCause' => $validator->getCause(),
-////                        'getCode' => $validator->getCode(),
-//                    );
-//
-//                    var_dump($errors);
-//                    print_r($errors);
-//                }
-
-
-                die(json_encode(array(
-                    'data' => $state ?: array()
-                )));
             }
-        }
+            else { // valid
 
+//                die(print_r($state));
 
-        $file = 'db.json';
-
-        if ($state) {
-
-            if (file_exists($file)) {
-                unlink($file);
+//                file_exists($file) and unlink($file);
+//
+//                unset($state['_errors']);
+//
+//                unset($state['data']);
+//
+//                $data = json_encode($state, JSON_PRETTY_PRINT);
+//
+//                file_put_contents($file, $data, FILE_APPEND);
             }
-
-            if (version_compare(PHP_VERSION, '5.4', '>=')) {
-                $data = json_encode($state, JSON_PRETTY_PRINT);
-            }
-            else {
-                $data = json_encode($state);
-            }
-
-            file_put_contents($file, $data, FILE_APPEND);
         }
         else {
+
             if (file_exists($file)) {
+
                 $state = json_decode(file_get_contents($file), true) ?: array();
             }
         }
 
+        // add always error field, even if empty
+        $state['_errors'] = $this->normalizeErrors($errors);
 
         die(json_encode(array(
-            'data' => $state ?: array()
+            'data'  => $state
         )));
     }
 
@@ -167,12 +129,32 @@ class DefaultController extends Controller
             'fields' => array(
                 // primitive value validation (not array|object)
                 'email' => new Assert\Optional(array(
-                    new Assert\Email(), // WARNING - by default it's Assert\Required if defined in flat way like this
-                    new Assert\NotBlank() // WARNING - by default it's Assert\Required
+                    new Assert\Email(),
+                    new Assert\NotBlank()
+                )),
+                'description' => new Assert\Length(array( // WARNING - by default it's Assert\Required if defined in flat way like this
+                    'min' => 15
+                )),
+                'single' => new Assert\Required(array(
+                    new Assert\Choice(array( // single select option
+                        'choices' => array('apple', 'banana', 'cranberry')
+                    )),
+                    new Assert\NotBlank(), // WARNING: in order to see this message first put it on the end (last one wins)
+                )),
+                'multiple' => new Assert\Required(array( // multiple select option
+                    new Assert\All(array(
+                        new Assert\Choice(array(
+                            'choices' => array('apple', 'banana', 'cranberry')
+                        ))
+                    )),
+                    new Assert\Count(array(
+                        'min' => 2,
+                        'max' => 2
+                    ))
                 )),
                 // Required|Optional - tells if this field should exist or not (Require generate: "This field is missing." error)
                 // Must use one of above if you have more then one validator
-                'deep' => new Assert\Required(array(
+                'list' => new Assert\Required(array(
                     // Count execute count() function on this value (whatever it is, must bi Countable)
                     // and validate received value
                     new Assert\Count(array(
@@ -183,46 +165,81 @@ class DefaultController extends Controller
                         'constraints' => array(
                             // Collection defines that individual object is complex not primitive type
                             new Assert\Collection(array(
-                                'sorted' => new Assert\Optional( // ref: 1
-                                    new Assert\Type('int')
-                                ),
-                                'name' => new Assert\NotBlank(),  // WARNING - by default it's Assert\Required
-                                'title' => new Assert\NotBlank()  // WARNING - by default it's Assert\Required
+                                'title' => new Assert\Optional(array( // ref: 1
+                                    new Assert\Type('string'),
+                                    new Assert\Length(array(
+                                        'min' => 5
+                                    )),
+                                    new Assert\Regex(array(
+                                        'pattern' => '/^\./',
+                                        'message' => 'Title must start from .'
+                                    ))
+                                )),
+                                'num' => new Assert\Required(array(
+                                    new Assert\Type('int'),
+                                    new Assert\Range(array(
+                                        'min' => 0
+                                    )),
+                                    new Assert\Range(array( // last one wins - try to put to form values 0 and -1 and check what's will happen
+                                        'minMessage' => 'Num value should be {{ limit }} or more.',
+                                        'min' => -1
+                                    )),
+                                ))
                             )),
                         )
                     )),
                     new Assert\Callback(function ($object, ExecutionContextInterface $context, $payload) {
 
                         // lets check if values are sorted
-                        $tmp = 0;
+                        $tmp = -1;
 
                         foreach ($object as $key => $item) {
 
-                            if (!isset($item['sorted'])) { // because i setup Assert\Optional on this field (ref: 1)
+                            if (!isset($item['num'])) { // because i setup Assert\Optional on this field (ref: 1)
 
                                 continue;
                             }
 
-                            if ($item['sorted'] > $tmp) {
+                            if ($item['num'] > $tmp) {
 
-                                $tmp = $item['sorted'];
+                                $tmp = $item['num'];
 
                                 continue;
                             }
 
-                            $context->buildViolation("Values in field 'sorted' are not sorted")
-                                ->atPath($key) // [[deep].0] => Values in field 'sorted' are not sorted
+                            // key = 0
+                            $context->buildViolation("Values in column 'num' are not sorted from highest to lowest")
+                                ->atPath('') // [[deep].0] => Values in field 'sorted' are not sorted
                                 ->addViolation()
                             ;
                         }
                     })
-                )),
-                'custom' => new Assert\Required(array(
-
                 ))
             ),
             'allowExtraFields' => true,
 //            'extraFieldsMessage' => 'myMessage',
         )));
+    }
+
+    protected function normalizePath($path) {
+
+        $strip = '[.]';
+
+        $path = trim($path, $strip);
+
+        $path = preg_replace("#[" . preg_quote($strip, '#') . "]+#", '.', $path);
+
+        return $path;
+    }
+    protected function normalizeErrors($errors) {
+
+        $tmp = array();
+
+        foreach ($errors as $key => $val) {
+
+            $tmp[$this->normalizePath($key)] = $val;
+        }
+
+        return $tmp;
     }
 }

@@ -1,0 +1,32 @@
+body {
+    font: 80% "Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif
+}
+
+
+.error {
+    color: red;
+}
+
+body input[type="submit"][type="submit"] {
+    position: fixed;
+    bottom: 3px;
+    right: 3px;
+
+
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    //-webkit-border-radius: 5px;
+    //border-radius: 5px;
+    line-height: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
+    width: 200px;
+}
+.clear {
+    clear: both;
+}
+.relative {
+    margin-top: 24px;
+}

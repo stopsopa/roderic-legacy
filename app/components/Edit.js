@@ -50,7 +50,7 @@ export default class Edit extends Component {
                                 <ul>
                                     <li><a target="_blank" href="../../bootstrap.html">/bootstrap.html</a></li>
                                     <li><a target="_blank" href="../../index-dir.html">/index-dir.html</a></li>
-                                    <li><a target="_blank" href="../../react.html">/react.html</a></li>
+                                    <li><a target="_blank" href="../../react.html">/react.html <span style={{color:'red'}}>(form)</span></a></li>
                                     <li><a target="_blank" href="../../scss.html">/scss.html</a></li>
                                 </ul>
                                 <li><a target="_blank" href="../.."></a></li>
