@@ -38,7 +38,7 @@ export default class App extends React.Component {
                 .then(json => this.setState({
                     ...this.state,
                     ...json.data,
-                    ...{_errors: json._errors},
+                    ...{_errors: json.errors},
                     ...{_loading: false}
                 }), () => this.setState({
                     _loading: false,

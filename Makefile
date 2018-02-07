@@ -13,7 +13,7 @@ init:
 deploy:
 	npm install -g yarn forever
 	cd react && yarn prod
-	make roderic-start
+	make start
 
 docker-upw:
 	cd docker && docker-compose up

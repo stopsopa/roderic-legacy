@@ -10,7 +10,7 @@ services:
     web:
         image: nginx:latest
         ports:
-            - "8280:80"
+            - "8280:80" # WARNING: setup this also in app/server.config.js -> php_proxy.port
         volumes:
             - ../php/web:/code
             - ./web/nginx.conf:/etc/nginx/conf.d/default.conf

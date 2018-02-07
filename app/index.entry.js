@@ -47,6 +47,7 @@ const store = configureStore(preloadedState);
     if (token) {
 
         store.dispatch(loginSuccess(token));
+        // log('not triggering loginSuccess')
 
         if (reloadToChangePostRequestToRegularGet) {
 

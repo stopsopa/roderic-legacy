@@ -98,7 +98,7 @@ class DefaultController extends Controller
 
         die(json_encode(array(
             'data'      => $state,
-            '_errors'   => $this->normalizeErrors($errors)
+            'errors'    => $this->normalizeErrors($errors)
         )));
     }
 
