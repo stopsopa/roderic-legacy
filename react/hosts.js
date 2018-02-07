@@ -47,11 +47,11 @@ module.exports = (function (host, dir, list, key) {
         localhost: { // default config if none of above is matched
             ssr: {
                 host: 'localhost',
-                port: 1025
+                port: 90 // auto - please leave 'auto' in comment
             },
             server: {
                 host: '0.0.0.0', // bind to all interfaces by default
-                port: 1025,
+                port: 90 // auto - please leave 'auto' in comment
             }
         }
     }
