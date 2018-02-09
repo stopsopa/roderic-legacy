@@ -105,6 +105,9 @@ console:
 	@cat php.sh | grep '##'
 # php|symfony console (in docker) ----- ^^^
 
+merge:
+	/bin/bash merge.sh
+
 
 
 
