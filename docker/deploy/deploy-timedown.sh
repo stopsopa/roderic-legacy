@@ -29,11 +29,11 @@
 #           docker/pma/basic_auth.php line: 8
 #
 #   [prod]
-#       /bin/bash docker/proxy/deploy-timedown.sh \
+#       /bin/bash docker/deploy/deploy-timedown.sh \
 #		    --docker_ports 73 72 \
 #		    --node_ports 93 94 \
 #		    --make_build docker-rebuild-prod \
-#		    --http_config_for_proxy_pass_update docker/proxy/apache.conf \
+#		    --http_config_for_proxy_pass_update docker/deploy/apache.conf \
 #           --restart_server 1
 #       WARNING: be careful to choose different port from declared in any docker-compose*.yml files :WARNING
 #
@@ -73,7 +73,7 @@ echo -e "\n\n\n WARNING run this script only through 'make deploy' WARNING\n\n"
 
 BASENAME="$(echo "$(basename $0)" | sed -E 's/^(.*)\.[^\.]+$/\1/g')"
 
-# /bin/bash docker/proxy/deploy-timedown.sh --docker_ports 82 83 84 --node_ports 92 93 94 --make_build docker-rebuild-prod --restart_server 1
+# /bin/bash docker/deploy/deploy-timedown.sh --docker_ports 82 83 84 --node_ports 92 93 94 --make_build docker-rebuild-prod --restart_server 1
 
 echo -e "        ------ processing parameters -------- vvv\n\n"
 
@@ -215,7 +215,7 @@ set +x && echo -e "\n\n        ------ extracting docker prefix -------- ^^^"
 
 
 echo -e "        ------ extracting current (if up) docker web port -------- vvv\n\n" && set -x
-    CURRENT_DOCKER_WEB_PORT="$(docker ps --format '{{.Names}}' | grep $DOCKER_CONTAINER_PREFIX | head -n 1 | sed -r 's#[a-z_]+([0-9]+).+#\1#g')";
+    CURRENT_DOCKER_WEB_PORT="$(docker ps --format '{{.Names}}' | grep $DOCKER_CONTAINER_PREFIX | grep "_web_" head -n 1 | sed -r 's#[a-z_]+([0-9]+).+#\1#g')";
 
     KEEP_BEFORE_UP=1;
 
@@ -240,7 +240,7 @@ echo -e "        ------ extracting current (if up) docker web port -------- vvv\
 set +x && echo -e "\n\n        ------ extracting current (if up) docker web port -------- ^^^"
 
 echo -e "        ------ picking next docker port -------- vvv\n\n" && set -x
-NEXT_DOCKER_WEB_PORT="$(node docker/proxy/replaceport.js --current $CURRENT_DOCKER_WEB_PORT --pool $DOCKER_PORTS)";
+NEXT_DOCKER_WEB_PORT="$(node docker/deploy/replaceport.js --current $CURRENT_DOCKER_WEB_PORT --pool $DOCKER_PORTS)";
 set +x && echo -e "\n\n        ------ picking next docker port -------- ^^^"
 
 
@@ -284,7 +284,7 @@ set +x && echo -e "\n\n        ------ extracting CURRENT_NODE_WEB_PORT -------- 
 
 
 echo -e "        ------ picking next node server port -------- vvv\n\n" && set -x
-    NEXT_NODE_PORT="$(node docker/proxy/replaceport.js --current $CURRENT_NODE_WEB_PORT --pool $NODE_PORTS)";
+    NEXT_NODE_PORT="$(node docker/deploy/replaceport.js --current $CURRENT_NODE_WEB_PORT --pool $NODE_PORTS)";
 
     TEST_STRING="$DOCKER_CONTAINER_PREFIX-p$NEXT_DOCKER_WEB_PORT-n$NEXT_NODE_PORT"
 
@@ -315,9 +315,9 @@ echo -e "        ------ altering docker/name.conf -------- vvv\n\n" && set -x
 set +x && echo -e "\n\n        ------ altering docker/name.conf -------- ^^^"
 
 echo -e "        ------ changind ports in docker/docker-compose.yml and app/server.config.js -------- vvv\n\n" && set -x
-    node docker/proxy/replaceport.js --file docker/docker-compose.yml --replace '/"(\d+):80" # auto /g' --pool $NEXT_DOCKER_WEB_PORT
+    node docker/deploy/replaceport.js --file docker/docker-compose.yml --replace '/"(\d+):80" # auto /g' --pool $NEXT_DOCKER_WEB_PORT
 
-    node docker/proxy/replaceport.js --file app/server.config.js --replace '/port: (\d+)/g' --pool $NEXT_DOCKER_WEB_PORT
+    node docker/deploy/replaceport.js --file app/server.config.js --replace '/port: (\d+)/g' --pool $NEXT_DOCKER_WEB_PORT
 set +x && echo -e "\n\n        ------ changind ports in docker/docker-compose.yml and app/server.config.js -------- ^^^"
 
 # killing mysql and pma container in between might be not needed anymore, because their ports are not exposed to host
@@ -382,7 +382,7 @@ set +x && echo -e "\n\n        -- creating & testing new set of containers with 
 
 echo -e "        ------ altering react/hosts.js -------- vvv\n\n" && set -x
     # port: 83 // auto
-    node docker/proxy/replaceport.js --file react/hosts.js --replace 'port: (\d+) \/\/ auto/g' --pool $NEXT_NODE_PORT
+    node docker/deploy/replaceport.js --file react/hosts.js --replace 'port: (\d+) \/\/ auto/g' --pool $NEXT_NODE_PORT
 
 set +x && echo -e "\n\n        ------ altering react/hosts.js -------- ^^^"
 
@@ -406,7 +406,7 @@ set +x && echo -e "\n\n        ------ building & launching & testing node server
 
 echo -e "        ------ altering proxy pass to listen on: $NEXT_NODE_PORT & reloading server http -------- vvv\n\n" && set -x
 
-    node docker/proxy/replaceport.js --file $APACHE_CONFIG --replace '/localhost:(\d+)/g' --pool $NEXT_NODE_PORT
+    node docker/deploy/replaceport.js --file $APACHE_CONFIG --replace '/localhost:(\d+)/g' --pool $NEXT_NODE_PORT
 
     if [ "$RESTART" == "1" ]; then
         # service httpd restart

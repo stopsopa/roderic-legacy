@@ -28,13 +28,13 @@ init:
 # 	https://github.com/docker/compose/issues/734 <- this one
 # 	https://docs.docker.com/compose/production/ <- here we have proof that i can't be done in docker alone
 deploy:
-	/bin/bash docker/proxy/deploy-timedown.sh \
+	/bin/bash docker/deploy/deploy-timedown.sh \
 		--docker_ports 76 78 \
 		--node_ports 90 91 \
 		--make_build docker-rebuild-prod \
-		--http_config_for_proxy_pass_update docker/proxy/apache.conf
+		--http_config_for_proxy_pass_update docker/deploy/apache.conf
 
-#		--http_config_for_proxy_pass_update docker/proxy/apache.conf \
+#		--http_config_for_proxy_pass_update docker/deploy/apache.conf \
 #		--restart_server 1
 
 # all below moved do to deploy-timedown.sh
@@ -52,7 +52,7 @@ dl: deploy-local
 dls: deploy-local-stop
 
 docker-rebuild-dev: # local development environments, with local mysql instance
-	/bin/bash docker/proxy/git-checkout.sh
+	/bin/bash docker/deploy/git-checkout.sh
 	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 
 # use this to deploy to production when calling deploy-timedown.sh in param --make_build
