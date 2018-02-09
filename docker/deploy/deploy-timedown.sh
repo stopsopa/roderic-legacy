@@ -215,7 +215,13 @@ set +x && echo -e "\n\n        ------ extracting docker prefix -------- ^^^"
 
 
 echo -e "        ------ extracting current (if up) docker web port -------- vvv\n\n" && set -x
-    CURRENT_DOCKER_WEB_PORT="$(docker ps --format '{{.Names}}' | grep $DOCKER_CONTAINER_PREFIX | grep "_web_" head -n 1 | sed -r 's#[a-z_]+([0-9]+).+#\1#g')";
+
+    echo 'current list of contaienrs (all)';
+    docker ps -a
+
+    CURRENT_DOCKER_WEB_PORT="$(docker ps --format '{{.Names}}' | grep $DOCKER_CONTAINER_PREFIX | grep "_web_" | head -n 1)";
+    echo -e "\n\nisolated web container for further port extraction:\n\n$CURRENT_DOCKER_WEB_PORT\n\n"
+    CURRENT_DOCKER_WEB_PORT="$(echo -e "$CURRENT_DOCKER_WEB_PORT" | sed -r 's#[a-z_]+([0-9]+).+#\1#g')";
 
     KEEP_BEFORE_UP=1;
 
