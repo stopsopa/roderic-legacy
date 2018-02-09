@@ -110,14 +110,14 @@ full example:
 
     node ${thisScript} --file /etc/httpd/conf.d/vhost.conf --replace '/localhost:(\\d+)/g' --pool 82 83 84 85 86
     
---next                              - provides just next number for given one
+--current                              - provides just next number for given one
 
 full examples:
 
-    node ${thisScript} --next 67 --pool 56 43 32
+    node ${thisScript} --current 67 --pool 56 43 32
         return 56    
 
-    node ${thisScript} --next 56 --pool 56 43 32
+    node ${thisScript} --current 56 --pool 56 43 32
         return 43                                  
     
 `);
@@ -163,11 +163,11 @@ function change(num) {
     return pool[ (index + 1) % pool.length]
 }
 
-let next = args.get('next');
+let current = args.get('current');
 
-if (next !== undefined) {
+if (current !== undefined) {
 
-    log(change(next));
+    log(change(current));
 
     process.exit(0);
 }

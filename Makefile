@@ -21,21 +21,21 @@ init:
 	cd react && yarn
 
 # on production you should run this method in order to deploy with no downtime
-# of course change parameters for below apache-deploy.sh script
+# of course change parameters for below deploy-timedown.sh script
 # implementation inspiration:
 # 	https://github.com/docker/compose/issues/734 <- this one
 # 	https://docs.docker.com/compose/production/ <- here we have proof that i can't be done in docker alone
 deploy:
-	/bin/bash docker/proxy/apache-deploy.sh \
-		--docker_ports 76 78 79 \
-		--node_ports 90 91 92 \
+	/bin/bash docker/proxy/deploy-timedown.sh \
+		--docker_ports 76 78 \
+		--node_ports 90 91 \
 		--make_build docker-rebuild-prod \
-		--apache_config_for_proxy_pass_update docker/proxy/apache.conf
+		--http_config_for_proxy_pass_update docker/proxy/apache.conf
 
-#		--apache_config_for_proxy_pass_update docker/proxy/apache.conf \
-#		--restart_apache 1
+#		--http_config_for_proxy_pass_update docker/proxy/apache.conf \
+#		--restart_server 1
 
-	# all below moved do to apache-deploy.sh
+# all below moved do to deploy-timedown.sh
 #	npm install -g yarn forever
 #	cd react && yarn prod
 #	make start
@@ -53,7 +53,7 @@ docker-rebuild-dev: # local development environments, with local mysql instance
 	sed -i -r 's/^([a-z]+).*$$/\1/g' docker/name.conf
 	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 
-# use this to deploy to production when calling apache-deploy.sh in param --make_build
+# use this to deploy to production when calling deploy-timedown.sh in param --make_build
 # mysql server is remote - not provided from docker
 docker-rebuild-prod:
 	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
@@ -92,8 +92,10 @@ roderic-params:
 roderic-stop:
 	/bin/bash kill.sh ${FLAG}
 
-start: roderic-stop
+roderic-start:
 	/bin/bash start.sh ${FLAG} ${LOGFILE}
+
+start: roderic-stop roderic-start
 # webpack helper methods ----- ^^^
 
 # php|symfony console (in docker) ----- vvv

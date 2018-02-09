@@ -99,7 +99,7 @@ app.use(compression({filter: (req, res) => {
                 {
                     changeOrigin: true,
                     pathRewrite: (path, req) => {
-                        console.log('/web' + path.substring(prefix.length));
+                        log('/web' + path.substring(prefix.length));
                         return '/web' + path.substring(prefix.length);
                     }
                 }
@@ -123,6 +123,14 @@ app.use(express.static(configWebpack.web, { // http://expressjs.com/en/resources
     // maxAge: 60 * 60 * 24 * 1000 // in milliseconds
     maxAge: '356 days' // in milliseconds
 }));
+
+// fake api vvv
+import jsonFilesCacheMiddleware, { regex } from './libs/jsonFilesCacheMiddleware';
+
+app.post(regex, jsonFilesCacheMiddleware(configPublic.jsonApi));
+// fake api ^^^
+
+
 
 if (configServer.checkAcceptHeader) {
 
@@ -234,7 +242,8 @@ app.use((req, res) => {
 
         if (data && data.token && data.payload) {
 
-            store.dispatch(loginSuccess(data));
+            // store.dispatch(loginSuccess(data));
+            log('dispatch(login) is not triggered')
         }
     }
 
@@ -297,25 +306,24 @@ app.use((req, res) => {
                 e
             });
         }
-    })
-    .catch(reason => {
+    }).catch(reason => { // it must stay like this
 
-            log.start();
+        log.start();
 
-            log.dump(reason);
+        log.dump(reason);
 
-            let error = log.get(true).split("\n");
+        let error = log.get(true).split("\n");
 
-            // restrict to show full error by ip or other, or just log error
-            // logging error would be best idea
-            res
-                .status(500)
-                .set('Content-type', 'application/json; charset=utf-8')
-                .send(JSON.stringify({
-                    message: 'SSR error: ',
-                    error
-                }, null, '    '))
-            ;
+        // restrict to show full error by ip or other, or just log error
+        // logging error would be best idea
+        res
+            .status(500)
+            .set('Content-type', 'application/json; charset=utf-8')
+            .send(JSON.stringify({
+                message: 'SSR error: ',
+                error
+            }, null, '    '))
+        ;
     });
 });
 
