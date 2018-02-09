@@ -19,6 +19,8 @@ flag:
 # deployment helper methods ------------------- vvv
 init:
 	cd react && yarn
+	[ -f php/app/config/parameters.yml ] && echo 'file parameters.yml already exist' || cp php/app/config/parameters.yml.dist php/app/config/parameters.yml
+	/bin/bash php.sh php composer.phar install
 
 # on production you should run this method in order to deploy with no downtime
 # of course change parameters for below deploy-timedown.sh script
@@ -40,7 +42,7 @@ deploy:
 #	cd react && yarn prod
 #	make start
 
-deploy-local: init docker-stop docker-rebuild-dev
+deploy-local: deploy-local-stop init docker-rebuild-dev
 	cd react && yarn dev
 
 deploy-local-stop: docker-stop roderic-stop
@@ -50,7 +52,7 @@ dl: deploy-local
 dls: deploy-local-stop
 
 docker-rebuild-dev: # local development environments, with local mysql instance
-	sed -i -r 's/^([a-z]+).*$$/\1/g' docker/name.conf
+	/bin/bash docker/proxy/git-checkout.sh
 	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 
 # use this to deploy to production when calling deploy-timedown.sh in param --make_build
