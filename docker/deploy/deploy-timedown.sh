@@ -188,7 +188,7 @@ echo -e "\n\n        ------ testing gnu sed & forever -------- ^^^"
 
 set -e
 
-set -o xtrace
+set -x
 
 #THISFILE=${BASH_SOURCE[0]}
 #DIR="$( cd "$( dirname "${THISFILE}" )" && pwd -P )"
@@ -442,8 +442,8 @@ LIST="$(ps aux | grep "$DOCKER_CONTAINER_PREFIX" | grep -v grep | grep -v "$DOCK
 
 PIDS="$(echo -e "$LIST" | awk '{print $2}')";
 
-set +x && echo -e "\n\nlist:\n$LIST\n"
-set +x && echo -e "\n\npids:\n$PIDS\n"
+echo -e "\n\nlist:\n$LIST\n"
+echo -e "\n\npids:\n$PIDS\n"
 
 for pid in $PIDS
 do
@@ -451,17 +451,19 @@ do
     kill -s 9 $pid && echo 'success' # || echo 'failure' - commented because i want to capture error code
 done
 
-set +x && echo -e "\n\n        ------ killing all previous node servers -------- ^^^\n\n"
+set +x
 
-echo -e "        ------ final docker containers list (all, working and stopped) -------- vvv\n\n" && set -x
+echo -e "\n\n        ------ killing all previous node servers -------- ^^^\n\n"
+
+echo -e "        ------ final docker containers list (all, working and stopped) -------- vvv\n\n"
 
     echo -e "\n\njust for the record, current list of containers:\n\n"
 
-    docker ps -a || true
+    docker ps -a
 
     echo -e "\nvisit:\n    php:  http://localhost:$NEXT_DOCKER_WEB_PORT/web/up.php\n        or\n    node: http://localhost:$NEXT_NODE_PORT/endpoint/up.php\n\n"
 
-set +x && echo -e "\n\n        ------ final docker containers list (all, working and stopped) -------- vvv\n\n"
+echo -e "\n\n        ------ final docker containers list (all, working and stopped) -------- vvv\n\n"
 
 
 
