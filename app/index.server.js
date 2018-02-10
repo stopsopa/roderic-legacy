@@ -38,6 +38,10 @@ import template from 'lodash/template';
 
 import { ServerStyleSheet } from 'styled-components'
 
+import proxy from 'http-proxy-middleware';
+
+import trimEnd from 'lodash/trimEnd';
+
 const isObject = a => (!!a) && (a.constructor === Object);
 
 // import { loginSuccess } from './_redux/actions';
@@ -47,8 +51,8 @@ if (process.env.NODE_ENV === 'development') {
     sourceMapSupport.install();
 }
 
-const host    = configWebpack.server.host;
-const port  = configWebpack.server.port;
+const host      = configWebpack.server.host;
+const port      = configWebpack.server.port;
 
 process.on('uncaughtException', function (e) {
     switch (true) {
@@ -65,6 +69,8 @@ process.on('uncaughtException', function (e) {
 
 const app = express();
 
+app.all('/infinity', () => {});
+
 app.use(compression({filter: (req, res) => {
     if (req.headers['x-no-compression']) {
         // don't compress responses with this request header
@@ -74,6 +80,38 @@ app.use(compression({filter: (req, res) => {
     // fallback to standard filter function
     return compression.filter(req, res)
 }}));
+
+(function (c) {
+
+    if (!c) {
+
+        return;
+    }
+
+    const prefix = trimEnd(c.prefix, '/');
+
+    if (prefix && c.schema && c.host && c.port) {
+
+        app.use(
+            c.prefix,
+            proxy(
+                [c.schema,'://',c.host,':',c.port].join(''),
+                {
+                    changeOrigin: true,
+                    pathRewrite: (path, req) => {
+                        log('/web' + path.substring(prefix.length));
+                        return '/web' + path.substring(prefix.length);
+                    }
+                }
+            )
+        );
+
+    }
+    else {
+        throw "configServer schema, prefix, host or port is wrong/missing";
+    }
+
+}(configServer.php_proxy));
 
 app.use(favicon(path.resolve(configWebpack.web, 'favicon.ico')))
 
@@ -85,6 +123,14 @@ app.use(express.static(configWebpack.web, { // http://expressjs.com/en/resources
     // maxAge: 60 * 60 * 24 * 1000 // in milliseconds
     maxAge: '356 days' // in milliseconds
 }));
+
+// fake api vvv
+import jsonFilesCacheMiddleware, { regex } from './libs/jsonFilesCacheMiddleware';
+
+app.post(regex, jsonFilesCacheMiddleware(configPublic.jsonApi));
+// fake api ^^^
+
+
 
 if (configServer.checkAcceptHeader) {
 
@@ -196,7 +242,8 @@ app.use((req, res) => {
 
         if (data && data.token && data.payload) {
 
-            store.dispatch(loginSuccess(data));
+            // store.dispatch(loginSuccess(data));
+            log('dispatch(login) is not triggered')
         }
     }
 
@@ -259,25 +306,24 @@ app.use((req, res) => {
                 e
             });
         }
-    })
-    .catch(reason => {
+    }).catch(reason => { // it must stay like this
 
-            log.start();
+        log.start();
 
-            log.dump(reason);
+        log.dump(reason);
 
-            let error = log.get(true).split("\n");
+        let error = log.get(true).split("\n");
 
-            // restrict to show full error by ip or other, or just log error
-            // logging error would be best idea
-            res
-                .status(500)
-                .set('Content-type', 'application/json; charset=utf-8')
-                .send(JSON.stringify({
-                    message: 'SSR error: ',
-                    error
-                }, null, '    '))
-            ;
+        // restrict to show full error by ip or other, or just log error
+        // logging error would be best idea
+        res
+            .status(500)
+            .set('Content-type', 'application/json; charset=utf-8')
+            .send(JSON.stringify({
+                message: 'SSR error: ',
+                error
+            }, null, '    '))
+        ;
     });
 });
 

@@ -1,0 +1,15 @@
+# https://hub.docker.com/_/nginx/
+# https://gist.github.com/michaelneu/2ca7987ef00fa3fbe4fd7b9c07834cc7
+# !!! finally worked php: http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/comment-page-1/
+# continuation of above: http://geekyplatypus.com/making-your-dockerised-php-application-even-better/
+  # author deployed final code here: https://github.com/mikechernev/dockerised-php/tree/feature/log-to-stdout
+
+version: '2'
+
+services:
+    phpmyadmin:
+        environment:
+            - PMA_HOST=192.168.33.53
+            - PMA_USER=root
+            - PMA_PASSWORD=6yhn
+            - PHP_UPLOAD_MAX_FILESIZE=100MB

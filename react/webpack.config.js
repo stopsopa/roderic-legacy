@@ -304,6 +304,11 @@ if (Object.keys(serverEndpoints).length) {
         server.resolve.alias = utils.config.aliasForServer;
     }
 
+    if (utils.dev) {
+
+        server.devtool = "source-map";
+    }
+
     webpackConfigsList.push(server);
 }
 else {

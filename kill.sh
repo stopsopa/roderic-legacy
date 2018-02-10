@@ -4,7 +4,7 @@
 #set -e
 
 FLAG=$1
-THISFILE=$0
+THISFILE="$(basename $0)"
 
 if [ "$#" == 0 ] ; then
 
@@ -14,9 +14,9 @@ if [ "$#" == 0 ] ; then
 
 else
 
-    LIST=$(ps aux | grep $FLAG | grep -v grep | grep -v $THISFILE)
+    LIST=$(ps aux | grep $FLAG | grep -v grep | grep -v "$THISFILE" | grep -v 'deploy-timedown')
 
-    PIDS=$(ps aux | grep $FLAG | grep -v grep | grep -v $THISFILE | awk '{print $2}');
+    PIDS=$(echo -e "$LIST" | awk '{print $2}');
 
     echo -e "\nlisting processes to kill:\n";
     echo -e $"$LIST\n"

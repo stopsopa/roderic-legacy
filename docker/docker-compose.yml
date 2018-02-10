@@ -1,0 +1,71 @@
+# https://hub.docker.com/_/nginx/
+# https://gist.github.com/michaelneu/2ca7987ef00fa3fbe4fd7b9c07834cc7
+# !!! finally worked php: http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/comment-page-1/
+# continuation of above: http://geekyplatypus.com/making-your-dockerised-php-application-even-better/
+  # author deployed final code here: https://github.com/mikechernev/dockerised-php/tree/feature/log-to-stdout
+
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            # WARNING: setup this also in app/server.config.js -> php_proxy.port
+            - "76:80" # auto - please leave this "auto" in comment.
+        volumes:
+            - ../php/web:/code
+            - ./web/nginx.conf:/etc/nginx/conf.d/default.conf
+        #networks:
+        #    - code-network
+#  environment:
+#   - NGINX_HOST=localhost
+#   - NGINX_PORT=9000
+#        command: /bin/bash -c "envsubst < /etc/nginx/conf.d/site.conf '$HOSTNAME'> /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
+        # not needed anymore
+#        extra_hosts:
+#            - "hostmachine:192.168.180.69"
+
+    php_fpm:
+#        build: ./php-web
+        build:
+            context: fpm
+            dockerfile: Dockerfile
+        volumes:
+            - ../php:/code
+#            - ../php/web:/code # i'm unable to do this this way yet, check docker/fpm/Readme.txt
+
+#            - ./fpm/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+
+#        extra_hosts:
+#            - "hostmachine:192.168.180.69"
+        #networks:
+        #    - code-network
+
+#    php_cli:
+#        build:
+#            context: .
+#            dockerfile: Dockerfile.php_cli
+#        volumes:
+#            - ../php:/code
+##            - ./log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+#        command: php -a
+#
+    phpmyadmin: # https://store.docker.com/community/images/phpmyadmin/phpmyadmin#environment-variables-summary
+#        image: phpmyadmin/phpmyadmin:4.7
+        build:
+            context: pma
+            dockerfile: Dockerfile
+        ports:
+            - "75:80"
+
+networks:
+    #code-network:
+    # istead my own name, let's define "default" https://docs.docker.com/compose/networking/#configure-the-default-network
+    default:
+        driver: bridge
+
+# run
+# docker-compose up
+# and then open in browser
+# http://localhost:8080/test.php
