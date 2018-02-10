@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+    mysql:
+        image: mysql:latest
+#        ports:
+#            - "3309:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=docker_super_secret_passwd
+        #networks:
+        #    - code-network
+        volumes:
+            - ../../mysql:/var/lib/mysql
+#
+    phpmyadmin:
+        environment:
+            - PMA_USER=root
+            - PMA_PASSWORD=docker_super_secret_passwd
+            - PMA_HOST=mysql
+            - PHP_UPLOAD_MAX_FILESIZE=100MB
+        #networks:
+        #    - code-network
+
+        # run on mac to generate .htpasswd:
+        #   htpasswd -c .htpasswd admin
+        # default pass is: 6yhn
