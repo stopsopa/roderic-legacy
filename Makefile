@@ -1,7 +1,7 @@
 
 LOGFILE := "../node-server-logs/log_$(shell date +%Y-%m-%d_%H-%M-%S).log"
 
-# it is good to keep it the same like in docker/name.conf
+# it is good to keep it exactly the same like in docker/name.conf
 # and match to regexp /^[a-z]+$ - just latin letters
 FLAG := "rodericcore"
 
