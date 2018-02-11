@@ -71,6 +71,15 @@
 
 echo -e "\n\n\n WARNING run this script only through 'make deploy' WARNING\n\n"
 
+echo -e "\nListing all global variables:\n";
+
+printenv
+
+echo -e "\nListing all global variables (posix):\n";
+
+set -o posix; # https://askubuntu.com/a/275972
+set
+
 BASENAME="$(echo "$(basename $0)" | sed -E 's/^(.*)\.[^\.]+$/\1/g')"
 
 # /bin/bash docker/deploy/deploy-timedown.sh --docker_ports 82 83 84 --node_ports 92 93 94 --make_build docker-rebuild-prod --restart_server 1
