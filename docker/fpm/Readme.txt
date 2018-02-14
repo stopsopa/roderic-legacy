@@ -21,7 +21,7 @@ if (configServer.php_proxy) {
                     [c.schema,'://',c.host,':',c.port].join(''),
                     {
                         changeOrigin: true,
-                        pathRewrite: (path, req) => '/web' + path.substring(prefix.length)   //  <----------------------
+                        pathRewrite: (path, req) => path.substring(prefix.length)   //  <----------------------
                     }
                 )
             );
@@ -35,7 +35,7 @@ if (configServer.php_proxy) {
 }
 
 
-php:
+php: (not needed anymore)
     app.php and app_dev.php
 
         // [DOCUMENT_URI] => /web/app.php
@@ -54,10 +54,10 @@ php:
     // public function indexAction()
     // { ...
     //
-    //   php    : http://localhost:8280/web/json
+    //   php    : http://localhost:8280/json
     //   node   : http://localhost:1025/endpoint/json
 
-nginx:
+nginx: (not needed anymore)
     docker/web/nginx.conf
         change:
             fastcgi_param SCRIPT_FILENAME $realpath_root/app.php$fastcgi_script_name;

@@ -1,0 +1,63 @@
+
+@import "./variables.scss";
+
+body.dev::after {
+    position: absolute;
+    bottom: 1px;
+    //left: 1px;
+    width: 15px;
+    height: 21px;
+    text-align: center;
+    border: dashed 1px gray;
+    background-color: white;
+    color: gray;
+    font-family: Tahoma;
+    animation: ease-in infinite;
+    animation-name: run;
+    animation-duration: 10s;
+    content: "1";
+}
+/**
+ * fix that later
+ */
+@keyframes run {
+    0%, 45%, 100% {
+        left: 0;
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+    50%, 95% {
+        left: 100%;
+        -webkit-transform: translate(-100%, 0);
+        -ms-transform: translate(-100%, 0);
+        transform: translate(-100%, 0);
+    }
+}
+
+/**
+ * breakpoints http://getbootstrap.com/css/#grid-media-queries
+ */
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+    body.dev::after {
+        content: "2";
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+    body.dev::after {
+        content: "3";
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+    body.dev::after {
+        content: "4";
+    }
+}

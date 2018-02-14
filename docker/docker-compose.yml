@@ -4,16 +4,17 @@
 # continuation of above: http://geekyplatypus.com/making-your-dockerised-php-application-even-better/
   # author deployed final code here: https://github.com/mikechernev/dockerised-php/tree/feature/log-to-stdout
 
-version: '2'
+version: '3'
 
 services:
     web:
         image: nginx:latest
         ports:
             # WARNING: setup this also in app/server.config.js -> php_proxy.port
-            - "76:80" # auto - please leave this "auto" in comment.
+            - "73:80" # auto - please leave this "auto" in comment.
         volumes:
-            - ../php/web:/code
+#            - ../php/web:/code
+            - ..:/code
             - ./web/nginx.conf:/etc/nginx/conf.d/default.conf
         #networks:
         #    - code-network
@@ -32,7 +33,7 @@ services:
             context: fpm
             dockerfile: Dockerfile
         volumes:
-            - ../php:/code
+            - ..:/code
 #            - ../php/web:/code # i'm unable to do this this way yet, check docker/fpm/Readme.txt
 
 #            - ./fpm/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
@@ -50,14 +51,14 @@ services:
 #            - ../php:/code
 ##            - ./log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
 #        command: php -a
-#
     phpmyadmin: # https://store.docker.com/community/images/phpmyadmin/phpmyadmin#environment-variables-summary
 #        image: phpmyadmin/phpmyadmin:4.7
         build:
             context: pma
             dockerfile: Dockerfile
         ports:
-            - "75:80"
+            - "74:80"
+#        image: phpmyadmin/phpmyadmin:4.7
 
 networks:
     #code-network:

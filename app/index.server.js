@@ -98,9 +98,9 @@ app.use(compression({filter: (req, res) => {
                 [c.schema,'://',c.host,':',c.port].join(''),
                 {
                     changeOrigin: true,
-                    pathRewrite: (path, req) => {
-                        log('/web' + path.substring(prefix.length));
-                        return '/web' + path.substring(prefix.length);
+                    pathRewrite: (path) => {
+                        log(path.substring(prefix.length));
+                        return path.substring(prefix.length);
                     }
                 }
             )

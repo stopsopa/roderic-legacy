@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000000">
+    <title>KA - admin</title>
+    <link rel="stylesheet" href="/dist/admin.bundle.css?_=2018-02-14_09-42-22">
+    <!--<link rel="stylesheet" href="/asset/public/bootstrap/dist/css/bootstrap.css?_=2018-02-14_09-42-22">-->
+    <%= styleTags %>
+    <!--<link rel="manifest" href="/manifest.json">-->
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <!--<link rel="icon" href="/favicon.ico" />-->
+    <script>
+
+        var manipulation = {
+            after: function (referenceNode, newNode) {
+                return this.before(referenceNode.nextSibling, newNode);
+            },
+            before: function (referenceNode, newNode) {
+                referenceNode.parentNode.insertBefore(newNode, referenceNode);
+                return this;
+            },
+            append: function (parentNode, newNode) {
+                parentNode.appendChild(newNode);
+                return this;
+            },
+            prepend: function (parentNode, newNode) {
+                parentNode.insertBefore(newNode, parentNode.firstChild);
+                return this;
+            },
+            remove: function (node) {
+                node.parentNode.removeChild(node);
+                return this;
+            }
+        };
+
+        let log = (function () {
+            try {
+                return console.log;
+            }
+            catch (e) {
+                return function () {}
+            }
+        }())
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', e => {
+                log('tag', e.target.tagName.toLowerCase())
+                switch (e.target.tagName.toLowerCase()) {
+                    case 'button':
+                        manipulation.after(e.target, e.target.parentNode.querySelector('div').cloneNode(true))
+                        break;
+                    case 'toggle':
+                        e.target.parentNode.classList.toggle('show');
+                        break;
+                }
+                if (e.target.tagName.toLowerCase() === 'button') {
+
+                }
+            });
+        })
+        
+    </script>
+</head>
+<body>
+<!--<noscript>-->
+<!--You need to enable JavaScript to run this app.-->
+<!--</noscript>-->
+<!--<div id="app"><%= html %></div><%= data %>-->
+<div id="app">
+    <header>header</header>
+    <div>
+        <main>
+            <button>add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+        </main>
+        <nav>
+            <button>add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+            <toggle></toggle>
+        </nav>
+        <aside>
+            <button>add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+            <toggle></toggle>
+        </aside>
+    </div>
+    <footer>…</footer>
+</div><%= data %>
+
+<!--<script src="/dist/admin.bundle.js?_=2018-02-14_09-42-22"></script>-->
+<script src="https://use.typekit.net/eus0pmh.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 # continuation of above: http://geekyplatypus.com/making-your-dockerised-php-application-even-better/
   # author deployed final code here: https://github.com/mikechernev/dockerised-php/tree/feature/log-to-stdout
 
-version: '2'
+version: '3'
 
 services:
     phpmyadmin:
