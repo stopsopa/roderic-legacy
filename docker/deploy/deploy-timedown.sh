@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# NOTICE NOTICE
+# NOTICE: In Travis-CI its good to create global variable TRAVIS_CI like:
+# export TRAVIS_CI=true
+# becaue later especially in php.sh i'm relying on existing of this variable
+
 #   ip address for:
 #       - pma 74
 #       - php web docker container (pool) 73 72
@@ -55,11 +60,12 @@
 #           docker/docker-compose.yml   -> services.web.ports
 #
 
-#browser test script, test against /endpoint/up.php
+#browser test script, test against /endpoint/status.php
 #(function run(prefix = '') {
 #    fetch('?_' + prefix)
 #        .then(res => res.text())
-#        .then(msg => setTimeout(run, 200, (msg.length > 300) ? 'long' : msg ))
+#		.then(msg => msg.replace(/\s+/g, '_'))
+#        .then(msg => setTimeout(run, 200, (msg.length > 40) ? 'long' : msg ))
 #}())
 
 
@@ -70,6 +76,15 @@
 # param with apache config to change (done)
 
 echo -e "\n\n\n WARNING run this script only through 'make deploy' WARNING\n\n"
+
+echo -e "\nListing all global variables:\n";
+
+printenv
+
+echo -e "\nListing all global variables (posix):\n";
+
+set -o posix; # https://askubuntu.com/a/275972
+set
 
 BASENAME="$(echo "$(basename $0)" | sed -E 's/^(.*)\.[^\.]+$/\1/g')"
 
@@ -292,7 +307,7 @@ set +x && echo -e "\n\n        ------ extracting CURRENT_NODE_WEB_PORT -------- 
 echo -e "        ------ picking next node server port -------- vvv\n\n" && set -x
     NEXT_NODE_PORT="$(node docker/deploy/replaceport.js --current $CURRENT_NODE_WEB_PORT --pool $NODE_PORTS)";
 
-    TEST_STRING="$DOCKER_CONTAINER_PREFIX-p$NEXT_DOCKER_WEB_PORT-n$NEXT_NODE_PORT"
+    TEST_STRING="prod: [$DOCKER_CONTAINER_PREFIX] p $NEXT_DOCKER_WEB_PORT n $NEXT_NODE_PORT"
 
     echo $NEXT_NODE_PORT
 
@@ -370,11 +385,11 @@ echo -e "        -- creating & testing new set of containers with prefix: $DOCKE
 #    make docker-rebuild
     make -s $MAKE_BUILD
 
-    echo "<?php echo '$TEST_STRING';" > php/web/up.php
+    echo "<?php header('Content-type:text/html'); echo '$TEST_STRING';" > php/web/status.php
 
-    cat php/web/up.php
+    cat php/web/status.php
 
-    CURL="curl localhost:$NEXT_DOCKER_WEB_PORT/web/up.php"
+    CURL="curl localhost:$NEXT_DOCKER_WEB_PORT/status.php"
     RESULT="$($CURL)"
 
     if [ "$RESULT" == "$TEST_STRING" ]; then
@@ -399,16 +414,36 @@ echo -e "        ------ building & launching & testing node server on port: $NEX
     cd $DIR
     make -s roderic-start
 
-    RESULT="$(curl localhost:$NEXT_NODE_PORT/endpoint/up.php -H "Accept: text/html")"
+    RESULT="$(curl localhost:$NEXT_NODE_PORT/endpoint/status.php -H "Accept: text/html")"
 
     if [ "$RESULT" == "$TEST_STRING" ]; then
         echo "php curl test passed..."
     else
-        echo "something went wron: php curl didn't returned 'ok php' through node proxy"
+        echo "something went wron: php curl didn't returned correct response through node proxy"
         exit 1;
     fi
 set +x && echo -e "\n\n        ------ building & launching & testing node server on port: $NEXT_NODE_PORT -------- ^^^"
 
+echo -e "        ------ final checking of symfony 2 requirements -------- vvv\n\n" && set -x
+
+    chmod -R a+w php/var/
+
+    echo "<?php echo '<pre>'; require(dirname(__FILE__).'/../bin/symfony_requirements');" > php/web/sfr.php
+
+    RESULT="$(curl localhost:$NEXT_NODE_PORT/endpoint/sfr.php -H "Accept: text/html")"
+
+    echo -e "\n\nsymfony requirements checklist: \n\n$RESULT\n\n";
+
+    DOTRIGHT="E[\.W]"
+    DOTLEFT="[\.W]E"
+    if [[ $RESULT =~ $DOTRIGHT ]] || [[ $RESULT =~ $DOTLEFT ]]; then
+        echo -e "\n\nERROR: There are some errors in satisfying the symfony requirements\n\n"
+        exit 1;
+    else
+        echo "seems fine";
+    fi
+
+set +x && echo -e "\n\n        ------ final checking of symfony 2 requirements -------- ^^^"
 
 echo -e "        ------ altering proxy pass to listen on: $NEXT_NODE_PORT & reloading server http -------- vvv\n\n" && set -x
 
@@ -438,7 +473,7 @@ set +x && echo -e "\n\n        ------ destroying all previous containers -------
 
 echo -e "        ------ killing all previous node servers -------- vvv\n\n" && set -x
 
-LIST="$(ps aux | grep "$DOCKER_CONTAINER_PREFIX" | grep -v grep | grep -v "$DOCKER_CONTAINER_PREFIX $NEXT_NODE_PORT" | grep -v "$BASENAME" || true)";
+LIST="$(ps aux | grep "$DOCKER_CONTAINER_PREFIX" | grep -v grep | grep -v "$DOCKER_CONTAINER_PREFIX $NEXT_NODE_PORT" | grep -v "$BASENAME" | grep -v 'TRAVIS_CI' || true)";
 
 PIDS="$(echo -e "$LIST" | awk '{print $2}')";
 
@@ -461,13 +496,10 @@ echo -e "        ------ final docker containers list (all, working and stopped) 
 
     docker ps -a
 
-    echo -e "\nvisit:\n    php:  http://localhost:$NEXT_DOCKER_WEB_PORT/web/up.php\n        or\n    node: http://localhost:$NEXT_NODE_PORT/endpoint/up.php\n\n"
+    echo -e "\nvisit:\n    php:  http://localhost:$NEXT_DOCKER_WEB_PORT/status.php\n        or\n    node: http://localhost:$NEXT_NODE_PORT/endpoint/status.php\n\n"
 
 echo -e "\n\n        ------ final docker containers list (all, working and stopped) -------- vvv\n\n"
 
+echo 'exit 0'
 
-
-
-
-
-
+exit 0

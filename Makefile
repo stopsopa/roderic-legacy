@@ -53,12 +53,14 @@ dls: deploy-local-stop
 
 docker-rebuild-dev: # local development environments, with local mysql instance
 	/bin/bash docker/deploy/git-checkout.sh
-	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+	cd docker && docker-compose build  -f docker-compose.yml -f docker-compose.local.yml
+	cd docker && docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 
 # use this to deploy to production when calling deploy-timedown.sh in param --make_build
 # mysql server is remote - not provided from docker
 docker-rebuild-prod:
-	cd docker && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+	cd docker && docker-compose build -f docker-compose.yml -f docker-compose.prod.yml
+	cd docker && docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 # deployment helper methods ------------------- ^^^
 
 

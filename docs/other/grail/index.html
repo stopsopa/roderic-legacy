@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000000">
+    <title>KA - admin</title>
+    <link rel="stylesheet" href="../../dist/admin.bundle.css">
+    <!--<link rel="stylesheet" href="/asset/public/bootstrap/dist/css/bootstrap.css?_=2018-02-14_09-42-22">-->
+    <!--<link rel="manifest" href="/manifest.json">-->
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <!--<link rel="icon" href="/favicon.ico" />-->
+    <script>
+
+        var manipulation = {
+            after: function (referenceNode, newNode) {
+                return this.before(referenceNode.nextSibling, newNode);
+            },
+            before: function (referenceNode, newNode) {
+                referenceNode.parentNode.insertBefore(newNode, referenceNode);
+                return this;
+            },
+            append: function (parentNode, newNode) {
+                parentNode.appendChild(newNode);
+                return this;
+            },
+            prepend: function (parentNode, newNode) {
+                parentNode.insertBefore(newNode, parentNode.firstChild);
+                return this;
+            },
+            remove: function (node) {
+                node.parentNode.removeChild(node);
+                return this;
+            }
+        };
+
+        let log = (function () {
+            try {
+                return console.log;
+            }
+            catch (e) {
+                return function () {}
+            }
+        }())
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', e => {
+                switch (e.target.tagName.toLowerCase()) {
+                    case 'button':
+
+                        switch (true) {
+                            case e.target.classList.contains('add'):
+                                manipulation.after(e.target, e.target.parentNode.querySelector('div').cloneNode(true))
+                                break;
+                            case e.target.classList.contains('delegates'):
+
+                                var ul = (function next(n) {
+
+                                    if (!n.tagName || n.tagName.toLowerCase() != 'ul') {
+
+                                        return next(n.nextSibling)
+                                    }
+
+                                    return n;
+                                }(e.target.nextSibling));
+
+                                var firstLi = ul.querySelector('li');
+
+                                manipulation.append(ul, firstLi.cloneNode(true))
+                                break;
+                            case e.target.classList.contains('delegete'):
+                                alert('click - triggered by delegate')
+                                break;
+                        }
+
+                        break;
+                    case 'toggle':
+                        e.target.parentNode.classList.toggle('show');
+                        break;
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+<!--<noscript>-->
+<!--You need to enable JavaScript to run this app.-->
+<!--</noscript>-->
+<!--<div id="app"><%= html %></div><%= data %>-->
+<div id="app">
+    <header>header</header>
+    <div>
+        <main>
+            <button class="add">add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+
+            <pre style="font-size: 7px; background-color: white;">
+body {
+    margin: 0;
+}
+#app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    & > header {
+        background-color: #5eb5e0;
+    }
+    & > footer {
+        background-color: dodgerblue;
+    }
+    & > div {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+        & > nav {
+            flex: 0 0 250px;
+            margin-left: 0;
+            &.show {
+                margin-left: -250px;
+                & > toggle {
+                    right: -16px;
+                }
+            }
+
+            order: -1;
+            background-color: #dadada;
+            position: relative;
+            & > toggle {
+                position: absolute;
+                top: 45%;
+                display: inline-block;
+                width: 12px;
+                height: 100px;
+                background-color: darkgray;
+                border: 1px solid rgba(108, 97, 89, 0.61);
+                cursor: pointer;
+                &:hover {
+                    border: 1px solid #6c6159;
+                }
+
+                right: -6px;
+
+                -webkit-transition: right 0.15s ease;
+                transition: right 0.15s ease;
+            }
+
+            -webkit-transition: margin-left 0.15s ease;
+            transition: margin-left 0.15s ease;
+        }
+        & > main {
+            flex: 1;
+            background-color: #999999;
+        }
+        & > aside {
+            flex: 0 0 600px;
+            margin-right: 0;
+            &.show {
+                margin-right: -600px;
+                & > toggle {
+                    left: -16px;
+                }
+            }
+
+            background-color: antiquewhite;
+            position: relative;
+            & > toggle { /* https://jsfiddle.net/vu47afeq/2/ */
+                position: absolute;
+                top: 45%;
+                display: inline-block;
+                width: 12px;
+                height: 100px;
+                background-color: darkgray;
+                border: 1px solid rgba(108, 97, 89, 0.61);
+                cursor: pointer;
+                &:hover {
+                    border: 1px solid #6c6159;
+                }
+                left: -6px;
+
+                -webkit-transition: left 0.15s ease;
+                transition: left 0.15s ease;
+            }
+
+            -webkit-transition: margin-right 0.15s ease;
+            transition: margin-right 0.15s ease;
+        }
+    }
+}
+            </pre>
+        </main>
+        <nav>
+            <button class="add">add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+            <toggle></toggle>
+        </nav>
+        <aside>
+            <button class="add">add</button>
+            <div>
+                <p>Lorem ipsum</p>
+                <p>dolor</p>
+                <p>amet</p>
+                <p>bla bla</p>
+            </div>
+
+            <div>
+                <button class="delegates">add</button>
+                <a href="https://github.com/stopsopa/roderic/blob/master/docs/other/grail/index.html">code</a>
+                <ul>
+                    <li><button class="delegete">click me</button></li>
+                    <li><button class="delegete">click me</button></li>
+                    <li><button class="delegete">click me</button></li>
+                </ul>
+            </div>
+            <toggle></toggle>
+        </aside>
+    </div>
+    <footer>…</footer>
+</div><%= data %>
+
+<!--<script src="/dist/admin.bundle.js?_=2018-02-14_09-42-22"></script>-->
+<script src="https://use.typekit.net/eus0pmh.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+</body>
+</html>

@@ -17,7 +17,7 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.forEach(middleware => store.dispatch = middleware(store)(store.dispatch))
 };
 
-const dom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+const node = Object.prototype.toString.call(global.process) === '[object process]';
 
 const triggerMultiple = store => next => action => {
 
@@ -38,7 +38,7 @@ const configureStore = preloadedState => {
     // http://extension.remotedev.io/#usage
     let composeEnhancers = compose;
 
-    if (dom && process.env.NODE_ENV !== 'production') {
+    if ( ( ! node ) && process && process.env && process.env.NODE_ENV !== 'production') {
 
         middlewares.push(createLogger());
 

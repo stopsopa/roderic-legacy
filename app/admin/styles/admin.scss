@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+}
+#app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    & > header {
+        background-color: #5eb5e0;
+    }
+    & > footer {
+        background-color: dodgerblue;
+    }
+    & > div {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+        & > nav {
+            flex: 0 0 250px;
+            margin-left: 0;
+            &.show {
+                margin-left: -250px;
+                & > toggle {
+                    right: -16px;
+                }
+            }
+
+            order: -1;
+            background-color: #dadada;
+            position: relative;
+            & > toggle {
+                position: absolute;
+                top: 45%;
+                display: inline-block;
+                width: 12px;
+                height: 100px;
+                background-color: darkgray;
+                border: 1px solid rgba(108, 97, 89, 0.61);
+                cursor: pointer;
+                &:hover {
+                    border: 1px solid #6c6159;
+                }
+
+                right: -6px;
+
+                -webkit-transition: right 0.15s ease;
+                transition: right 0.15s ease;
+            }
+
+            -webkit-transition: margin-left 0.15s ease;
+            transition: margin-left 0.15s ease;
+        }
+        & > main {
+            flex: 1;
+            background-color: #999999;
+        }
+        & > aside {
+            flex: 0 0 600px;
+            margin-right: 0;
+            &.show {
+                margin-right: -600px;
+                & > toggle {
+                    left: -16px;
+                }
+            }
+
+            background-color: antiquewhite;
+            position: relative;
+            & > toggle { /* https://jsfiddle.net/vu47afeq/2/ */
+                position: absolute;
+                top: 45%;
+                display: inline-block;
+                width: 12px;
+                height: 100px;
+                background-color: darkgray;
+                border: 1px solid rgba(108, 97, 89, 0.61);
+                cursor: pointer;
+                &:hover {
+                    border: 1px solid #6c6159;
+                }
+                left: -6px;
+
+                -webkit-transition: left 0.15s ease;
+                transition: left 0.15s ease;
+            }
+
+            -webkit-transition: margin-right 0.15s ease;
+            transition: margin-right 0.15s ease;
+        }
+    }
+}
+
+
+
+
