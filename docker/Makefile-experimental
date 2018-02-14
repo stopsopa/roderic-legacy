@@ -1,0 +1,13 @@
+IMAGE := "centos:7"
+CONTAINER := "centos"
+
+create:
+	@[ "$(shell docker ps -a --format '{{.Names}}' | grep "${CONTAINER}")" == "${CONTAINER}" ] && echo 'already created...' || docker run -d --name="${CONTAINER}" -v "$(shell pwd):/code" -w /root ${IMAGE} tail -f /dev/null
+start: create
+	@[ "$(shell docker ps --format '{{.Names}}' | grep "${CONTAINER}")" == "${CONTAINER}" ] && echo 'already running...' || docker start ${CONTAINER}
+stop:
+	docker stop ${CONTAINER} -t 0
+	@echo list
+	docker ps -a
+bash: start
+	@docker exec -it ${CONTAINER} bash

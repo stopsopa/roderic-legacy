@@ -86,6 +86,6 @@ module.exports = {
         watchAndReload: path.resolve(__dirname, 'servers', 'index.js')
     },
     changeCacheGetTimestamp: [
-        path.resolve(app, 'index.server.html')
+        path.resolve(app, 'index.entry.html')
     ]
 }
