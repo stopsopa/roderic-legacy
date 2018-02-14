@@ -50,14 +50,36 @@
                 log('tag', e.target.tagName.toLowerCase())
                 switch (e.target.tagName.toLowerCase()) {
                     case 'button':
-                        manipulation.after(e.target, e.target.parentNode.querySelector('div').cloneNode(true))
+
+                        switch (true) {
+                            case e.target.classList.contains('add'):
+                                manipulation.after(e.target, e.target.parentNode.querySelector('div').cloneNode(true))
+                                break;
+                            case e.target.classList.contains('delegates'):
+
+                                var ul = (function next(n) {
+
+                                    if (!n.tagName || n.tagName.toLowerCase() != 'ul') {
+
+                                        return next(n.nextSibling)
+                                    }
+
+                                    return n;
+                                }(e.target.nextSibling));
+
+                                var firstLi = ul.querySelector('li');
+
+                                manipulation.append(ul, firstLi.cloneNode(true))
+                                break;
+                            case e.target.classList.contains('delegete'):
+                                alert('click - triggered by delegate')
+                                break;
+                        }
+
                         break;
                     case 'toggle':
                         e.target.parentNode.classList.toggle('show');
                         break;
-                }
-                if (e.target.tagName.toLowerCase() === 'button') {
-
                 }
             });
         })
@@ -73,7 +95,7 @@
     <header>header</header>
     <div>
         <main>
-            <button>add</button>
+            <button class="add">add</button>
             <div>
                 <p>Lorem ipsum</p>
                 <p>dolor</p>
@@ -176,7 +198,7 @@ body {
             </pre>
         </main>
         <nav>
-            <button>add</button>
+            <button class="add">add</button>
             <div>
                 <p>Lorem ipsum</p>
                 <p>dolor</p>
@@ -186,12 +208,21 @@ body {
             <toggle></toggle>
         </nav>
         <aside>
-            <button>add</button>
+            <button class="add">add</button>
             <div>
                 <p>Lorem ipsum</p>
                 <p>dolor</p>
                 <p>amet</p>
                 <p>bla bla</p>
+            </div>
+
+            <div>
+                <button class="delegates">add</button>
+                <ul>
+                    <li><button class="delegete">click me</button></li>
+                    <li><button class="delegete">click me</button></li>
+                    <li><button class="delegete">click me</button></li>
+                </ul>
             </div>
             <toggle></toggle>
         </aside>
