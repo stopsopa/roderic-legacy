@@ -6,10 +6,14 @@ body {
     min-height: 100vh;
     flex-direction: column;
     & > header {
-        background-color: #5eb5e0;
+        background-color: #3b3638;
+        padding: 10px;
+        color: white;
     }
     & > footer {
-        background-color: dodgerblue;
+        background-color: darkgray;
+        padding: 10px;
+        color: #505050;
     }
     & > div {
         display: flex;
@@ -26,8 +30,8 @@ body {
             }
 
             order: -1;
-            background-color: #dadada;
             position: relative;
+            border-right: 1px solid gray;
             & > toggle {
                 position: absolute;
                 top: 45%;
@@ -52,7 +56,6 @@ body {
         }
         & > main {
             flex: 1;
-            background-color: #999999;
         }
         & > aside {
             flex: 0 0 600px;
@@ -64,8 +67,8 @@ body {
                 }
             }
 
-            background-color: antiquewhite;
             position: relative;
+            border-left: 1px solid gray;
             & > toggle { /* https://jsfiddle.net/vu47afeq/2/ */
                 position: absolute;
                 top: 45%;

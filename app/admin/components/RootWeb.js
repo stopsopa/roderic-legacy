@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import PropTypes from 'prop-types';
 
-import 'bootstrap/dist/css/bootstrap.css'; // it works
+// import 'bootstrap/dist/css/bootstrap.css'; // it works
 // import 'bootstrap/scss/bootstrap.scss'; // it works too
 
 import Root from './Root';
