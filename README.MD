@@ -41,3 +41,6 @@ Features
 - ExtractTextPlugin - extracting css to separate css file
 - babel es2015, react, stage-0 presets, decorators-legacy
 - integrated plugins ProvidePlugin, UglifyJSPlugin, CleanWebpackPlugin
+
+Usefull links:
+  - [form validation](https://github.com/stopsopa/roderic/blob/form-validation/php/src/AppBundle/Controller/DefaultController.php)
