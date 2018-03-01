@@ -13,9 +13,17 @@
     <!--<link rel="shortcut icon" href="/favicon.ico">-->
     <!--<link rel="icon" href="/favicon.ico" />-->
     <style>
+        html {
+            height: 100%;
+        }
         body {
             margin: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 900px;
+            overflow: visible;
         }
+
         #app {
             display: flex;
             min-height: 100vh;
@@ -36,15 +44,11 @@
         }
         #app > div > nav {
             flex: 0 0 250px;
-            margin-left: 0;
             order: -1;
             background-color: #dadada;
             position: relative;
             -webkit-transition: margin-left 0.15s ease;
             transition: margin-left 0.15s ease;
-        }
-        #app > div > nav.show {
-            margin-left: -250px;
         }
         #app > div > nav.show > toggle {
             right: -16px;
@@ -68,6 +72,7 @@
         #app > div > main {
             flex: 1;
             background-color: #999999;
+            margin-left: 0;
         }
         #app > div > aside {
             flex: 0 0 600px;
@@ -76,6 +81,19 @@
             position: relative;
             -webkit-transition: margin-right 0.15s ease;
             transition: margin-right 0.15s ease;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            overflow: auto;
+            /* padding-top: 60px; */
+            /* padding-bottom: 40px; */
+            background-color: #fff;
+            /* border-right: 1px solid #ddd; */
+            -webkit-transition: all .2s ease;
+            -o-transition: all .2s ease;
+            transition: all .2s ease;
         }
         #app > div > aside.show {
             margin-right: -600px;
