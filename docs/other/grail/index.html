@@ -12,6 +12,91 @@
     <!--<link rel="manifest" href="/manifest.json">-->
     <!--<link rel="shortcut icon" href="/favicon.ico">-->
     <!--<link rel="icon" href="/favicon.ico" />-->
+    <style>
+        #app {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        #app > header {
+            background-color: #5eb5e0;
+        }
+        #app > footer {
+            background-color: dodgerblue;
+        }
+        #app > div {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        #app > div > nav {
+            flex: 0 0 250px;
+            margin-left: 0;
+            order: -1;
+            background-color: #dadada;
+            position: relative;
+            -webkit-transition: margin-left 0.15s ease;
+            transition: margin-left 0.15s ease;
+        }
+        #app > div > nav.show {
+            margin-left: -250px;
+        }
+        #app > div > nav.show > toggle {
+            right: -16px;
+        }
+        #app > div > nav > toggle {
+            position: absolute;
+            top: 45%;
+            display: inline-block;
+            width: 12px;
+            height: 100px;
+            background-color: darkgray;
+            border: 1px solid rgba(108, 97, 89, 0.61);
+            cursor: pointer;
+            right: -6px;
+            -webkit-transition: right 0.15s ease;
+            transition: right 0.15s ease;
+        }
+        #app > div > nav > toggle:hover {
+            border: 1px solid #6c6159;
+        }
+        #app > div > main {
+            flex: 1;
+            background-color: #999999;
+        }
+        #app > div > aside {
+            flex: 0 0 600px;
+            margin-right: 0;
+            background-color: antiquewhite;
+            position: relative;
+            -webkit-transition: margin-right 0.15s ease;
+            transition: margin-right 0.15s ease;
+        }
+        #app > div > aside.show {
+            margin-right: -600px;
+        }
+        #app > div > aside.show > toggle {
+            left: -16px;
+        }
+        #app > div > aside > toggle {
+            /* https://jsfiddle.net/vu47afeq/2/ */
+            position: absolute;
+            top: 45%;
+            display: inline-block;
+            width: 12px;
+            height: 100px;
+            background-color: darkgray;
+            border: 1px solid rgba(108, 97, 89, 0.61);
+            cursor: pointer;
+            left: -6px;
+            -webkit-transition: left 0.15s ease;
+            transition: left 0.15s ease;
+        }
+        #app > div > aside > toggle:hover {
+            border: 1px solid #6c6159;
+        }
+
+    </style>
     <script>
 
         var manipulation = {
