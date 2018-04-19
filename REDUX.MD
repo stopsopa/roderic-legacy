@@ -1,3 +1,8 @@
+
+> Repository is no longer maintained
+
+
+
 state or state tree - single object that represent all state of app
 
 REDUCER function need to be pure function
