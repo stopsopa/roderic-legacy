@@ -8,15 +8,15 @@
      
      
 
-<a href="https://stopsopa.github.io/roderic">
-    <img src="https://stopsopa.github.io/roderic/logo.svg" alt="Roderic logo"
+<a href="https://stopsopa.github.io/roderic-legacy">
+    <img src="https://stopsopa.github.io/roderic-legacy/logo.svg" alt="Roderic logo"
          title="Roderic" align="right" width="82" height="82"/>
 </a>
 
 Roderic
 ======
 
-[![Build Status](https://travis-ci.org/stopsopa/roderic.svg?branch=master)](https://travis-ci.org/stopsopa/roderic)
+[![Build Status](https://travis-ci.org/stopsopa/roderic-legacy.svg?branch=master)](https://travis-ci.org/stopsopa/roderic-legacy)
 
 Another Webpack boilderplate. Main goals: 
 
@@ -28,7 +28,7 @@ Don't feel overwhelmed by all files above, their all are there mainly for testin
 installation:
 -
  
- Follow instructions for all [releases](https://github.com/stopsopa/roderic/releases).
+ Follow instructions for all [releases](https://github.com/stopsopa/roderic-legacy/releases).
     
         
 then go to **react** folder configure **config.js** and run one of:
@@ -53,4 +53,4 @@ Features
 - integrated plugins ProvidePlugin, UglifyJSPlugin, CleanWebpackPlugin
 
 Usefull links:
-  - [form validation](https://github.com/stopsopa/roderic/blob/form-validation/php/src/AppBundle/Controller/DefaultController.php)
+  - [form validation](https://github.com/stopsopa/roderic-legacy/blob/form-validation/php/src/AppBundle/Controller/DefaultController.php)
