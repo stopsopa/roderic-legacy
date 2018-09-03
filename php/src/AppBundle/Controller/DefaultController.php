@@ -139,6 +139,9 @@ class DefaultController extends Controller
                     new Assert\Email(),
                     new Assert\NotBlank()
                 )),
+                'checkbox' => new Assert\Required(array(
+                    new Assert\NotBlank() // check if it's true according to logic: https://symfony.com/doc/current/reference/constraints/NotBlank.html
+                )),
                 'description' => new Assert\Length(array( // WARNING - by default it's Assert\Required if defined in flat way like this
                     'min' => 15
                 )),
